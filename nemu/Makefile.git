@@ -1,5 +1,5 @@
-STU_ID = 181220000
-
+STUID = 181220075
+STUNAME = 周其乐
 # DO NOT modify the following code!!!
 
 GITFLAGS = -q --author='tracer-ics2019 <tracer@njuics.org>' --no-verify --allow-empty
