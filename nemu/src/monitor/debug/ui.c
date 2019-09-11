@@ -46,7 +46,9 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
+  { "si", "Let program execute N instructions for one step and suspend", cmd_si },
+  { "info", "Print register status or print monitoring point information", cmd_info },
+  { "x", "Calculate the value of the expression EXPR and use the result as the address of starting memory", cmd_x },
   /* TODO: Add more commands */
 
 };
