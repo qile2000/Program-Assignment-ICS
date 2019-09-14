@@ -86,12 +86,20 @@ static int cmd_help(char *args) {
 
 static int cmd_si(char *args){
   char *arg = strtok(NULL, " ");
-  int N;
-  N = *arg-'0';
-  if (N<1){
+  if (arg == NULL) {
+    printf("lack of instructions number.");
     cpu_exec(-1);
   }
-  else cpu_exec(N);
+  else{
+    int N;
+    N = *arg-'0';
+    if (N<1){
+      printf("there must be more than 1 instructions.");
+      cpu_exec(-1);
+    }
+    else cpu_exec(N);
+  
+  }
   return 0;
 }
 /*
