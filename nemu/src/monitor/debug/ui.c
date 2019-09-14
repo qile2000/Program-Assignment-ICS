@@ -115,14 +115,27 @@ static int cmd_info(char *args){
 static int cmd_x(char *args){
   char *arg_1 = strtok(NULL, " ");
   char *arg_2 = strtok(NULL, " ");
-  int N;
-  paddr_t addr;
-  sscanf(arg_1,"%d",&N);
-  sscanf(arg_2,"%x",&addr);
-  printf("十六进制,4字节/输出\n");
-  for (int i=0; i<N; i++){
-    addr = addr+i*4;
-    printf("%d:   %#x\n",i,paddr_read(addr, 4));
+  if (arg_1 == NULL) {
+    printf("need more 2 args.");
+    cpu_exec(-1);
+  }
+
+  else if (arg_2 == NULL) {
+    printf("need another arg.");
+    cpu_exec(-1);
+  }
+  else {
+    int N;
+    paddr_t addr;
+    sscanf(arg_1,"%d",&N);
+    sscanf(arg_2,"%x",&addr);
+    printf("十六进制,4字节/输出\n");
+    for (int i=0; i<N; i++){
+      addr = addr+i*4;
+      printf("%d:   %#x\n",i,paddr_read(addr, 4));
+
+    } 
+
   }
   return 0;
 }
