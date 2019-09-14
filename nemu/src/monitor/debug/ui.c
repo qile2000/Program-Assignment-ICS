@@ -83,15 +83,25 @@ static int cmd_help(char *args) {
   }
   return 0;
 }
-//
+
 static int cmd_si(char *args){
   char *arg = strtok(NULL, " ");
   int N;
   N = *arg-'0';
-  cpu_exec(N);
+  if (N<1){
+    cpu_exec(-1);
+  }
+  else cpu_exec(N);
   return 0;
 }
-//
+/*
+static int cmd_info(char *args);{
+  char *arg = strtok(NULL, " ");
+  if (strcmp(arg,'r') == 0){
+    isa_reg_display();
+  }
+}
+*/
 /*monitor的核心功能，用户界面主循环*/
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
