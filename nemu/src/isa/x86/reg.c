@@ -41,6 +41,7 @@ void reg_test() {
 }
 
 void isa_reg_display() {
+  printf("32位寄存器:\n");
   printf("%s:  %o\n",regsl[0],cpu.eax);
   printf("%s:  %o\n",regsl[1],cpu.ecx);
   printf("%s:  %o\n",regsl[2],cpu.edx);
@@ -49,6 +50,10 @@ void isa_reg_display() {
   printf("%s:  %o\n",regsl[5],cpu.ebp);
   printf("%s:  %o\n",regsl[6],cpu.esi);
   printf("%s:  %o\n",regsl[7],cpu.edi);
+  printf("16位寄存器:\n");
+  for (int i=0; i<=7; i++){
+     printf("%s:  %o\n",regsw[i],cpu.gpr[i]._16);
+  }
 }
 
 uint32_t isa_reg_str2val(const char *s, bool *success) {
