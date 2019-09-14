@@ -9,6 +9,7 @@
 
 void cpu_exec(uint64_t);
 void isa_reg_display();
+uint32_t paddr_read(paddr_t addr, int len);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -43,7 +44,7 @@ static int cmd_si(char *args);
 //
 static int cmd_info(char *args);
 
-//static int cmd_x(char *args);
+static int cmd_x(char *args);
 
 static struct {
   char *name;
@@ -55,7 +56,7 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "Let program execute N instructions for one step and suspend", cmd_si },
   { "info", "Print register status or print monitoring point information", cmd_info },
-//{ "x", "Calculate the value of the expression EXPR and use the result as the address of starting memory", cmd_x },
+  { "x", "Calculate the value of the expression EXPR and use the result as the address of starting memory", cmd_x },
   /* TODO: Add more commands */
 
 };
@@ -107,6 +108,21 @@ static int cmd_info(char *args){
   char *arg = strtok(NULL, " ");
   if (strcmp(arg, "r") == 0){
     isa_reg_display();
+  }
+  return 0;
+}
+
+static int cmd_x(char *args){
+  char *arg_1 = strtok(NULL, " ");
+  char *arg_2 = strtok(NULL, " ");
+  int N;
+  paddr_t addr;
+  sscanf(arg_1,"%d",&N);
+  sscanf(arg_2,"%x",&addr);
+  printf("十六进制,4字节/输出\n");
+  for (int i=0; i<N; i++){
+    addr = addr+i*4;
+    printf("%d:   %#x\n",i,paddr_read(addr, 4));
   }
   return 0;
 }
