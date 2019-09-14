@@ -57,7 +57,7 @@ void isa_reg_display() {
   printf("8位寄存器：\n");
   for (int i=0; i<=7; i++){
     printf("%s:  %o\n",regsb[i],cpu.gpr[i]._8[0]);
-    printf("     %o\n",regsb[i],cpu.gpr[i]._8[1]);
+    printf("     %o\n",cpu.gpr[i]._8[1]);
   }
 }
 
