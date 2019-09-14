@@ -52,7 +52,12 @@ void isa_reg_display() {
   printf("%s:  %o\n",regsl[7],cpu.edi);
   printf("16位寄存器:\n");
   for (int i=0; i<=7; i++){
-     printf("%s:  %o\n",regsw[i],cpu.gpr[i]._16);
+    printf("%s:  %o\n",regsw[i],cpu.gpr[i]._16);
+  }
+  printf("8位寄存器：\n");
+  for (int i=0; i<=7; i++){
+    printf("%s:  %o\n",regsb[i],cpu.gpr[i]._8[0]);
+    printf("     %o\n",regsb[i],cpu.gpr[i]._8[1]);
   }
 }
 
