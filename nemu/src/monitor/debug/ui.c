@@ -37,6 +37,12 @@ static int cmd_q(char *args) {
 }
 
 static int cmd_help(char *args);
+//
+static int cmd_si(char *args);
+//
+//static int cmd_info(char *args);
+
+//static int cmd_x(char *args);
 
 static struct {
   char *name;
@@ -47,8 +53,8 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   { "si", "Let program execute N instructions for one step and suspend", cmd_si },
-  { "info", "Print register status or print monitoring point information", cmd_info },
-  { "x", "Calculate the value of the expression EXPR and use the result as the address of starting memory", cmd_x },
+//{ "info", "Print register status or print monitoring point information", cmd_info },
+//{ "x", "Calculate the value of the expression EXPR and use the result as the address of starting memory", cmd_x },
   /* TODO: Add more commands */
 
 };
@@ -77,7 +83,16 @@ static int cmd_help(char *args) {
   }
   return 0;
 }
-
+//
+static int cmd_si(char *args){
+  char *arg = strtok(NULL, " ");
+  int N;
+  N = *arg-'0';
+  cpu_exec(N);
+  return 0;
+}
+//
+/*monitor的核心功能，用户界面主循环*/
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
     cmd_c(NULL);

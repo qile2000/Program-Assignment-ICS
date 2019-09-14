@@ -1,5 +1,6 @@
 #include "cpu/exec.h"
 #include "all-instr.h"
+/*执行指令的代码*/
 
 static inline void set_width(int width) {
   if (width == 0) {
@@ -50,7 +51,7 @@ make_group(gp7,
     EMPTY, EMPTY, EMPTY, EMPTY)
 
 /* TODO: Add more instructions!!! */
-
+/*可看到框架代码中都已经实现了哪些指令，其中EMPTY代表对应的指令还没有实现（或不存在该指令）*/
 static OpcodeEntry opcode_table [512] = {
   /* 0x00 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x04 */	EMPTY, EMPTY, EMPTY, EMPTY,

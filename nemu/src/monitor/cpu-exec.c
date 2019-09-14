@@ -28,7 +28,7 @@ void monitor_statistic(void) {
   Log("total guest instructions = %ld", g_nr_guest_instr);
 }
 
-/* Simulate how the CPU works. */
+/* Simulate how the CPU works. 命令执行的主循环，模拟CPU的工作方式，不断执行指令*/
 void cpu_exec(uint64_t n) {
   switch (nemu_state.state) {
     case NEMU_END: case NEMU_ABORT:
@@ -42,6 +42,7 @@ void cpu_exec(uint64_t n) {
 
     /* Execute one instruction, including instruction fetch,
      * instruction decode, and the actual execution. */
+                                           /*让CPU执行当前PC指向的一条指令，然后更新PC*/
     __attribute__((unused)) vaddr_t seq_pc = exec_once();
 
 #if defined(DIFF_TEST)

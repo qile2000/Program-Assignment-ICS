@@ -33,6 +33,7 @@ typedef struct {
       rtlreg_t eax, ecx, edx, ebx, esp, ebp, esi, edi;
     };
   };
+  /*vaddr代表虚拟地址*/
   vaddr_t pc;
 
 } CPU_state;

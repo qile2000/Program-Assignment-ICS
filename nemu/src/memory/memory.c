@@ -1,6 +1,6 @@
 #include "nemu.h"
 #include "device/map.h"
-
+/*内存通过大数组pmem来模拟*/
 uint8_t pmem[PMEM_SIZE] PG_ALIGN = {};
 
 static IOMap pmem_map = {
@@ -8,7 +8,7 @@ static IOMap pmem_map = {
   .space = pmem,
   .callback = NULL
 };
-
+/*paddr代表物理地址*/
 void register_pmem(paddr_t base) {
   pmem_map.low = base;
   pmem_map.high = base + PMEM_SIZE - 1;

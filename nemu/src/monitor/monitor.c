@@ -29,7 +29,7 @@ static inline void welcome() {
   printf("Welcome to \33[1;41m\33[1;33m%s\33[0m-NEMU!\n", str(__ISA__));
   printf("For help, type \"help\"\n");
 }
-
+/*将客户程序从镜像文件读入到客户计算机内存*/
 static inline long load_img() {
   long size;
   if (img_file == NULL) {
@@ -37,6 +37,7 @@ static inline long load_img() {
     extern uint8_t isa_default_img[];
     extern long isa_default_img_size;
     size = isa_default_img_size;
+    /*IMAGE_START,一个固定的内存位置，monitor直接把有意义的客户程序读入这里，让CPU知道程序位置*/
     memcpy(guest_to_host(IMAGE_START), isa_default_img, size);
   }
   else {
@@ -61,6 +62,7 @@ static inline long load_img() {
 
 static inline void parse_args(int argc, char *argv[]) {
   int o;
+  /*get opt 对参数进行解析*/
   while ( (o = getopt(argc, argv, "-bl:d:a:")) != -1) {
     switch (o) {
       case 'b': is_batch_mode = true; break;
