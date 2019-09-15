@@ -131,11 +131,9 @@ static int cmd_x(char *args){
     sscanf(arg_2,"%x",&addr);
     printf("十六进制,4字节/输出\n");
     for (int i=0; i<N; i++){
-      
+      addr = addr+i*4;
       printf("%#x:   %#x\n",addr,paddr_read(addr, 4));
-      addr = addr+(i+1)*4;
     } 
-
   }
   return 0;
 }
