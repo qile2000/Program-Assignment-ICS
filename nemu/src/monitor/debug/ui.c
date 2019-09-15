@@ -10,7 +10,6 @@
 void cpu_exec(uint64_t);
 void isa_reg_display();
 uint32_t paddr_read(paddr_t addr, int len);
-uint32_t vaddr_read(vaddr_t addr, int len);
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
   static char *line_read = NULL;
@@ -126,13 +125,13 @@ static int cmd_x(char *args){
   }
   else {
     int N;
-    vaddr_t addr;
+    paddr_t addr;
     sscanf(arg_1,"%d",&N);
     sscanf(arg_2,"%x",&addr);
     printf("十六进制,4字节/输出\n");
     for (int i=0; i<N; i++){
       addr = addr+i*4;
-      printf("%#x:   %#x\n",addr,vaddr_read(addr, 4));
+      printf("%#x:   %#x\n",addr,paddr_read(addr, 4));
     } 
   }
   return 0;
