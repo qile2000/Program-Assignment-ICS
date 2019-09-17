@@ -10,6 +10,8 @@
 void cpu_exec(uint64_t);
 void isa_reg_display();
 uint32_t paddr_read(paddr_t addr, int len);
+uint32_t expr(char *e, bool *success);
+
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
   static char *line_read = NULL;
@@ -45,7 +47,7 @@ static int cmd_info(char *args);
 
 static int cmd_x(char *args);
 
-//static int cmd_p(char *args);
+static int cmd_p(char *args);
 
 static struct {
   char *name;
@@ -58,7 +60,7 @@ static struct {
   { "si", "Let program execute N instructions for one step and suspend", cmd_si },
   { "info", "Print register status or print monitoring point information", cmd_info },
   { "x", "Calculate the value of the expression EXPR and use the result as the address of starting memory", cmd_x },
- // { "p", "Calculate the value of the expression", cmd_p },
+  { "p", "Calculate the value of the expression", cmd_p },
   /* TODO: Add more commands */
 //
 };
@@ -144,6 +146,25 @@ static int cmd_x(char *args){
   return 0;
 }
 
+static int cmd_p(char *args){
+  char *arg = strtok(NULL, " ");
+  if (arg == NULL) {
+    printf("need expression!!!\n");
+    cpu_exec(-1);
+  }
+  else {
+    bool suc=true;
+    expr(arg, &suc);
+    if (suc){
+      printf("the value of expression is : ");
+    }
+    else {
+      printf("wrong expression!!!\n");
+    }
+   
+  }
+   return 0;
+}
 /*monitor的核心功能，用户界面主循环*/
 void ui_mainloop(int is_batch_mode) {
   if (is_batch_mode) {
