@@ -112,7 +112,7 @@ static int cmd_info(char *args){
     printf("lack of instructions arg.");
     cpu_exec(-1);
   }
-  if (strcmp(arg, "r") == 0){
+  else if (strcmp(arg, "r") == 0){
     isa_reg_display();
   }
   return 0;
