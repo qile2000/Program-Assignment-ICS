@@ -163,7 +163,7 @@ static int cmd_p(char *args){
     }
    
   }
-   return 0;
+  return 0;
 }
 /*monitor的核心功能，用户界面主循环*/
 void ui_mainloop(int is_batch_mode) {
