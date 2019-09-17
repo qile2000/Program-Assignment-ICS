@@ -6,6 +6,9 @@
  */
 #include <sys/types.h>
 #include <regex.h>
+
+bool check_parentheses(int p, int q);
+
 enum {
   TK_NOTYPE = 256, TK_EQ = 1111, TK_TEN_NUM = 2222
 
@@ -142,3 +145,32 @@ uint32_t expr(char *e, bool *success) {
   return 0;
 }
 //
+bool check_parentheses(int p, int q){
+  int count = 0;
+  bool flag = true;
+  for (int i=p; i<=q; i++){
+    if(tokens[i].type=='('){
+      count++;
+    }
+    if(tokens[i].type==')'){
+      count--;
+    }
+    if(count<0){
+      printf("bad expression!!!\n");
+      assert(0);
+    }
+    if(count==0 && i!=q){
+      flag=false;
+    }
+  }
+  if (count!=0){
+    printf("bad expression!!!\n");
+    assert(0);
+  }
+  else if(tokens[p].type=='(' && tokens[q].type==')' && flag){
+    return true;
+  }
+  else {
+    return false;
+  } 
+}
