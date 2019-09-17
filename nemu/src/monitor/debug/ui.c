@@ -45,6 +45,8 @@ static int cmd_info(char *args);
 
 static int cmd_x(char *args);
 
+//static int cmd_p(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -56,6 +58,7 @@ static struct {
   { "si", "Let program execute N instructions for one step and suspend", cmd_si },
   { "info", "Print register status or print monitoring point information", cmd_info },
   { "x", "Calculate the value of the expression EXPR and use the result as the address of starting memory", cmd_x },
+ // { "p", "Calculate the value of the expression", cmd_p },
   /* TODO: Add more commands */
 
 };
@@ -105,6 +108,10 @@ static int cmd_si(char *args){
 
 static int cmd_info(char *args){
   char *arg = strtok(NULL, " ");
+  if (arg == NULL) {
+    printf("lack of instructions arg.");
+    cpu_exec(-1);
+  }
   if (strcmp(arg, "r") == 0){
     isa_reg_display();
   }
