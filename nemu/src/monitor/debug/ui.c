@@ -91,14 +91,14 @@ static int cmd_help(char *args) {
 static int cmd_si(char *args){
   char *arg = strtok(NULL, " ");
   if (arg == NULL) {
-    printf("lack of instructions number.");
+    printf("lack of arg!!!\n");
     cpu_exec(-1);
   }
   else{
     int N;
     N = *arg-'0';
     if (N<1){
-      printf("there must be more than 1 instructions.");
+      printf("there must be more than 1 instructions!!!\n");
       cpu_exec(-1);
     }
     else cpu_exec(N);
@@ -109,7 +109,7 @@ static int cmd_si(char *args){
 static int cmd_info(char *args){
   char *arg = strtok(NULL, " ");
   if (arg == NULL) {
-    printf("lack of instructions arg.");
+    printf("lack of arg!!!\n");
     cpu_exec(-1);
   }
   else if (strcmp(arg, "r") == 0){
@@ -122,12 +122,12 @@ static int cmd_x(char *args){
   char *arg_1 = strtok(NULL, " ");
   char *arg_2 = strtok(NULL, " ");
   if (arg_1 == NULL) {
-    printf("need more 2 args.");
+    printf("need more 2 args!!!\n");
     cpu_exec(-1);
   }
 
   else if (arg_2 == NULL) {
-    printf("need another arg.");
+    printf("need another arg!!!\n");
     cpu_exec(-1);
   }
   else {
