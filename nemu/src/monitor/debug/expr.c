@@ -1,4 +1,5 @@
 #include "nemu.h"
+#include "stdlib.h"
 
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
@@ -6,8 +7,10 @@
 #include <sys/types.h>
 #include <regex.h>
 
+char *itoa( int value, char *string,int radix);
+
 enum {
-  TK_NOTYPE = 256, TK_EQ = 1, TK_TEN_NUM = 2
+  TK_NOTYPE = 256, TK_EQ = 1111, TK_TEN_NUM = 2222
 
   /* TODO: Add more token types */
 
@@ -98,6 +101,17 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
+          case('+'):tokens[i].type='+';
+          case('-'):tokens[i].type='-';
+          case('*'):tokens[i].type='*';
+          case('/'):tokens[i].type='/';
+          case('('):tokens[i].type='(';
+          case(')'):tokens[i].type=')';
+          case(TK_TEN_NUM):{
+            tokens[i].type=TK_TEN_NUM;
+            itoa(TK_TEN_NUM, tokens[i].str, 10);
+          }
+          case(TK_EQ):tokens[i].type=TK_EQ;
           default: TODO();
         }
 
