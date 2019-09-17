@@ -60,7 +60,7 @@ static struct {
   { "x", "Calculate the value of the expression EXPR and use the result as the address of starting memory", cmd_x },
  // { "p", "Calculate the value of the expression", cmd_p },
   /* TODO: Add more commands */
-
+//
 };
 
 #define NR_CMD (sizeof(cmd_table) / sizeof(cmd_table[0]))
