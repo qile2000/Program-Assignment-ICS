@@ -6,9 +6,6 @@
  */
 #include <sys/types.h>
 #include <regex.h>
-
-char *itoa( int value, char *string,int radix);
-
 enum {
   TK_NOTYPE = 256, TK_EQ = 1111, TK_TEN_NUM = 2222
 
@@ -101,18 +98,23 @@ static bool make_token(char *e) {
          */
 
         switch (rules[i].token_type) {
-          case('+'):tokens[i].type='+';
-          case('-'):tokens[i].type='-';
-          case('*'):tokens[i].type='*';
-          case('/'):tokens[i].type='/';
-          case('('):tokens[i].type='(';
-          case(')'):tokens[i].type=')';
-          case(TK_TEN_NUM):{
-            tokens[i].type=TK_TEN_NUM;
-            itoa(TK_TEN_NUM, tokens[i].str, 10);
+          case '+':case '-':case '*':case '/':case '(':case ')':{
+            tokens[nr_token].type=rules[i].token_type;
+            nr_token++;
           }
-          case(TK_EQ):tokens[i].type=TK_EQ;
-          default: TODO();
+          break;
+          case TK_TEN_NUM:{
+            tokens[nr_token].type=rules[i].token_type;
+            strcpy(tokens[nr_token].str, substr_start);
+            nr_token++;
+          }
+          break;
+          case TK_EQ:{
+            tokens[nr_token].type=rules[i].token_type;
+            nr_token++;
+          }
+          break;
+          default: continue;
         }
 
         break;
