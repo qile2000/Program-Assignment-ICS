@@ -8,6 +8,7 @@
 #include <regex.h>
 
 bool check_parentheses(int p, int q);
+int dominant_operator(int p, int q);
 
 enum {
   TK_NOTYPE = 256, TK_EQ = 1111, TK_TEN_NUM = 2222
@@ -175,3 +176,24 @@ bool check_parentheses(int p, int q){
   } 
 }
 //
+int dominant_operator(int p, int q){
+  int count=0;
+  int dm_op=p;
+  for(int i = p; i<=q; i++){
+    if(tokens[i].type=='('){
+      count++;
+    }
+    else if(tokens[i].type==')'){
+      count--;
+    }
+    if(count==0){
+      if ((tokens[i].type=='*' || tokens[i].type=='/') && (tokens[dm_op].type!='+' && tokens[dm_op].type!='-')) {
+        dm_op=i;
+      }
+      else if (tokens[i].type=='+'||tokens[i].type=='-'){
+        dm_op=i;   
+      }
+    } 
+  }
+  return dm_op;
+}
