@@ -96,7 +96,7 @@ static int cmd_si(char *args){
   }
   else{
     int N;
-    N = *arg-'0';
+    N = atoi(arg);
     if (N<1){
       printf("there must be more than 1 instructions!!!\n");
       cpu_exec(-1);
