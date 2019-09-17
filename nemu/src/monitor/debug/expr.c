@@ -1,6 +1,7 @@
 #include "nemu.h"
 #include "stdlib.h"
 
+
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
  */
@@ -9,6 +10,7 @@
 
 bool check_parentheses(int p, int q);
 int dominant_operator(int p, int q);
+uint32_t eval(int p,int q);
 
 enum {
   TK_NOTYPE = 256, TK_EQ = 1111, TK_TEN_NUM = 2222
@@ -118,7 +120,14 @@ static bool make_token(char *e) {
             nr_token++;
           }
           break;
-          default: continue;
+          case TK_NOTYPE:{
+            continue;
+          }
+          break;
+          default: {
+            printf("error rules switch!!!\n");
+            assert(0);
+          }
         }
 
         break;
@@ -141,9 +150,8 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-
-  return 0;
+  
+  return eval(0, nr_token-1);
 }
 //
 bool check_parentheses(int p, int q){
@@ -198,3 +206,38 @@ int dominant_operator(int p, int q){
   return dm_op;
 }
 //
+uint32_t eval(int p, int q){
+  if(p>q){
+    return 0;
+  }
+  else if (p==q) {
+    int value = 0;
+    sscanf(tokens[p].str, "%d", &value);
+    return value;
+  }
+  else if (check_parentheses(p, q) == true) {
+    return eval(p+1, q-1);
+  }
+  else {
+    int op = dominant_operator(p, q);
+    int val1=eval(p, op-1);
+    int val2=eval(op+1, q);
+
+    switch(tokens[op].type){
+      case '+': {
+        return val1 + val2;
+      }
+      case '-': {
+        return val1 - val2;
+      }
+      case '*': {
+        return val1 * val2;
+      }
+      case '/': {
+        return val1 / val2;
+      }
+      default: assert(0);
+    }
+  }
+  return 0;
+}
