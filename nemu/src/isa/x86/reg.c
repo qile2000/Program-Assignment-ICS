@@ -42,22 +42,22 @@ void reg_test() {
 
 void isa_reg_display() {
   printf("32位寄存器:\n");
-  printf("%s:  %o\n",regsl[0],cpu.eax);
-  printf("%s:  %o\n",regsl[1],cpu.ecx);
-  printf("%s:  %o\n",regsl[2],cpu.edx);
-  printf("%s:  %o\n",regsl[3],cpu.ebx);
-  printf("%s:  %o\n",regsl[4],cpu.esp);
-  printf("%s:  %o\n",regsl[5],cpu.ebp);
-  printf("%s:  %o\n",regsl[6],cpu.esi);
-  printf("%s:  %o\n",regsl[7],cpu.edi);
+  printf("%s:  %x\n",regsl[0],cpu.eax);
+  printf("%s:  %x\n",regsl[1],cpu.ecx);
+  printf("%s:  %x\n",regsl[2],cpu.edx);
+  printf("%s:  %x\n",regsl[3],cpu.ebx);
+  printf("%s:  %x\n",regsl[4],cpu.esp);
+  printf("%s:  %x\n",regsl[5],cpu.ebp);
+  printf("%s:  %x\n",regsl[6],cpu.esi);
+  printf("%s:  %x\n",regsl[7],cpu.edi);
   printf("16位寄存器:\n");
   for (int i=0; i<=7; i++){
-    printf("%s:  %o\n",regsw[i],cpu.gpr[i]._16);
+    printf("%s:  %x\n",regsw[i],cpu.gpr[i]._16);
   }
   printf("8位寄存器：\n");
   for (int i=0; i<=7; i++){
-    printf("%s:  %o\n",regsb[i],cpu.gpr[i]._8[0]);
-    printf("     %o\n",cpu.gpr[i]._8[1]);
+    printf("%s:  %x\n",regsb[i],cpu.gpr[i]._8[0]);
+    printf("     %x\n",cpu.gpr[i]._8[1]);
   }
 }
 
