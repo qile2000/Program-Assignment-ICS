@@ -121,7 +121,8 @@ static bool make_token(char *e) {
           }
           break;
           default: {
-            continue;
+            printf("error rules switch!!!\n");
+            assert(0);
           }
         }
 
