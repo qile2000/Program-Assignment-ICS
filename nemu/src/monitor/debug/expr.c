@@ -74,120 +74,34 @@ static Token tokens[32] __attribute__((used)) = {};
 /*nr_token指示已经被识别出来的token数目*/
 static int nr_token __attribute__((used))  = 0;
 
+/*给出待求值表达式后，此函数用于识别其中的token*/
 static bool make_token(char *e) {
+  /*position来指示当前处理到的位置*/
   int position = 0;
   int i;
   regmatch_t pmatch;
 
   nr_token = 0;
 
+  /*按顺序尝试用不同的规则来匹配当前位置的字符串，当一条规则匹配成功，并且匹配出的子串正好是position所在位置的时候，
+   *我们就成功识别出一个token
+   */
   while (e[position] != '\0') {
     /* Try all rules one by one. */
     for (i = 0; i < NR_REGEX; i ++) {
       if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
-
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
-        position += substr_len;
-
-        /* TODO: Now a new token is recognized with rules[i]. Add codes
-         * to record the token in the array `tokens'. For certain types
-         * of tokens, some extra actions should be performed.
-         */
-        if (rules[i].token_type == TK_NOTYPE) continue;
-        switch (rules[i].token_type) {
-          case '+':{
-            tokens[nr_token].type = rules[i].token_type;
-            strncpy(tokens[nr_token].str,substr_start,substr_len);
-            nr_token++;
-          }break;
-          case '-':{
-            tokens[nr_token].type = rules[i].token_type;
-            strncpy(tokens[nr_token].str,substr_start,substr_len);
-            nr_token++;
-          }break;
-          case '*':{
-            tokens[nr_token].type = rules[i].token_type;
-            strncpy(tokens[nr_token].str,substr_start,substr_len);
-            nr_token++;
-          }break;
-          case '/':{
-            tokens[nr_token].type = rules[i].token_type;
-            strncpy(tokens[nr_token].str,substr_start,substr_len);
-            nr_token++;
-          }break;
-          case TK_EQ:{
-            tokens[nr_token].type = rules[i].token_type;
-            strncpy(tokens[nr_token].str,substr_start,substr_len);
-            nr_token++;
-          }break;
-          case TK_TEN_NUM:{
-            tokens[nr_token].type = rules[i].token_type;
-            strncpy(tokens[nr_token].str,substr_start,substr_len);
-            //printf("%s\n", tokens[nr_token].str);
-            nr_token++;
-          }break;
-          case '(':{
-            tokens[nr_token].type = rules[i].token_type;
-            strncpy(tokens[nr_token].str,substr_start,substr_len);
-            nr_token++;
-          }break;
-          case ')':{
-            tokens[nr_token].type = rules[i].token_type;
-            strncpy(tokens[nr_token].str,substr_start,substr_len);
-            nr_token++;
-          }break;
-          default:assert(0);//程序报错
-        }
-        break;
-      }
-    }
-
-    if (i == NR_REGEX) {
-      printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
-      return false;
-    }
-  }
-  for(int j = 0;j < nr_token;j++) {//测试tokens数组是否成功录入token
-    printf("%s", tokens[j].str);
-  }
-  
-  return true;
-}
-
-/*给出待求值表达式后，此函数用于识别其中的token*/
-//static bool make_token(char *e) {
-  /*position来指示当前处理到的位置*/
-  //int position = 0;
-  //int i;
-  //regmatch_t pmatch;
-
-  //nr_token = 0;
-
-  /*按顺序尝试用不同的规则来匹配当前位置的字符串，当一条规则匹配成功，并且匹配出的子串正好是position所在位置的时候，
-   *我们就成功识别出一个token
-   */
-  //while (e[position] != '\0') {
-    /* Try all rules one by one. */
-    /*
-    for (i = 0; i < NR_REGEX; i ++) {
-      if (regexec(&re[i], e + position, 1, &pmatch, 0) == 0 && pmatch.rm_so == 0) {
-        char *substr_start = e + position;
-        int substr_len = pmatch.rm_eo;
-        */
   /*Log()宏会识别成功的信息，使用Token结构体来记录token的信息
-   *//*
+   */
         Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
             i, rules[i].regex, position, substr_len, substr_len, substr_start);
         position += substr_len;
-*/
+
         /* TODO: Now a new token is recognized with rules[i]. Add codes
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-        /*
         if(rules[i].token_type==TK_NOTYPE) continue;
         switch (rules[i].token_type) {
           case '+':case '-':case '*':case '/':case '(':case ')':{
@@ -211,7 +125,7 @@ static bool make_token(char *e) {
         break;
       }
     }
-    *//*
+
     if (i == NR_REGEX) {
       printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
       return false;
@@ -219,7 +133,7 @@ static bool make_token(char *e) {
   }
 
   return true;
-}*/
+}
 
 uint32_t expr(char *e, bool *success) {
   if (!make_token(e)) {
