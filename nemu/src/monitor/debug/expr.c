@@ -103,13 +103,11 @@ static bool make_token(char *e) {
          * of tokens, some extra actions should be performed.
          */
         if(rules[i].token_type==256) {
-          printf("fuck");
           continue;
         }
         switch (rules[i].token_type) {
           case '+':case '-':case '*':case '/':case '(':case ')':{
             tokens[nr_token].type=rules[i].token_type;
-            printf("666");
             nr_token++;
           }break;
           case TK_TEN_NUM:{
