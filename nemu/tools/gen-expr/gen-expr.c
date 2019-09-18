@@ -8,11 +8,11 @@
 uint32_t choose(uint32_t n);
 
 void gen_num();
-void gen();
+void gen(char str);
 void gen_rand_op();
 void gen(char str);
 
-int index = 0;
+int indx = 0;
 
 // this should be enough
 static char buf[65536];
@@ -25,7 +25,7 @@ static inline void gen_rand_expr() {
 }
 
 
-uint32_t choose(uint32_t n);{
+uint32_t choose(uint32_t n){
   uint32_t rand_int = rand() % (n+1);
 };
 
@@ -39,16 +39,16 @@ void gen_num(){
 		mask = mask*10;
 	}
 	while(mask>0){
-	 	buf[index]=((randint/mask)+'0');
-    index++; 
+	 	buf[indx]=((randint/mask)+'0');
+    indx++; 
 		randint = randint % mask;
 		mask = mask/10;
 	} 
 }
 
 void gen(char str){
-  buf[index] = str;
-  index++;
+  buf[indx] = str;
+  indx++;
 }
 
 void gen_rand_op(){
@@ -60,8 +60,8 @@ void gen_rand_op(){
     case 2: op = '/'; break;
     case 3: op = '*'; break; 
   }
-  buf[index] = op;
-  index++;
+  buf[indx] = op;
+  indx++;
 }
 
 static char code_buf[65536];
