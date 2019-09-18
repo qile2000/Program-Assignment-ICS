@@ -83,7 +83,7 @@ static bool make_token(char *e) {
 
   nr_token = 0;
 
-  /*按顺序尝试用不同的规则来匹配当前位置的字符串，当一条规则匹配成功，并且匹配出的子串正好时position所在位置的时候，
+  /*按顺序尝试用不同的规则来匹配当前位置的字符串，当一条规则匹配成功，并且匹配出的子串正好是position所在位置的时候，
    *我们就成功识别出一个token
    */
   while (e[position] != '\0') {
@@ -102,7 +102,7 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-        //if(rules[i].token_type==TK_NOTYPE) continue;
+        if(rules[i].token_type==TK_NOTYPE) continue;
         switch (rules[i].token_type) {
           case '+':case '-':case '*':case '/':case '(':case ')':{
             tokens[nr_token].type=rules[i].token_type;
