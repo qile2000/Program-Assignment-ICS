@@ -147,7 +147,7 @@ static int cmd_x(char *args){
 }
 
 static int cmd_p(char *args){
-  char *arg = strtok(NULL, " ");
+  char *arg = strtok(NULL, "@");
   if (arg == NULL) {
     printf("need expression!!!\n");
     cpu_exec(-1);
