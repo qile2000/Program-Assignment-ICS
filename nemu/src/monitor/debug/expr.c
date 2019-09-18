@@ -121,6 +121,7 @@ static bool make_token(char *e) {
           }
           break;
           case TK_NOTYPE:{
+            nr_token++;
             continue;
           }
           break;
