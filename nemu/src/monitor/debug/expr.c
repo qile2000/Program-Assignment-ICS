@@ -13,7 +13,7 @@ int dominant_operator(int p, int q);
 uint32_t eval(int p,int q);
 
 enum {
-  TK_NOTYPE = 256, TK_EQ = 1111, TK_TEN_NUM = 2222
+  TK_NOTYPE = 256, TK_EQ = 1, TK_TEN_NUM = 10
 
   /* TODO: Add more token types */
 
