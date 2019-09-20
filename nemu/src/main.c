@@ -23,7 +23,6 @@ int main(int argc, char *argv[]) {
     fgets(the_expr,256, fp);
     char *answer = strtok(the_expr, " ");
     char *expression = strtok(NULL, " ");
-    printf("the right answer is %s\n", answer);
     bool suc=true;
     int my_result = expr(expression,&suc);
     if (suc){
@@ -32,6 +31,7 @@ int main(int argc, char *argv[]) {
     else{
       printf("fail to calculate the expression!!!");
     }
+    printf("the right answer is %s\n", answer);
     
   }
   fclose(fp);
