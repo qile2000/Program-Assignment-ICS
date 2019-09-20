@@ -12,10 +12,18 @@ void gen(char gen_str);
 void gen_rand_op();
 
 int indx = 0;
+int limit = 0;
 
 // this should be enough
 static char buf[65536];
+
 static inline void gen_rand_expr() {
+  limit++;
+  if(limit>=10){
+    gen_num();
+    return;
+  }
+  
   switch (choose(3)) {
     case 0: gen_num(); break;
     case 1: gen('('); gen_rand_expr(); gen(')');  break;
@@ -83,6 +91,7 @@ int main(int argc, char *argv[]) {
   int i;
   for (i = 0; i < loop; i ++) {
     indx=0;
+    limit=0;
     memset(buf,'\0',sizeof(buf));
     gen_rand_expr();
 

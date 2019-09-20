@@ -70,7 +70,7 @@ typedef struct token {
 } Token;
 
 /*tokens数组用于按顺序存放已经被识别出来的token信息*/
-static Token tokens[32] __attribute__((used)) = {};
+static Token tokens[256] __attribute__((used)) = {};
 /*nr_token指示已经被识别出来的token数目*/
 static int nr_token __attribute__((used))  = 0;
 
