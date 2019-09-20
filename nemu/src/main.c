@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
   {
     fgets(the_expr,256, fp);
     char *answer = strtok(the_expr, " ");
-    char *expression = strtok(NULL, " ");
+    char *expression = strtok(the_expr, " ");
     printf("the right answer is %s\n", answer);
     bool suc=true;
     int my_result = expr(expression,&suc);
