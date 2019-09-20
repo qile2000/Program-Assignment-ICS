@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
   
   int is_batch_mode = init_monitor(argc, argv);
   char the_expr[256];
-  FILE *fp=fopen("input","r");
+  FILE *fp=fopen("qile/ics2019/nemu/tools/gen-expr/input","r");
   if(!fp){
     printf("can't open file\n");
     return -1;
