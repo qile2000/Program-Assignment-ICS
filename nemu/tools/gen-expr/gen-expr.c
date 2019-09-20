@@ -112,8 +112,13 @@ int main(int argc, char *argv[]) {
     /*fscanf可以从一个文件流中格式化读出数据，遇到空格或回车就停止*/
     fscanf(fp, "%d", &result);
     pclose(fp);
-
-    printf("%u %s\n", result, buf);
+    if(i == loop-1){
+      printf("%u %s", result, buf);
+    }
+    else{
+      printf("%u %s\n", result, buf);
+    }
+    
   }
   return 0;
 }
