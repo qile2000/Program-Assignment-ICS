@@ -191,7 +191,7 @@ void ui_mainloop(int is_batch_mode) {
     extern void sdl_clear_event_queue(void);
     sdl_clear_event_queue();
 #endif
-
+    
     int i;
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {

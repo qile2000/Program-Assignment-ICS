@@ -5,12 +5,11 @@
 #include <assert.h>
 #include <string.h>
 
-uint32_t choose(uint32_t n);
+uint32_t choose(uint32_t choose_rand);
 
 void gen_num();
-void gen(char str);
+void gen(char gen_str);
 void gen_rand_op();
-void gen(char str);
 
 int indx = 0;
 
@@ -19,19 +18,20 @@ static char buf[65536];
 static inline void gen_rand_expr() {
   switch (choose(3)) {
     case 0: gen_num(); break;
-    case 1: gen('('); gen_rand_expr(); gen(')'); break;
+    case 1: gen('('); gen_rand_expr(); gen(')');  break;
     default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
   }
 }
 
 
-uint32_t choose(uint32_t n){
-  uint32_t rand_int = rand() % (n+1);
-};
+uint32_t choose(uint32_t choose_rand){
+  uint32_t rand_int = rand() % choose_rand;
+  return rand_int;
+}
 
 void gen_num(){
 
-  int randint = rand();
+  int randint = rand()+1;
   int t=0,mask=1;
 	t=randint;
 	while(t>9){
@@ -46,13 +46,13 @@ void gen_num(){
 	} 
 }
 
-void gen(char str){
-  buf[indx] = str;
+void gen(char gen_str){
+  buf[indx] = gen_str;
   indx++;
 }
 
 void gen_rand_op(){
-  int choice = choose (3);
+  int choice = choose (4);
   char op;
   switch(choice) {
     case 0: op = '+'; break;
@@ -63,7 +63,6 @@ void gen_rand_op(){
   buf[indx] = op;
   indx++;
 }
-
 static char code_buf[65536];
 static char *code_format =
 "#include <stdio.h>\n"
@@ -77,11 +76,14 @@ int main(int argc, char *argv[]) {
   int seed = time(0);
   srand(seed);
   int loop = 1;
+  
   if (argc > 1) {
     sscanf(argv[1], "%d", &loop);
   }
   int i;
   for (i = 0; i < loop; i ++) {
+    indx=0;
+    memset(buf,'\0',sizeof(buf));
     gen_rand_expr();
 
     sprintf(code_buf, code_format, buf);
