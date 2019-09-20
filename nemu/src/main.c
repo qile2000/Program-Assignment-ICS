@@ -24,6 +24,7 @@ int main(int argc, char *argv[]) {
     char *answer = strtok(the_expr, " ");
     char *expression = strtok(NULL, "@");
     bool suc=true;
+    printf(expression);
     int my_result = expr(expression,&suc);
     if (suc){
       printf("the result is %d\n", my_result);
