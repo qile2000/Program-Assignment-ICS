@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
   {
     fgets(the_expr,1000, fp);
     char *answer = strtok(the_expr, " ");
-    char *expression = strtok(NULL, " ");
+    char *expression = strtok(NULL, "@");
     bool suc=true;
     int my_result = expr(expression,&suc);
     if (suc){
