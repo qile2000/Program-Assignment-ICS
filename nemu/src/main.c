@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
   /* Initialize the monitor. */
   
   int is_batch_mode = init_monitor(argc, argv);
-  char the_expr[256];
+  char the_expr[1000];
   FILE *fp=fopen("../nemu/tools/gen-expr/input","r");
   if(!fp){
     printf("can't open file\n");
@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
   }
   while(!feof(fp))
   {
-    fgets(the_expr,256, fp);
+    fgets(the_expr,1000, fp);
     char *answer = strtok(the_expr, " ");
     char *expression = strtok(NULL, " ");
     bool suc=true;
