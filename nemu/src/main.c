@@ -4,7 +4,8 @@
 #include <string.h>
 int init_monitor(int, char *[]);
 void ui_mainloop(int);
-int expr(char *e, bool *success);
+typedef __UINT32_TYPE__ uint32_t;
+uint32_t expr(char *e, bool *success);
 
 int main(int argc, char *argv[]) {
 
