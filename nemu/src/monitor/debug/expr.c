@@ -244,7 +244,8 @@ uint32_t eval(int p, int q){
           return cpu.gpr[i]._16;
         }
       }
-
+      printf("error reg name!!!\n");
+      assert(0);
       
     }
   }
