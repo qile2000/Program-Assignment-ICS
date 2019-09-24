@@ -156,7 +156,7 @@ static int cmd_p(char *args){
     bool suc=true;
     int value = expr(arg, &suc);
     if (suc){
-      printf("the value of expression is : %d\n", value);
+      printf("the value of expression is : %x\n", value);
     }
     else {
       printf("wrong expression!!!\n");
