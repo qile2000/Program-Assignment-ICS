@@ -232,23 +232,23 @@ uint32_t eval(int p, int q){
     }
     else if (tokens[p].type == TK_REG){
       if (tokens[p].str[1]=='e'){
-        char reg_name[3];
+        char reg_name_32[3];
         for (int j=0; j<3; j++){
-          reg_name[j]=tokens[p].str[j+1];
+          reg_name_32[j]=tokens[p].str[j+1];
         }
         for (int i=0; i<=7; i++){
-          if (strcmp(reg_name,regsl_copy[i])==0){
+          if (strcmp(reg_name_32,regsl_copy[i])==0){
             return cpu.gpr[i]._32;
           }
         }
       } 
       else {
-        char reg_name[2];
+        char reg_name_16[2];
         for (int j=0; j<2; j++){
-          reg_name[j]=tokens[p].str[j+1];
+          reg_name_16[j]=tokens[p].str[j+1];
         }
         for (int i=0; i<=7; i++){
-          if (strcmp(reg_name,regsw_copy[i])==0){
+          if (strcmp(reg_name_16,regsw_copy[i])==0){
             return cpu.gpr[i]._16;
           }  
         }
