@@ -14,7 +14,7 @@ uint32_t eval(int p,int q);
 uint32_t paddr_read(paddr_t addr, int len);
 
 const char *regsl_copy[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
-const char *regsw_copy[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};
+//const char *regsw_copy[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};
 //const char *regsb[] = {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"};
 
 enum {
@@ -242,17 +242,6 @@ uint32_t eval(int p, int q){
           }
         }
       } 
-      else {
-        for (int k=0; k<=2; k++){
-          tokens[p].str[k]=tokens[p].str[k+1];
-        }
-        printf("%s",tokens[p].str);
-        for (int i=0; i<=7; i++){
-          if (strcmp(tokens[p].str,regsw_copy[i])==0){
-            return cpu.gpr[i]._16;
-          }  
-        }
-      }
       printf("error reg name!!!\n");
       assert(0);
       
