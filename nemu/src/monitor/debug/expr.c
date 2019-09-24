@@ -40,11 +40,11 @@ static struct rule {
   {"\\-", '-'},             // minus
   {"\\*", '*'},             // multiply
   {"\\/", '/'},             // devide
+  {"0x[0-9a-f]+", TK_SIXTEEN_NUM},  //十六进制数
   {"[0-9]+", TK_TEN_NUM},   // 十进制整数
   {"\\(", '('},             // 左括号
   {"\\)", ')'},             // 右括号
   {"&&", '&'},              // 且
-  {"0x[0-9a-f]+", TK_SIXTEEN_NUM},  //十六进制数
   {"\\$[abcdehilpsx]{2,3}", TK_REG}, //寄存器
 
 
