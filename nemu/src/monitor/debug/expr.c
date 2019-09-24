@@ -218,7 +218,6 @@ int dominant_operator(int p, int q){
 //
 uint32_t eval(int p, int q){
   if(p>q){
-    printf("5555555555");
     return 0;
   }
   else if (p==q) {
@@ -256,6 +255,7 @@ uint32_t eval(int p, int q){
   }
   else {
     int op = dominant_operator(p, q);
+    printf("%d",tokens[op].type);
     if(tokens[op].type == TK_POINTER){
       return paddr_read(eval(p+1,q),4);
     }
