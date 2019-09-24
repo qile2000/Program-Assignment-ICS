@@ -256,8 +256,8 @@ uint32_t eval(int p, int q){
     if(tokens[op].type == TK_POINTER){
       return paddr_read(eval(p+1,q),4);
     }
-    int val1=eval(p, op-1);
-    int val2=eval(op+1, q);
+    uint32_t val1=eval(p, op-1);
+    uint32_t val2=eval(op+1, q);
 
     switch(tokens[op].type){
       case '+': {
