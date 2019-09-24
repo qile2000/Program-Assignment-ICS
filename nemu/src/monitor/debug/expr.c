@@ -218,6 +218,7 @@ int dominant_operator(int p, int q){
 //
 uint32_t eval(int p, int q){
   if(p>q){
+    printf("5555");
     return 0;
   }
   else if (p==q) {
