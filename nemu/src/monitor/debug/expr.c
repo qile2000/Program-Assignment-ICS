@@ -229,18 +229,8 @@ uint32_t eval(int p, int q){
       sscanf(tokens[p].str, "%x", &value);
     }
     else if (tokens[p].type == TK_REG){
-      for (int i = 0; i<4; i++){
-        tokens[p].str[i] = tokens[p].str[i+1];
-      }
-     
-      for (int i = 0; i<8; i++){
-          if(strcmp(tokens[p].str, regsl_copy[i])==0){
-            value = cpu.gpr[i]._32;
-            break;
-          }
-      }
       
-      /*
+      
       for (int j=0; j<strlen(tokens[p].str); j++){
         tokens[p].str[j]=tokens[p].str[j+1];
       }
@@ -256,7 +246,7 @@ uint32_t eval(int p, int q){
           break;
         }
       }
-      */
+      
     }
     return value;
   }
