@@ -244,10 +244,10 @@ uint32_t eval(int p, int q){
       }
       
       else if (strlen(tokens[p].str)==3){
-        printf("16166161\n");
         char reg_name[2];
         reg_name[0]=tokens[p].str[1];
         reg_name[1]=tokens[p].str[2];
+        printf("%s",reg_name);
         for (int i=0; i<=7; i++){
           if (strcmp(reg_name,regsw_copy[i])==0){
             return cpu.gpr[i]._16;
