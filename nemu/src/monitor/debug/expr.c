@@ -230,19 +230,19 @@ uint32_t eval(int p, int q){
     }
     else if (tokens[p].type == TK_REG){
       
-      
+      char reg_name[strlen(tokens[p].str)];
       for (int j=0; j<strlen(tokens[p].str); j++){
-        tokens[p].str[j]=tokens[p].str[j+1];
+        reg_name[j]=tokens[p].str[j+1];
       }
       for (int i=0; i<=7; i++){
-        if (strcmp(tokens[p].str,regsl_copy[i])==0){
+        if (strcmp(reg_name,regsl_copy[i])==0){
           value= cpu.gpr[i]._32;
           printf("499209717\n");
           break;
         }
       } 
       for (int i=0; i<=7; i++){
-        if (strcmp(tokens[p].str,regsw_copy[i])==0){
+        if (strcmp(reg_name,regsw_copy[i])==0){
           value= cpu.gpr[i]._16;
           break;
         }
