@@ -235,7 +235,8 @@ uint32_t eval(int p, int q){
       char reg_name_32[4];
       reg_name_32[0] = '$';
       printf("666%s666\n",strcat(reg_name_32,regsl_copy[0]));
-      printf("%s",tokens[p].str);
+      printf("%s\n",tokens[p].str);
+      printf("%d\n",strcmp(strcat(reg_name_32,regsl_copy[0]),tokens[p].str));
       for (int i=0; i<=7; i++){
         if (strcmp(strcat(reg_name_32,regsl_copy[i]),tokens[p].str)==0){
           reg_value = cpu.gpr[i]._32;
