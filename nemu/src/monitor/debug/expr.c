@@ -236,16 +236,15 @@ uint32_t eval(int p, int q){
       }
       for (int i=0; i<=7; i++){
         if (strcmp(tokens[p].str,regsl_copy[i])==0){
-          return cpu.gpr[i]._32;
+          value= cpu.gpr[i]._32;
         }
       } 
       for (int i=0; i<=7; i++){
         if (strcmp(tokens[p].str,regsw_copy[i])==0){
-          return cpu.gpr[i]._16;
+          value= cpu.gpr[i]._16;
         }
       }
-      printf("error reg name!!!\n");
-      assert(0);
+      return value;
       
     }
   }
