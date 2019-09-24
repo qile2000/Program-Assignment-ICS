@@ -1,6 +1,6 @@
 #include "nemu.h"
 #include "stdlib.h"
-
+#include "string.h"
 
 /* We use the POSIX regex functions to process regular expressions.
  * Type 'man regex' for more information about POSIX regex functions.
@@ -11,9 +11,13 @@
 bool check_parentheses(int p, int q);
 int dominant_operator(int p, int q);
 uint32_t eval(int p,int q);
+uint32_t paddr_read(paddr_t addr, int len);
+const char *regsl[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
+const char *regsw[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};
+//const char *regsb[] = {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"};
 
 enum {
-  TK_NOTYPE = 256, TK_EQ = 1, TK_TEN_NUM = 10
+  TK_NOTYPE = 256, TK_EQ = 257, TK_TEN_NUM = 258, TK_UEQ = 259, TK_SIXTEEN_NUM = 260, TK_REG = 261, TK_POINTER = 262,
 
   /* TODO: Add more token types */
 
@@ -31,12 +35,17 @@ static struct rule {
   {"\\s+", TK_NOTYPE},        // spaces
   {"\\+", '+'},             // plus
   {"==", TK_EQ},            // equal
+  {"!=", TK_UEQ},           // unequal
   {"\\-", '-'},             // minus
   {"\\*", '*'},             // multiply
   {"\\/", '/'},             // devide
   {"[0-9]+", TK_TEN_NUM},   // 十进制整数
   {"\\(", '('},             // 左括号
   {"\\)", ')'},             // 右括号
+  {"&&", '&'},              // 且
+  {"0x[0-9a-f]+", TK_SIXTEEN_NUM},  //十六进制数
+  {"\\$[abcdehilpsx]{2,3}", TK_REG}, //寄存器
+
 
 };
 
@@ -106,17 +115,13 @@ static bool make_token(char *e) {
           continue;
         }
         switch (rules[i].token_type) {
-          case '+':case '-':case '*':case '/':case '(':case ')':{
+          case '+':case '-':case '*':case '/':case '(':case ')':case TK_EQ:case '&':case TK_UEQ:{
             tokens[nr_token].type=rules[i].token_type;
             nr_token++;
           }break;
-          case TK_TEN_NUM:{
+          case TK_TEN_NUM:case TK_REG:case TK_SIXTEEN_NUM:{
             tokens[nr_token].type=rules[i].token_type;
             strcpy(tokens[nr_token].str, substr_start);
-            nr_token++;
-          }break;
-          case TK_EQ:{
-            tokens[nr_token].type=rules[i].token_type;
             nr_token++;
           }break;
           default: {
@@ -144,6 +149,12 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
+  for(int i=0; i < nr_token; i++){
+    if(tokens[i].type == '*' && (i==0 || tokens[i-1].type == '+' || tokens[i-1].type =='*' || \
+       tokens[i-1].type == '/' || tokens[i-1].type =='-' || tokens[i-1].type == TK_UEQ|| tokens[i-1].type == TK_EQ)){
+      tokens[i].type = TK_POINTER;
+    }
+  }
   
   return eval(0, nr_token-1);
 }
@@ -189,6 +200,10 @@ int dominant_operator(int p, int q){
       count--;
     }
     if(count==0){
+      if (tokens[i].type==TK_UEQ || tokens[i].type==TK_EQ || tokens[i].type=='&'){
+        dm_op=i;
+        return dm_op;
+      }
       if ((tokens[i].type=='*' || tokens[i].type=='/') && (tokens[dm_op].type!='+' && tokens[dm_op].type!='-')) {
         dm_op=i;
       }
@@ -206,14 +221,43 @@ uint32_t eval(int p, int q){
   }
   else if (p==q) {
     int value = 0;
-    sscanf(tokens[p].str, "%d", &value);
-    return value;
+    if (tokens[p].type == TK_TEN_NUM ){
+      sscanf(tokens[p].str, "%d", &value);
+      return value;
+    }
+    else if (tokens[p].type == TK_SIXTEEN_NUM){
+      sscanf(tokens[p].str, "%x", &value);
+      return value;
+    }
+    else if (tokens[p].type == TK_REG){
+      char reg_name[10];
+      reg_name[0] = '$';
+      for (int i=0; i<=7; i++){
+        if (strcmp(strcat(reg_name,regsl[i]),tokens[p].str)==0){
+          memset(reg_name,0,sizeof(reg_name)/sizeof(char));
+          reg_name[0] = '$';
+          return cpu.gpr[i]._32;
+        }
+      }
+      for (int i=0; i<=7; i++){
+        if (strcmp(strcat(reg_name,regsw[i]),tokens[p].str)==0){
+          memset(reg_name,0,sizeof(reg_name)/sizeof(char));
+          reg_name[0] = '$';
+          return cpu.gpr[i]._16;
+        }
+      
+      }
+    }
   }
+
   else if (check_parentheses(p, q) == true) {
     return eval(p+1, q-1);
   }
   else {
     int op = dominant_operator(p, q);
+    if(tokens[op].type == TK_POINTER){
+      return paddr_read(eval(p+1,q),4);
+    }
     int val1=eval(p, op-1);
     int val2=eval(op+1, q);
 
@@ -229,6 +273,15 @@ uint32_t eval(int p, int q){
       }
       case '/': {
         return val1 / val2;
+      }
+      case TK_UEQ: {
+        return val1 != val2;
+      }
+      case TK_EQ: {
+        return val1 == val2;
+      }
+      case '&': {
+        return val1 && val2;
       }
       default: assert(0);
     }
