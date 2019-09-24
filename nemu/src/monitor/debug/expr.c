@@ -221,7 +221,7 @@ uint32_t eval(int p, int q){
     return 0;
   }
   else if (p==q) {
-    int value = 0;
+    int value = 3;
     if (tokens[p].type == TK_TEN_NUM ){
       sscanf(tokens[p].str, "%d", &value);
     }
