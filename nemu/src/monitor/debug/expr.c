@@ -118,12 +118,11 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
           case '+':case '-':case '*':case '/':case '(':case ')':case TK_EQ:case '&':case TK_UEQ:{
             tokens[nr_token].type=rules[i].token_type;
-            strncpy(tokens[nr_token].str, substr_start, substr_len);
             nr_token++;
           }break;
           case TK_TEN_NUM:case TK_REG:case TK_SIXTEEN_NUM:{
             tokens[nr_token].type=rules[i].token_type;
-            strncpy(tokens[nr_token].str, substr_start, substr_len);
+            strcpy(tokens[nr_token].str, substr_start);
             nr_token++;
           }break;
           default: {
