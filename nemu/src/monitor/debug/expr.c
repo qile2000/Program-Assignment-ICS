@@ -224,11 +224,9 @@ uint32_t eval(int p, int q){
     int value = 0;
     if (tokens[p].type == TK_TEN_NUM ){
       sscanf(tokens[p].str, "%d", &value);
-      return value;
     }
     else if (tokens[p].type == TK_SIXTEEN_NUM){
       sscanf(tokens[p].str, "%x", &value);
-      return value;
     }
     else if (tokens[p].type == TK_REG){
       for (int j=0; j<strlen(tokens[p].str); j++){
@@ -237,16 +235,18 @@ uint32_t eval(int p, int q){
       for (int i=0; i<=7; i++){
         if (strcmp(tokens[p].str,regsl_copy[i])==0){
           value= cpu.gpr[i]._32;
+          break;
         }
       } 
       for (int i=0; i<=7; i++){
         if (strcmp(tokens[p].str,regsw_copy[i])==0){
           value= cpu.gpr[i]._16;
+          break;
         }
       }
-      return value;
       
     }
+    return value;
   }
   else if (check_parentheses(p, q) == true) {
     return eval(p+1, q-1);
