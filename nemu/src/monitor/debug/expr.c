@@ -122,7 +122,7 @@ static bool make_token(char *e) {
           }break;
           case TK_TEN_NUM:case TK_REG:case TK_SIXTEEN_NUM:{
             tokens[nr_token].type=rules[i].token_type;
-            strcpy(tokens[nr_token].str, substr_start);
+            strncpy(tokens[nr_token].str, substr_start, substr_len);
             nr_token++;
           }break;
           default: {
