@@ -231,6 +231,7 @@ uint32_t eval(int p, int q){
     else if (tokens[p].type == TK_REG){
       
       char reg_name[strlen(tokens[p].str)];
+      printf("%ld",strlen(tokens[p].str));
       for (int j=0; j<strlen(tokens[p].str); j++){
         reg_name[j]=tokens[p].str[j+1];
       }
