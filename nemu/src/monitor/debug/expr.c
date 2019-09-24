@@ -237,6 +237,7 @@ uint32_t eval(int p, int q){
       for (int i=0; i<=7; i++){
         if (strcmp(strcat(reg_name,regsl_copy[i]),tokens[p].str)==0){
           reg_value = cpu.gpr[i]._32;
+          printf("999999999999");
           break;
         }
       }
