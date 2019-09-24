@@ -243,7 +243,7 @@ uint32_t eval(int p, int q){
         }
       } 
       else {
-        for (int k=0; k<2; k++){
+        for (int k=0; k<=2; k++){
           tokens[p].str[k]=tokens[p].str[k+1];
         }
         printf("%s",tokens[p].str);
