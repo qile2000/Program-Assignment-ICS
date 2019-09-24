@@ -231,23 +231,24 @@ uint32_t eval(int p, int q){
       return value;
     }
     else if (tokens[p].type == TK_REG){
-      char reg_name[10];
+      int reg_value = 0;
+      char reg_name[50];
       reg_name[0] = '$';
       for (int i=0; i<=7; i++){
         if (strcmp(strcat(reg_name,regsl_copy[i]),tokens[p].str)==0){
-          memset(reg_name,0,sizeof(reg_name)/sizeof(char));
-          reg_name[0] = '$';
-          return cpu.gpr[i]._32;
+          
+          reg_value = cpu.gpr[i]._32;
+          break;
         }
       }
       for (int i=0; i<=7; i++){
         if (strcmp(strcat(reg_name,regsw_copy[i]),tokens[p].str)==0){
-          memset(reg_name,0,sizeof(reg_name)/sizeof(char));
-          reg_name[0] = '$';
-          return cpu.gpr[i]._16;
+          reg_value = cpu.gpr[i]._16;
+          break;
         }
       
       }
+      return reg_value;
     }
   }
 
