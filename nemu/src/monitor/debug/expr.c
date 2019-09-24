@@ -246,6 +246,7 @@ uint32_t eval(int p, int q){
         for (int k=0; k<2; k++){
           tokens[p].str[k]=tokens[p].str[k+1];
         }
+        printf("%s",tokens[p].str);
         for (int i=0; i<=7; i++){
           if (strcmp(tokens[p].str,regsw_copy[i])==0){
             return cpu.gpr[i]._16;
