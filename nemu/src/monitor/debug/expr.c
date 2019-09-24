@@ -247,6 +247,7 @@ uint32_t eval(int p, int q){
         char reg_name_16[2];
         reg_name_16[0]=tokens[p].str[1];
         reg_name_16[1]=tokens[p].str[2];
+        printf("%s",reg_name_16);
         for (int i=0; i<=7; i++){
           if (strcmp(reg_name_16,regsw_copy[i])==0){
             return cpu.gpr[i]._16;
