@@ -12,8 +12,9 @@ bool check_parentheses(int p, int q);
 int dominant_operator(int p, int q);
 uint32_t eval(int p,int q);
 uint32_t paddr_read(paddr_t addr, int len);
-const char *regsl[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
-const char *regsw[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};
+
+const char *regsl_copy[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
+const char *regsw_copy[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};
 //const char *regsb[] = {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"};
 
 enum {
@@ -233,14 +234,14 @@ uint32_t eval(int p, int q){
       char reg_name[10];
       reg_name[0] = '$';
       for (int i=0; i<=7; i++){
-        if (strcmp(strcat(reg_name,regsl[i]),tokens[p].str)==0){
+        if (strcmp(strcat(reg_name,regsl_copy[i]),tokens[p].str)==0){
           memset(reg_name,0,sizeof(reg_name)/sizeof(char));
           reg_name[0] = '$';
           return cpu.gpr[i]._32;
         }
       }
       for (int i=0; i<=7; i++){
-        if (strcmp(strcat(reg_name,regsw[i]),tokens[p].str)==0){
+        if (strcmp(strcat(reg_name,regsw_copy[i]),tokens[p].str)==0){
           memset(reg_name,0,sizeof(reg_name)/sizeof(char));
           reg_name[0] = '$';
           return cpu.gpr[i]._16;
