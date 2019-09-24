@@ -122,7 +122,7 @@ static bool make_token(char *e) {
           }break;
           case TK_TEN_NUM:case TK_REG:case TK_SIXTEEN_NUM:{
             tokens[nr_token].type=rules[i].token_type;
-            strncpy(tokens[nr_token].str, substr_start, substr_len);
+            strcpy(tokens[nr_token].str, substr_start);
             nr_token++;
           }break;
           default: {
@@ -224,41 +224,45 @@ uint32_t eval(int p, int q){
     int value = 0;
     if (tokens[p].type == TK_TEN_NUM ){
       sscanf(tokens[p].str, "%d", &value);
+      return value;
     }
     else if (tokens[p].type == TK_SIXTEEN_NUM){
       sscanf(tokens[p].str, "%x", &value);
+      return value;
     }
     else if (tokens[p].type == TK_REG){
-      
-      char reg_name[strlen(tokens[p].str)];
-      printf("%ld",strlen(tokens[p].str));
-      for (int j=0; j<strlen(tokens[p].str); j++){
-        reg_name[j]=tokens[p].str[j+1];
-      }
-      printf("%s",reg_name);
-      for (int i=0; i<=7; i++){
-        if (strcmp(reg_name,regsl_copy[i])==0){
-          value= cpu.gpr[i]._32;
-          printf("499209717\n");
-          break;
+      if (tokens[p].str[1]=='e'){
+        char reg_name[3];
+        for (int j=0; j<3; j++){
+          reg_name[j]=tokens[p].str[j+1];
+        }
+        for (int i=0; i<=7; i++){
+          if (strcmp(reg_name,regsl_copy[i])==0){
+            return cpu.gpr[i]._32;
+          }
         }
       } 
-      for (int i=0; i<=7; i++){
-        if (strcmp(reg_name,regsw_copy[i])==0){
-          value= cpu.gpr[i]._16;
-          break;
+      else {
+        char reg_name[2];
+        for (int j=0; j<2; j++){
+          reg_name[j]=tokens[p].str[j+1];
+        }
+        for (int i=0; i<=7; i++){
+          if (strcmp(reg_name,regsw_copy[i])==0){
+            return cpu.gpr[i]._16;
+          }  
         }
       }
+      printf("error reg name!!!\n");
+      assert(0);
       
     }
-    return value;
   }
   else if (check_parentheses(p, q) == true) {
     return eval(p+1, q-1);
   }
   else {
     int op = dominant_operator(p, q);
-    printf("%d",tokens[op].type);
     if(tokens[op].type == TK_POINTER){
       return paddr_read(eval(p+1,q),4);
     }
