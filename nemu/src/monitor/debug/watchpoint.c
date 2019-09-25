@@ -64,7 +64,6 @@ void free_wp(int N, bool* suc){
     printf("666\n");
     *suc=true;
     return;
-
   }
   WP* find=head;
   while(find->next->NO!=N){
