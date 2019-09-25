@@ -8,6 +8,7 @@ WP* new_wp();
 void free_wp(int NO, bool* suc);
 bool init=false;
 void print_watchpoint();
+bool check_watchpoint();
 
 int wp_num=0;
 
@@ -97,4 +98,34 @@ void print_watchpoint(){
     print=print->next;
   }
   return;
+}
+
+bool check_watchpoint(){
+  WP* check=head;
+  bool diff_value= false;
+  if (wp_num == 0){
+    return false;
+  }
+  for (int i= 0; i < wp_num;i++){
+    bool suc;
+    int now_value = expr(check->expression,&suc);
+    if (!suc){
+      printf("fail to calculate the new expression!!!\n");
+      assert(0);
+    }
+    else {
+      if(now_value == check->value){
+        check=check->next;
+        return false;
+      }
+      else{
+        printf("paused for watchpoint NO.%d, expr: %s\n",check->value,check->expression);
+        printf("the old value is %d",check->value);
+        printf("the present value is %d",now_value);
+        check->value=now_value;
+        return true;
+      }
+    }
+  }
+  return diff_value;
 }
