@@ -109,7 +109,8 @@ bool check_watchpoint(){
   for (int i= 0; i < wp_num;i++){
     bool suc;
     int now_value = expr(check->expression,&suc);
-    printf("%d",now_value);
+    printf("%x\n",now_value);
+    printf("%s\n",check->expression);
     if (!suc){
       printf("fail to calculate the new expression!!!\n");
       assert(0);
