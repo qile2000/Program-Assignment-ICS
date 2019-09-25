@@ -91,9 +91,9 @@ void print_watchpoint(){
     printf("empty watchpoint pool!!!\n");
     return;
   }
-  printf("NO    EXPRESSION            VALUE");
+  printf("NO    EXPRESSION            VALUE\n");
   for (int i= 0; i < wp_num;i++){
-    printf("%d    %s                    %d\n",print->NO,print->expression,print->value);
+  printf("%d    %s                    %d\n",print->NO,print->expression,print->value);
     print=print->next;
   }
   return;
