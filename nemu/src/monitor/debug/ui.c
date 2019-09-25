@@ -2,7 +2,7 @@
 #include "monitor/expr.h"
 #include "monitor/watchpoint.h"
 #include "nemu.h"
-
+#include "monitor/watchpoint.h"
 #include <stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -11,6 +11,8 @@ void cpu_exec(uint64_t);
 void isa_reg_display();
 uint32_t paddr_read(paddr_t addr, int len);
 uint32_t expr(char *e, bool *success);
+WP* new_wp();
+void free_wp(int NO, bool* suc);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -49,6 +51,10 @@ static int cmd_x(char *args);
 
 static int cmd_p(char *args);
 
+static int cmd_w(char *args);
+
+static int cmd_d(char *args);
+
 static struct {
   char *name;
   char *description;
@@ -61,6 +67,8 @@ static struct {
   { "info", "Print register status or print monitoring point information", cmd_info },
   { "x", "Calculate the value of the expression EXPR and use the result as the address of starting memory", cmd_x },
   { "p", "Calculate the value of the expression", cmd_p },
+  { "w", "create watchpoint with expression", cmd_w},
+  { "d", "delete a watchpoint with NO", cmd_d},
   /* TODO: Add more commands */
 //
 };
@@ -162,6 +170,35 @@ static int cmd_p(char *args){
       printf("wrong expression!!!\n");
     }
    
+  }
+  return 0;
+}
+
+static int cmd_w(char *args){
+  char *arg = strtok(NULL, "^");
+  WP* new_watchpoint = new_wp();
+  strcpy(new_watchpoint->expression, arg);
+  bool suc = true;
+  new_watchpoint->value = expr(args, &suc);
+  if(!suc){
+    printf("fail to calculate expr!!!\n");
+    assert(0);
+  }
+  else {
+    printf("now, the value of watchpoint expr is %d\n",new_watchpoint->value);
+    printf("the NO of this watchpoint is %d",new_watchpoint->NO);
+  }
+  return 0;
+}
+
+static int cmd_d(char *args){
+  char *arg = strtok(NULL, " ");
+  int N;
+  sscanf(arg,"%d",&N);
+  bool suc = false;
+  free_wp(N, &suc);
+  if(!suc){
+    printf("fail to delete watchpoint!!!\n");
   }
   return 0;
 }
