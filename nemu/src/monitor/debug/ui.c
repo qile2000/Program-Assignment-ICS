@@ -186,7 +186,7 @@ static int cmd_w(char *args){
   }
   else {
     printf("now, the value of watchpoint expr is %d\n",new_watchpoint->value);
-    printf("the NO of this watchpoint is %d",new_watchpoint->NO);
+    printf("the NO of this watchpoint is %x\n",new_watchpoint->NO);
   }
   return 0;
 }
