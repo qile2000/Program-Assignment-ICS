@@ -120,8 +120,8 @@ bool check_watchpoint(){
       }
       else{
         printf("paused for watchpoint NO.%d, expr: %s\n",check->NO,check->expression);
-        printf("the old value is %d",check->value);
-        printf("the present value is %d",now_value);
+        printf("the old value is %d\n",check->value);
+        printf("the present value is %d\n",now_value);
         check->value=now_value;
         return true;
       }
