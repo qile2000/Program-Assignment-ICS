@@ -57,7 +57,11 @@ WP* new_wp(){
 //将wp归还到free_链表中
 void free_wp(int N, bool* suc){
   if (head->NO == N){
+    head->next = free_;
+    free_ = head;
     head = NULL;
+    init = false;
+
   }
   WP* find=head;
   while(find->next->NO!=N){
