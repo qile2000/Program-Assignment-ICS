@@ -62,6 +62,8 @@ void free_wp(int N, bool* suc){
     head = NULL;
     init = false;
     printf("666\n");
+    *suc=true;
+    return;
 
   }
   WP* find=head;
@@ -74,4 +76,5 @@ void free_wp(int N, bool* suc){
   free_=goal;
   
   *suc = true;
+  return;
 }
