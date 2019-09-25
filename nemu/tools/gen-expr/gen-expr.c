@@ -19,7 +19,7 @@ static char buf[65536];
 
 static inline void gen_rand_expr() {
   limit++;
-  if(limit>=10){
+  if(limit>=20){
     gen_num();
     return;
   }
