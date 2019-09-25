@@ -61,6 +61,7 @@ void free_wp(int N, bool* suc){
     free_ = head;
     head = NULL;
     init = false;
+    printf("666\n");
 
   }
   WP* find=head;
