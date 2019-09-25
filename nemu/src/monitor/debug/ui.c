@@ -13,6 +13,7 @@ uint32_t paddr_read(paddr_t addr, int len);
 uint32_t expr(char *e, bool *success);
 WP* new_wp();
 void free_wp(int NO, bool* suc);
+void print_watchpoint();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -124,6 +125,9 @@ static int cmd_info(char *args){
   }
   else if (strcmp(arg, "r") == 0){
     isa_reg_display();
+  }
+  else if (strcmp(arg, "w")){
+    print_watchpoint();
   }
   return 0;
 }

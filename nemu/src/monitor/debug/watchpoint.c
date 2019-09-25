@@ -7,6 +7,9 @@
 WP* new_wp();
 void free_wp(int NO, bool* suc);
 bool init=false;
+void print_watchpoint();
+
+int wp_num=0;
 
 //使用“池”的数据结构来管理监视点结构体
 //监视点结构的池
@@ -26,6 +29,7 @@ void init_wp_pool() {
 
   head = NULL;
   free_ = wp_pool;
+  wp_num=0;
   init = true;
 }
 
@@ -44,12 +48,14 @@ WP* new_wp(){
   if (head == NULL){
     free_ = free_->next;
     head = nw;
+    wp_num++;
     return nw;
   }
   else {
     free_ = free_->next;
     nw->next = head;
     head = nw;
+    wp_num++;
     return nw;
   }
 }
@@ -61,8 +67,8 @@ void free_wp(int N, bool* suc){
     free_ = head;
     head = NULL;
     init = false;
-    printf("666\n");
     *suc=true;
+    wp_num--;
     return;
   }
   WP* find=head;
@@ -75,5 +81,20 @@ void free_wp(int N, bool* suc){
   free_=goal;
   
   *suc = true;
+  wp_num--;
+  return;
+}
+
+void print_watchpoint(){
+  WP* print=head;
+  if (wp_num == 0){
+    printf("empty watchpoint pool!!!\n");
+    return;
+  }
+  printf("NO    EXPRESSION            VALUE");
+  for (int i= 0; i < wp_num;i++){
+    printf("%d    %s                    %d\n",print->NO,print->expression,print->value);
+    print=print->next;
+  }
   return;
 }
