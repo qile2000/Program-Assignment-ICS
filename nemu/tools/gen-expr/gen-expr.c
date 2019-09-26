@@ -36,7 +36,7 @@ uint32_t choose(uint32_t choose_rand){
   uint32_t rand_int = rand() % choose_rand;
   return rand_int;
 }
-
+//
 void gen_num(){
 
   int randint = rand()%10000 +1;
