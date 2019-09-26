@@ -63,34 +63,56 @@ WP* new_wp(){
 
 //将wp归还到free_链表中
 void free_wp(int N, bool* suc){
-  /*
-  if (head->NO == N){
-    head->next = free_;
-    free_ = head;
-    head = NULL;
-    init = false;
+  WP* find = head;
+  WP* temp = head;
+  if (head == NULL){
+    printf("empty watchpoint pool!!!\n");
+    *suc = false; 
+    return;
+  }
+  else if (head->next == NULL){
+    if(head->NO != N){
+      printf("no such watchpoint of NO.%d!!!\n",N);
+      *suc = false;
+      return;
+    }
+    else{
+      head->next = free_;
+      free_ = head;
+      head = NULL;
+      init = false;
+      *suc=true;
+      wp_num--;
+      return;
+    }
+  }
+  else if(head->NO == N){
+    temp = head;
+    head = head->next;
+    temp->next = free_;
+    free_ = temp;
     *suc=true;
     wp_num--;
     return;
   }
-  */
-  WP* find = NULL;
-  find->next = head;
-  while(find->next->NO!=N){
-    if (find->next == NULL){
-      printf("no such watchpoint of NO.%d",N);
-      assert(0);
+  else{
+    while(find->next->NO!=N){
+      if (find->next == NULL){
+        printf("no such watchpoint of NO.%d!!!\n",N);
+        return;
+      }
+      find = find->next;
     }
-    find = find->next;
-  }
-  WP* goal=find->next;
-  find->next = goal->next;
-  goal->next=free_;
-  free_=goal;
+    WP* goal=find->next;
+    find->next = goal->next;
+    goal->next=free_;
+    free_=goal;
   
-  *suc = true;
-  wp_num--;
-  return;
+    *suc = true;
+    wp_num--;
+    return;
+  }
+  
 }
 
 void print_watchpoint(){
