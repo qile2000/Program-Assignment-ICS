@@ -50,6 +50,7 @@ WP* new_wp(){
     free_ = free_->next;
     head = nw;
     wp_num++;
+    nw->next = NULL;
     return nw;
   }
   else {
