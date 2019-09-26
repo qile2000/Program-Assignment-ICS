@@ -84,7 +84,6 @@ void free_wp(int N, bool* suc){
       init = false;
       *suc=true;
       wp_num--;
-      printf("666\n");
       return;
     }
   }
@@ -105,6 +104,7 @@ void free_wp(int N, bool* suc){
       }
       find = find->next;
     }
+    printf("666\n");
     WP* goal=find->next;
     find->next = goal->next;
     goal->next=free_;
