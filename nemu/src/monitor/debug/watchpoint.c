@@ -148,7 +148,6 @@ bool check_watchpoint(){
     else {
       if(now_value == check->value){
         check=check->next;
-        return false;
       }
       else{
         printf("paused for watchpoint NO.%d, expr: %s\n",check->NO,check->expression);
