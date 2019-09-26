@@ -100,11 +100,12 @@ void free_wp(int N, bool* suc){
 
     printf("666\n");
     while(find->next->NO!=N){
+
+      find = find->next;
       if (find->next == NULL){
         printf("no such watchpoint of NO.%d!!!\n",N);
         return;
       }
-      find = find->next;
     }
     WP* goal=find->next;
     find->next = goal->next;
