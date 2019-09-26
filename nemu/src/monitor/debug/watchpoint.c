@@ -98,7 +98,6 @@ void free_wp(int N, bool* suc){
   }
   else{
 
-    printf("666\n");
     while(find->next->NO!=N){
 
       find = find->next;
