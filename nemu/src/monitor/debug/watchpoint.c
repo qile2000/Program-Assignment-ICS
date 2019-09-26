@@ -63,6 +63,7 @@ WP* new_wp(){
 
 //将wp归还到free_链表中
 void free_wp(int N, bool* suc){
+  /*
   if (head->NO == N){
     head->next = free_;
     free_ = head;
@@ -72,8 +73,14 @@ void free_wp(int N, bool* suc){
     wp_num--;
     return;
   }
-  WP* find=head;
+  */
+  WP* find = NULL;
+  find->next = head;
   while(find->next->NO!=N){
+    if (find->next == NULL){
+      printf("no such watchpoint of NO.%d",N);
+      assert(0);
+    }
     find = find->next;
   }
   WP* goal=find->next;
