@@ -39,7 +39,7 @@ uint32_t choose(uint32_t choose_rand){
 
 void gen_num(){
 
-  int randint = rand()+1;
+  int randint = rand()%10000 +1;
   int t=0,mask=1;
 	t=randint;
 	while(t>9){
