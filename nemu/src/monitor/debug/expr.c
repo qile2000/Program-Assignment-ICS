@@ -130,7 +130,8 @@ static bool make_token(char *e) {
             
             
             if(tokens[nr_token].type == '*' && (nr_token==0 || tokens[nr_token-1].type == '+' || tokens[nr_token-1].type =='*' || \
-               tokens[nr_token-1].type == '/' || tokens[nr_token-1].type =='-' || tokens[nr_token-1].type == TK_UEQ|| tokens[nr_token-1].type == TK_EQ)){
+               tokens[nr_token-1].type == '/' || tokens[nr_token-1].type =='-' || tokens[nr_token-1].type == TK_UEQ|| \
+               tokens[nr_token-1].type == TK_EQ)){
               tokens[nr_token].type = TK_POINTER;
             }
             nr_token++;
