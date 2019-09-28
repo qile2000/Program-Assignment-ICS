@@ -180,29 +180,41 @@ static int cmd_p(char *args){
 
 static int cmd_w(char *args){
   char *arg = strtok(NULL, "^");
-  WP* new_watchpoint = new_wp();
-  strcpy(new_watchpoint->expression, arg);
-  bool suc = true;
-  new_watchpoint->value = expr(args, &suc);
-  if(!suc){
-    printf("fail to calculate expr!!!\n");
-    assert(0);
+  if (arg == NULL) {
+    printf("need another arg!!!\n");
+    cpu_exec(-1);
   }
-  else {
-    printf("now, the value of watchpoint expr is %d\n",new_watchpoint->value);
-    printf("the NO of this watchpoint is %x\n",new_watchpoint->NO);
+  else{
+    WP* new_watchpoint = new_wp();
+    strcpy(new_watchpoint->expression, arg);
+    bool suc = true;
+    new_watchpoint->value = expr(args, &suc);
+    if(!suc){
+      printf("fail to calculate expr!!!\n");
+      assert(0);
+    }
+    else {
+      printf("now, the value of watchpoint expr is %d\n",new_watchpoint->value);
+      printf("the NO of this watchpoint is %x\n",new_watchpoint->NO);
+    }
   }
   return 0;
 }
 
 static int cmd_d(char *args){
   char *arg = strtok(NULL, " ");
-  int N;
-  sscanf(arg,"%d",&N);
-  bool suc = false;
-  free_wp(N, &suc);
-  if(!suc){
-    printf("fail to delete watchpoint!!!\n");
+  if(arg == NULL){
+    printf("need another arg!!!\n");
+    cpu_exec(-1);
+  }
+  else{
+    int N;
+    sscanf(arg,"%d",&N);
+    bool suc = false;
+    free_wp(N, &suc);
+    if(!suc){
+      printf("fail to delete watchpoint!!!\n");
+    }
   }
   return 0;
 }
