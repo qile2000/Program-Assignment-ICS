@@ -130,6 +130,15 @@ static bool make_token(char *e) {
             assert(0);
           }
         }
+
+        for(int i=0; i < nr_token; i++){
+          if(tokens[i].type == '*' && (i==0 || tokens[i-1].type == '+' || tokens[i-1].type =='*' || \
+             tokens[i-1].type == '/' || tokens[i-1].type =='-' || tokens[i-1].type == TK_UEQ|| tokens[i-1].type == TK_EQ)){
+            tokens[i].type = TK_POINTER;
+          }
+        }
+
+
         break;
       }
     }
@@ -150,12 +159,7 @@ uint32_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  for(int i=0; i < nr_token; i++){
-    if(tokens[i].type == '*' && (i==0 || tokens[i-1].type == '+' || tokens[i-1].type =='*' || \
-       tokens[i-1].type == '/' || tokens[i-1].type =='-' || tokens[i-1].type == TK_UEQ|| tokens[i-1].type == TK_EQ)){
-      tokens[i].type = TK_POINTER;
-    }
-  }
+  
   
   return eval(0, nr_token-1);
 }
