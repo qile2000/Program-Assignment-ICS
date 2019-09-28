@@ -127,12 +127,13 @@ static bool make_token(char *e) {
           }break;
           case '*':{
             tokens[nr_token].type=rules[i].token_type;
-            nr_token++;
             
-            if(tokens[i].type == '*' && (i==0 || tokens[i-1].type == '+' || tokens[i-1].type =='*' || \
-               tokens[i-1].type == '/' || tokens[i-1].type =='-' || tokens[i-1].type == TK_UEQ|| tokens[i-1].type == TK_EQ)){
-              tokens[i].type = TK_POINTER;
+            
+            if(tokens[nr_token].type == '*' && (nr_token==0 || tokens[nr_token-1].type == '+' || tokens[nr_token-1].type =='*' || \
+               tokens[nr_token-1].type == '/' || tokens[nr_token-1].type =='-' || tokens[nr_token-1].type == TK_UEQ|| tokens[nr_token-1].type == TK_EQ)){
+              tokens[nr_token].type = TK_POINTER;
             }
+            nr_token++;
             
           }break;
           default: {
