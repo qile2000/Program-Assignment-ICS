@@ -147,10 +147,11 @@ static int cmd_x(char *args){
     int N;
     bool suc=true;
     int value = expr(arg_2, &suc);
+    char val = value;
     if (suc){
       paddr_t addr;
       sscanf(arg_1,"%d",&N);
-      sscanf(value,"%x",&addr);
+      sscanf(&val,"%x",&addr);
       printf("十六进制,4字节/输出\n");
       for (int i=0; i<N; i++){
         printf("%#x:   %#x\n",addr,paddr_read(addr, 4));
