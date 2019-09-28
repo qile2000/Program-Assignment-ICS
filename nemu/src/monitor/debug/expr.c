@@ -134,7 +134,7 @@ static bool make_token(char *e) {
                tokens[nr_token-1].type == TK_EQ)){
               tokens[nr_token].type = TK_POINTER;
             }
-            nr_token++;
+            nr_token++;//
             
           }break;
           default: {
