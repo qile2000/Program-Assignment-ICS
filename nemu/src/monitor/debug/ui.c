@@ -136,6 +136,7 @@ static int cmd_info(char *args){
 static int cmd_x(char *args){
   char *arg_1 = strtok(NULL, " ");
   char *arg_2 = strtok(NULL, "^");
+  printf("%s",arg_2);
   if (arg_1 == NULL) {
     printf("need more 2 args!!!\n");
   }
