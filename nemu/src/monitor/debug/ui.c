@@ -103,15 +103,13 @@ static int cmd_help(char *args) {
 static int cmd_si(char *args){
   char *arg = strtok(NULL, " ");
   if (arg == NULL) {
-    printf("lack of arg!!!\n");
-    cpu_exec(-1);
+    cpu_exec(1);
   }
   else{
     int N;
     N = atoi(arg);
     if (N<1){
       printf("there must be more than 1 instructions!!!\n");
-      cpu_exec(-1);
     }
     else cpu_exec(N);
   }
@@ -122,13 +120,15 @@ static int cmd_info(char *args){
   char *arg = strtok(NULL, " ");
   if (arg == NULL) {
     printf("lack of arg!!!\n");
-    cpu_exec(-1);
   }
   else if (strcmp(arg, "r") == 0){
     isa_reg_display();
   }
   else if (strcmp(arg, "w")==0){
     print_watchpoint();
+  }
+  else{
+    printf("error arg name,use r / w!!!\n");
   }
   return 0;
 }
@@ -138,23 +138,28 @@ static int cmd_x(char *args){
   char *arg_2 = strtok(NULL, " ");
   if (arg_1 == NULL) {
     printf("need more 2 args!!!\n");
-    cpu_exec(-1);
   }
 
   else if (arg_2 == NULL) {
     printf("need another arg!!!\n");
-    cpu_exec(-1);
   }
   else {
     int N;
-    paddr_t addr;
-    sscanf(arg_1,"%d",&N);
-    sscanf(arg_2,"%x",&addr);
-    printf("十六进制,4字节/输出\n");
-    for (int i=0; i<N; i++){
-      printf("%#x:   %#x\n",addr,paddr_read(addr, 4));
-      addr = addr+4;
-    } 
+    bool suc=true;
+    paddr_t addr = expr(arg_2, &suc);
+    if (suc){
+      sscanf(arg_1,"%d",&N);
+      sscanf(arg_2,"%x",&addr);
+      printf("十六进制,4字节/输出\n");
+      for (int i=0; i<N; i++){
+        printf("%#x:   %#x\n",addr,paddr_read(addr, 4));
+        addr = addr+4;
+      } 
+    }
+    else {
+      printf("wrong expression!!!\n");
+    }
+    
   }
   return 0;
 }
@@ -163,7 +168,6 @@ static int cmd_p(char *args){
   char *arg = strtok(NULL, "^");
   if (arg == NULL) {
     printf("need expression!!!\n");
-    cpu_exec(-1);
   }
   else {
     bool suc=true;
@@ -183,7 +187,6 @@ static int cmd_w(char *args){
   char *arg = strtok(NULL, "^");
   if (arg == NULL) {
     printf("need another arg!!!\n");
-    cpu_exec(-1);
   }
   else{
     WP* new_watchpoint = new_wp();
@@ -206,7 +209,6 @@ static int cmd_d(char *args){
   char *arg = strtok(NULL, " ");
   if(arg == NULL){
     printf("need another arg!!!\n");
-    cpu_exec(-1);
   }
   else{
     int N;
