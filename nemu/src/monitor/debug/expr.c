@@ -116,7 +116,7 @@ static bool make_token(char *e) {
           continue;
         }
         switch (rules[i].token_type) {
-          case '+':case '-':case '*':case '/':case '(':case ')':case TK_EQ:case '&':case TK_UEQ:{
+          case '+':case '-':case '/':case '(':case ')':case TK_EQ:case '&':case TK_UEQ:{
             tokens[nr_token].type=rules[i].token_type;
             nr_token++;
           }break;
@@ -125,16 +125,19 @@ static bool make_token(char *e) {
             strcpy(tokens[nr_token].str, substr_start);
             nr_token++;
           }break;
+          case '*':{
+            tokens[nr_token].type=rules[i].token_type;
+            nr_token++;
+            
+            if(tokens[i].type == '*' && (i==0 || tokens[i-1].type == '+' || tokens[i-1].type =='*' || \
+               tokens[i-1].type == '/' || tokens[i-1].type =='-' || tokens[i-1].type == TK_UEQ|| tokens[i-1].type == TK_EQ)){
+              tokens[i].type = TK_POINTER;
+            }
+            
+          }brek;
           default: {
             printf("error rules switch!!!\n");
             assert(0);
-          }
-        }
-
-        for(int i=0; i < nr_token; i++){
-          if(tokens[i].type == '*' && (i==0 || tokens[i-1].type == '+' || tokens[i-1].type =='*' || \
-             tokens[i-1].type == '/' || tokens[i-1].type =='-' || tokens[i-1].type == TK_UEQ|| tokens[i-1].type == TK_EQ)){
-            tokens[i].type = TK_POINTER;
           }
         }
 
