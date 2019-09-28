@@ -134,7 +134,7 @@ static bool make_token(char *e) {
               tokens[i].type = TK_POINTER;
             }
             
-          }brek;
+          }break;
           default: {
             printf("error rules switch!!!\n");
             assert(0);
