@@ -112,9 +112,7 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-        if(rules[i].token_type==256) {
-          continue;
-        }
+
         switch (rules[i].token_type) {
           case '+':case '-':case '/':case '(':case ')':case TK_EQ:case '&':case TK_UEQ:{
             tokens[nr_token].type=rules[i].token_type;
@@ -137,6 +135,9 @@ static bool make_token(char *e) {
             nr_token++;//
             
           }break;
+          case TK_NOTYPE:{
+            continue;
+          }
           default: {
             printf("error rules switch!!!\n");
             assert(0);
