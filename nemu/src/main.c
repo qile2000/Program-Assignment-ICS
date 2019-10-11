@@ -11,8 +11,9 @@ int main(int argc, char *argv[]) {
 
   
   /* Initialize the monitor. */
-  
   int is_batch_mode = init_monitor(argc, argv);
+
+  /*
   char the_expr[1000];
   FILE *fp=fopen("../nemu/tools/gen-expr/input","r");
   if(!fp){
@@ -37,7 +38,7 @@ int main(int argc, char *argv[]) {
     
   }
   fclose(fp);
-
+  */
     
 
   /* Receive commands from user. */
