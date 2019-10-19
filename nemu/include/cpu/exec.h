@@ -24,6 +24,7 @@ typedef struct {
 #define EMPTY              EX(inv)
 
 static inline uint32_t instr_fetch(vaddr_t *pc, int len) {
+  //从pc位置读内存
   uint32_t instr = vaddr_read(*pc, len);
 #ifdef DEBUG
   uint8_t *p_instr = (void *)&instr;
