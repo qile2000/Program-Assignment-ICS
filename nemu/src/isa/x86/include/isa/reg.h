@@ -46,7 +46,7 @@ typedef union {
       uint32_t OF : 1;
       unsigned    : 20;
     };
-    uint32_t value;
+    rtlreg_t value;
   } eflags;
 
 } CPU_state;
