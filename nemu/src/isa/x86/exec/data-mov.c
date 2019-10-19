@@ -6,7 +6,10 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-  rtl_push(&id_dest->val);
+  rtl_push(&s0);//把寄存器压栈
+  if (id_dest->type == OP_TYPE_REG) { rtl_sr(id_dest->reg, id_dest->width, &s0); }//目的操作数是寄存器操作数,写入寄存器
+  else if (id_dest->type == OP_TYPE_MEM) { rtl_sm(&id_dest->addr, id_dest->width, &s0); }//内存，写入内存
+  else { assert(0); } 
   print_asm_template1(push);
 }
 
