@@ -21,7 +21,6 @@ typedef struct {
 #define IDEX(id, ex)       IDEXW(id, ex, 0)
 #define EXW(ex, w)         {NULL, concat(exec_, ex), w}
 #define EX(ex)             EXW(ex, 0)
-//exec_inv在exec/special.c中
 #define EMPTY              EX(inv)
 
 static inline uint32_t instr_fetch(vaddr_t *pc, int len) {
