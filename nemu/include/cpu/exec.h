@@ -11,6 +11,7 @@ typedef void (*EHelper) (vaddr_t *);
 #include "cpu/decode.h"
 
 typedef struct {
+  //函数指针
   DHelper decode;
   EHelper execute;
   int width;
@@ -20,9 +21,11 @@ typedef struct {
 #define IDEX(id, ex)       IDEXW(id, ex, 0)
 #define EXW(ex, w)         {NULL, concat(exec_, ex), w}
 #define EX(ex)             EXW(ex, 0)
+//exec_inv在exec/special.c中
 #define EMPTY              EX(inv)
 
 static inline uint32_t instr_fetch(vaddr_t *pc, int len) {
+  //从pc位置读内存
   uint32_t instr = vaddr_read(*pc, len);
 #ifdef DEBUG
   uint8_t *p_instr = (void *)&instr;
@@ -32,6 +35,7 @@ static inline uint32_t instr_fetch(vaddr_t *pc, int len) {
     strcatf(log_bytebuf, "%02x ", p_instr[i]);
   }
 #endif
+  //更新pc
   (*pc) += len;
   return instr;
 }

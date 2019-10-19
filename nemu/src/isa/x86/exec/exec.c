@@ -74,7 +74,7 @@ static OpcodeEntry opcode_table [512] = {
   /* 0x48 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x4c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x50 */	EMPTY, EMPTY, EMPTY, EMPTY,
-  /* 0x54 */	EMPTY, EMPTY, EMPTY, EMPTY,
+  /* 0x54 */	EMPTY, IDEXW(r, push, 4), EMPTY, EMPTY,
   /* 0x58 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x5c */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x60 */	EMPTY, EMPTY, EMPTY, EMPTY,
@@ -197,5 +197,10 @@ void isa_exec(vaddr_t *pc) {
   uint32_t opcode = instr_fetch(pc, 1);
   decinfo.opcode = opcode;
   set_width(opcode_table[opcode].width);
+  /**
+   * OpcodeEntry *e = &opcode_table[opcode];
+   * 如果e有decode，执行
+   * 执行execute
+   */
   idex(pc, &opcode_table[opcode]);
 }
