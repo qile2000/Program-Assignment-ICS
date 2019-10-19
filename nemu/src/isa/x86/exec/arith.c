@@ -6,8 +6,8 @@ make_EHelper(add) {
   print_asm_template2(add);
 }
 
-make_EHelper(sub) {
   rtlreg_t s2, s3;
+make_EHelper(sub) {
   rtl_sub(&s2, &id_dest->val, &id_src->val);
   rtl_setrelop(RELOP_LTU, &s3, &id_dest->val, &s2);
   operand_write(id_dest, &s2);
