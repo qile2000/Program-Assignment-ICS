@@ -23,7 +23,6 @@ make_EHelper(sub) {
   rtl_and(&s0, &s0, &s1);
   rtl_msb(&s0, &s0, id_dest->width);
   rtl_set_OF(&s0);
-  print_asm_template2(sub);
 
   print_asm_template2(sub);
 }
