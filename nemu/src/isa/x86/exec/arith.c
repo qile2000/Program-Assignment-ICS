@@ -11,12 +11,13 @@ make_EHelper(sub) {
   rtl_sub(&s2, &id_dest->val, &id_src->val);
   rtl_setrelop(RELOP_LTU, &s3, &id_dest->val, &s2);
   operand_write(id_dest, &s2);
+  //ZF CF
   rtl_update_ZFSF(&s2, id_dest->width);
- 
+  //CF
   rtl_setrelop(RELOP_LTU, &s0, &id_dest->val, &s2);
   rtl_or(&s0, &s3, &s0);
   rtl_set_CF(&s0);
- 
+  //OF
   rtl_xor(&s0, &id_dest->val, &id_src->val);
   rtl_xor(&s1, &id_dest->val, &s2);
   rtl_and(&s0, &s0, &s1);
