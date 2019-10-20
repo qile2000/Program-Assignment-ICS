@@ -8,8 +8,7 @@ make_EHelper(mov) {
 make_EHelper(push) {
   s0 = id_dest->val;
   rtl_push(&s0);
-  if (id_dest->type == OP_TYPE_REG) { rtl_sr(id_dest->reg, &s0, id_dest->width); }//目的操作数是寄存器操作数
-  else if (id_dest->type == OP_TYPE_MEM) { rtl_sm(&id_dest->addr, &s0, id_dest->width); }//内存
+  operand_write(&id_dest,&s0);
   print_asm_template1(push);
 }
 
