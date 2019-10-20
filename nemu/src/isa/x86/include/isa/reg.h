@@ -36,15 +36,24 @@ typedef union {
   
   union{
     struct{
-      uint32_t CF : 1;
-      unsigned    : 5;
-      uint32_t ZF : 1;
-      uint32_t SF : 1;
-      unsigned    : 1;
-      uint32_t IF : 1;
-      unsigned    : 1;
-      uint32_t OF : 1;
-      unsigned    : 20;
+      uint32_t CF       : 1;
+      uint32_t NULL_1   : 1;
+      uint32_t PF       : 1;
+      uint32_t NULL_2   : 1;
+      uint32_t AF       : 1;
+      uint32_t NULL_3   : 1;
+      uint32_t ZF       : 1;
+      uint32_t SF       : 1;
+      uint32_t TF       : 1;
+      uint32_t IF       : 1;
+      uint32_t DF       : 1;
+      uint32_t OF       : 1;
+      uint32_t IO_PL    : 2;
+      uint32_t NT       : 1;
+      uint32_t NULL_4   : 1;
+      uint32_t RF       : 1;
+      uint32_t VM       : 1;
+      uint32_t NULL_5   : 14;
     };
     rtlreg_t value;
   } eflags;
