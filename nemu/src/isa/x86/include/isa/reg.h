@@ -36,18 +36,18 @@ typedef union {
   
   union{
     struct{
-      uint32_t CF       : 1;
+      uint32_t CF       : 1;//nemu中用到
       uint32_t NULL_1   : 1;
       uint32_t PF       : 1;
       uint32_t NULL_2   : 1;
       uint32_t AF       : 1;
       uint32_t NULL_3   : 1;
-      uint32_t ZF       : 1;
-      uint32_t SF       : 1;
+      uint32_t ZF       : 1;//nemu中用到
+      uint32_t SF       : 1;//nemu中用到
       uint32_t TF       : 1;
-      uint32_t IF       : 1;
+      uint32_t IF       : 1;//nemu中用到
       uint32_t DF       : 1;
-      uint32_t OF       : 1;
+      uint32_t OF       : 1;//nemu中用到
       uint32_t IO_PL    : 2;
       uint32_t NT       : 1;
       uint32_t NULL_4   : 1;
