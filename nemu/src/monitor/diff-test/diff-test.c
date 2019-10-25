@@ -3,9 +3,13 @@
 #include "nemu.h"
 #include "monitor/monitor.h"
 
+// 从DUT host memory的`src`处拷贝`n`字节到REF guest memory的`dest`处
 void (*ref_difftest_memcpy_from_dut)(paddr_t dest, void *src, size_t n) = NULL;
+// 获取REF的寄存器状态到`r`
 void (*ref_difftest_getregs)(void *c) = NULL;
+// 设置REF的寄存器状态为`r`
 void (*ref_difftest_setregs)(const void *c) = NULL;
+// 让REF执行`n`条指令
 void (*ref_difftest_exec)(uint64_t n) = NULL;
 
 static bool is_skip_ref = false;
