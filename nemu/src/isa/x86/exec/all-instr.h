@@ -11,3 +11,4 @@ make_EHelper(push); 		//data-mov.c
 make_EHelper(sub); 			//arith.c
 make_EHelper(xor); 			//logic.c
 make_EHelper(ret);  		//control.c
+make_EHelper(lea);          //data-mov.c
