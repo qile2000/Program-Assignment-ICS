@@ -101,7 +101,7 @@ void* memcpy(void* out, const void* in, size_t n) {
   const char *s = (char*)in;
   char *d = (char*)out;
 
-  while (len--)
+  while (n--)
   {
     *d++ = *s++;
   }
