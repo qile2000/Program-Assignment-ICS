@@ -15,3 +15,4 @@ make_EHelper(lea);          //data-mov.c
 make_EHelper(and);          //logic.c
 make_EHelper(add);           //arith.c
 make_EHelper(cmp);          //arith.c
+make_EHelper(setcc);        //logic.c
