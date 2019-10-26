@@ -11,6 +11,7 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   if ( ref_r->esi != cpu.esi){printf("ref.esi: %d, \ncpu.esi: %d\n",ref_r->esi,cpu.esi); return false;}
   if ( ref_r->edi != cpu.edi){printf("ref.edi: %d, \ncpu.edi: %d\n",ref_r->edi,cpu.edi); return false;}
   if ( pc != cpu.pc){printf("ref's pc: %x, \ncpu.pc: %x\n",pc,cpu.pc); return false;}
+  printf("temporary, regs is the same\n");
   return true;
 }
 
