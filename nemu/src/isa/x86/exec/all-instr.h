@@ -18,3 +18,4 @@ make_EHelper(cmp);          //arith.c
 make_EHelper(setcc);        //logic.c
 make_EHelper(movzx);         //data_mov.c
 make_EHelper(test);          //logic.c
+make_EHelper(jcc);           //control.c
