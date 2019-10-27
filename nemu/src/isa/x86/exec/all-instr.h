@@ -20,3 +20,4 @@ make_EHelper(movzx);         //data_mov.c
 make_EHelper(test);          //logic.c
 make_EHelper(jcc);           //control.c
 make_EHelper(leave);         //data-mov.c
+make_EHelper(inc);           //arith.c
