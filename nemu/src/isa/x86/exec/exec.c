@@ -23,7 +23,7 @@ static make_EHelper(name) { \
 /* 0x80, 0x81, 0x83 */
 make_group(gp1,
     EXW(add,1), EMPTY, EMPTY, EMPTY,
-    EXW(and,1), EX(sub), EMPTY, EMPTY)
+    EXW(and,1), EX(sub), EMPTY, EXW(cmp,1))
 
 /* 0xc0, 0xc1, 0xd0, 0xd1, 0xd2, 0xd3 */
 make_group(gp2,
@@ -54,7 +54,7 @@ make_group(gp7,
 /*可看到框架代码中都已经实现了哪些指令，其中EMPTY代表对应的指令还没有实现（或不存在该指令）*/
 static OpcodeEntry opcode_table [512] = {
   /* 0x00 */	IDEXW(G2E,add,1), IDEX(G2E,add), IDEXW(E2G,add,1), IDEX(E2G,add),
-  /* 0x04 */	IDEXW(I2a,add,1), IDEX(I2a,add), EMPTY, EXW(cmp, 1),
+  /* 0x04 */	IDEXW(I2a,add,1), IDEX(I2a,add), EMPTY, EMPTY,
   /* 0x08 */	EMPTY, EMPTY, EMPTY, EMPTY,
   /* 0x0c */	EMPTY, EMPTY, EMPTY, EX(2byte_esc),
   /* 0x10 */	EMPTY, EMPTY, EMPTY, EMPTY,
