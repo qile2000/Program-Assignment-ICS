@@ -19,18 +19,19 @@ make_EHelper(add) {
 }
 
 make_EHelper(sub) {
-  rtl_sub(&t0, &id_dest->val, &id_src->val);
-  rtl_setrelop(RELOP_LTU, &t1, &id_dest->val, &t0);
-  operand_write(id_dest, &t0);
+  rtlreg_t s2, s3;
+  rtl_sub(&s2, &id_dest->val, &id_src->val);
+  rtl_setrelop(RELOP_LTU, &s3, &id_dest->val, &s2);
+  operand_write(id_dest, &s2);
   //ZF CF
-  rtl_update_ZFSF(&t0, id_dest->width);
+  rtl_update_ZFSF(&s2, id_dest->width);
   //CF
-  rtl_setrelop(RELOP_LTU, &s0, &id_dest->val, &t0);
-  rtl_or(&s0, &t1, &s0);
+  rtl_setrelop(RELOP_LTU, &s0, &id_dest->val, &s2);
+  rtl_or(&s0, &s3, &s0);
   rtl_set_CF(&s0);
   //OF
   rtl_xor(&s0, &id_dest->val, &id_src->val);
-  rtl_xor(&s1, &id_dest->val, &t0);
+  rtl_xor(&s1, &id_dest->val, &s2);
   rtl_and(&s0, &s0, &s1);
   rtl_msb(&s0, &s0, id_dest->width);
   rtl_set_OF(&s0);
