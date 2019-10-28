@@ -25,3 +25,4 @@ make_EHelper(nop);             //special.c
 make_EHelper(pop);           //data-mov.c
 make_EHelper(adc);           //arith.c
 make_EHelper(or);             //logic.c
+make_EHelper(sar);            //logic.c
