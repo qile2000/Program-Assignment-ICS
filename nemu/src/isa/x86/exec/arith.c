@@ -1,6 +1,19 @@
 #include "cpu/exec.h"
 
 make_EHelper(add) {
+  rtl_sext(&t1, &id_dest->val, id_dest->width);
+	rtl_sext(&s0, &id_src->val, id_src->width);
+	// t1 + t2
+	// OF针对无符号 CF针对有符号
+	rtl_add(&t0, &t1, &s0);
+	s1 = (t0 < t1);
+	rtl_set_CF(&s1);
+	s1 = ((((int32_t)(t1) >= 0) ^ (((int32_t)(s0) >= 0 ))) && (((int32_t)(t0) < 0) ^ (((int32_t)(s0) >= 0 )) )); //正正得负 负负得正
+	rtl_set_OF(&s1);
+	rtl_update_ZFSF(&t0, 4);
+	operand_write(id_dest, &t0);
+	
+  /*
   rtl_add(&s0, &id_dest->val, &id_src->val);
   operand_write(id_dest, &s0);
   rtl_update_ZFSF(&s0, id_dest->width);
@@ -14,7 +27,7 @@ make_EHelper(add) {
   rtl_and(&t0, &t0, &s1);
   rtl_msb(&t0, &t0, id_dest->width);
   rtl_set_OF(&t0);
-
+  */
   print_asm_template2(add);
 }
 
