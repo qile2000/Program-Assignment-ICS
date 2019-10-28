@@ -16,9 +16,10 @@ make_EHelper(and);          //logic.c
 make_EHelper(add);           //arith.c
 make_EHelper(cmp);          //arith.c
 make_EHelper(setcc);        //logic.c
-make_EHelper(movzx);         //data_mov.c
+make_EHelper(movzx);         //data-mov.c
 make_EHelper(test);          //logic.c
 make_EHelper(jcc);           //control.c
 make_EHelper(leave);         //data-mov.c
 make_EHelper(inc);           //arith.c
 make_EHelper(nop);             //special.c
+make_EHelper(pop);           //data-mov.c
