@@ -23,3 +23,4 @@ make_EHelper(leave);         //data-mov.c
 make_EHelper(inc);           //arith.c
 make_EHelper(nop);             //special.c
 make_EHelper(pop);           //data-mov.c
+make_EHelper(adc);           //arith.c
