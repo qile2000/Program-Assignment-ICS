@@ -27,3 +27,4 @@ make_EHelper(adc);           //arith.c
 make_EHelper(or);             //logic.c
 make_EHelper(sar);            //logic.c
 make_EHelper(shl);             //logic.c
+make_EHelper(dec);            //arith.c
