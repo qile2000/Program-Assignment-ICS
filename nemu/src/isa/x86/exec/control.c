@@ -33,9 +33,14 @@ make_EHelper(call) {
 }
 
 make_EHelper(ret) {
+  /*
   rtl_pop(&decinfo.jmp_pc);
   rtl_j(decinfo.jmp_pc);
   decinfo.is_jmp = 1;
+  */
+  rtl_pop(&s0);
+	Assert(s0>=0x100000, "Invalid return position\n");
+	decinfo.seq_pc = s0;
   print_asm("ret");
 }
 
