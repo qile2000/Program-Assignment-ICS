@@ -10,7 +10,7 @@ make_EHelper(add) {
 	rtl_set_OF(&s1);
 
 	rtl_is_add_carry(&s1, &s0, &(id_dest->val));
-	rtl_set_CF(&s1);
+	rtl_set_CF(&s1);//
 
   print_asm_template2(add);
 }
@@ -54,7 +54,7 @@ make_EHelper(inc) {
 
 	rtl_is_add_overflow(&s1, &s0, &(id_dest->val), &t1, id_dest->width);
 	rtl_set_OF(&s1);
-  
+
 	rtl_is_add_carry(&s1, &s0, &(id_dest->val));
 	rtl_set_CF(&s1);
 
