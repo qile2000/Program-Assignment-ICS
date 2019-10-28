@@ -3,8 +3,7 @@
 make_EHelper(add) {
   rtl_sext(&t1, &id_dest->val, id_dest->width);
 	rtl_sext(&s0, &id_src->val, id_src->width);
-	// t1 + t2
-	// OF针对无符号 CF针对有符号
+	// OF无符号 CF有符号
 	rtl_add(&t0, &t1, &s0);
 	s1 = (t0 < t1);
 	rtl_set_CF(&s1);
