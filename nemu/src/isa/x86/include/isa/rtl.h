@@ -40,22 +40,35 @@ static inline void rtl_pop(rtlreg_t* dest) {
 static inline void rtl_is_sub_overflow(rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
   // dest <- is_overflow(src1 - src2)
-  TODO();
+  s0 = *src1;
+	s1 = *src2;
+  if(((int32_t)s0<(int32_t)s1 && (int32_t)(*res)>0)  ||  ((int32_t)s0>(int32_t)s1 && (int32_t)(*res)<0))
+	{	
+    *dest = 1;	
+  }
+	else
+	{	
+    *dest = 0; 
+  }
 }
 
 static inline void rtl_is_sub_carry(rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1) {
   // dest <- is_carry(src1 - src2)
-  TODO();
+  *dest = (*res>*src1);
 }
 
 static inline void rtl_is_add_overflow(rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
   // dest <- is_overflow(src1 + src2)
-  if((*res)>=*src1){
-    *dest = 1;
+  s0 = *src1;
+	s1 = *src2;
+  if(((int32_t)s0<0 && (int32_t)s1<0 && (int32_t)(*res)>0) || ((int32_t)t0>0 && (int32_t)t1>0 && (int32_t)(*res)<0))
+	{	
+    *dest = 1;	
   }
-  else{
+	else
+	{	
     *dest = 0;
   }
 }
@@ -63,7 +76,7 @@ static inline void rtl_is_add_overflow(rtlreg_t* dest,
 static inline void rtl_is_add_carry(rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1) {
   // dest <- is_carry(src1 + src2)
-  TODO();
+  *dest = (*res < *src1);
 }
 
 #define make_rtl_setget_eflags(f) \
