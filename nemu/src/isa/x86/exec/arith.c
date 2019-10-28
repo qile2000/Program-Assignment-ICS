@@ -31,17 +31,16 @@ make_EHelper(add) {
 }
 
 make_EHelper(sub) {
-  rtl_sext(&t1, &id_dest->val, id_dest->width);
-	rtl_sext(&s0, &id_src->val, id_src->width);
-
-	rtl_sub(&t0, &t1, &s0);
-	s1 = (t0 > t1);
-	rtl_set_CF(&s1);
-	s1 = ((((int32_t)(t1) < 0) == (((int32_t)(s0) >> 31) == 0)) && (((int32_t)(t0) < 0) != ((int32_t)(t1) < 0))); // 负正得正 正负得负
+  rtl_sub(&s0,&(id_dest->val),&(id_src->val));
+	rtl_sr(id_dest->reg, &s0, id_dest->width);
+	/*set EFLAGS*/
+	rtl_update_ZFSF(&s0, id_dest->width);
+	rtl_is_sub_overflow(&s1, &s0, &(id_dest->val), &(id_src->val), id_dest->width);
+	assert(s1==0||s1==1);
 	rtl_set_OF(&s1);
-	rtl_update_ZFSF(&t0, 4);
-	operand_write(id_dest, &t0);
-	
+	rtl_is_sub_carry(&s1, &s0, &(id_dest->val));
+	assert(s1==0||s1==1);
+	rtl_set_CF(&s1);
   print_asm_template2(sub);
 }
 
