@@ -21,3 +21,4 @@ make_EHelper(test);          //logic.c
 make_EHelper(jcc);           //control.c
 make_EHelper(leave);         //data-mov.c
 make_EHelper(inc);           //arith.c
+make_EHelper(nop);             //special.c
