@@ -28,3 +28,4 @@ make_EHelper(or);             //logic.c
 make_EHelper(sar);            //logic.c
 make_EHelper(shl);             //logic.c
 make_EHelper(dec);            //arith.c
+make_EHelper(jmp);              //control.c
