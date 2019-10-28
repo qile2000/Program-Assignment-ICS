@@ -40,7 +40,7 @@ make_EHelper(sub) {
 	rtl_set_OF(&s1);
 	rtl_is_sub_carry(&s1, &s0, &(id_dest->val));
 	assert(s1==0||s1==1);
-	rtl_set_CF(&s1);
+	rtl_set_CF(&s1);//
   print_asm_template2(sub);
 }
 
