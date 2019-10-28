@@ -17,7 +17,7 @@ make_EHelper(pop) {
   rtl_pop(&s0);
 	if(id_dest->width == 1){
 		uint8_t utemp = s0;
-		int8_t temp = utemp; s
+		int8_t temp = utemp;
 		id_dest->val = temp;
 	}
 	else 
