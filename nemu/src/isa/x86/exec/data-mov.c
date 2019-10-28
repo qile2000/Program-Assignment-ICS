@@ -6,13 +6,18 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-  
+  /*
   s0 = id_dest->val;
   rtl_push(&s0);
   //rtl_push(&s0);
   //if (id_dest->type == OP_TYPE_REG) { rtl_sr(id_dest->reg, &s0, id_dest->width); }//如果目的操作数是寄存器操作数,写入寄存器
   //else if (id_dest->type == OP_TYPE_MEM) { rtl_sm(&id_dest->addr, &s0, id_dest->width); }//如果是在内存里面，写入内存
   print_asm_template1(push);
+  */
+  if(decinfo.opcode==0x6a){//push imm8 need sign extend
+		rtl_sext(&(id_dest->val), &(id_dest->val), id_dest->width);
+	}
+	rtl_push(&(id_dest->val));
 }
 
 make_EHelper(pop) {
