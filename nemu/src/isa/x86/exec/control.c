@@ -40,6 +40,7 @@ make_EHelper(call) {
 	}else{
 		Assert(0, "pc=%08x: call need more function\n", cpu.pc);
 	}
+  print_asm("call %x", decinfo.jmp_pc);
 }
 
 make_EHelper(ret) {
