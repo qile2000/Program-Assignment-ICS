@@ -31,7 +31,7 @@ static inline make_DopHelper(SI) {
    *
    op->simm = ???
    */
-  if(op->width == 1){
+  if(op->width == 4){
     op->simm = instr_fetch(pc,op->width);
   }
   else{
