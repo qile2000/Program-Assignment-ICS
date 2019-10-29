@@ -36,3 +36,4 @@ make_EHelper(test);           //logic.c
 make_EHelper(cltd);           //data-mov.c
 make_EHelper(idiv);         //arith.c
 make_EHelper(not);          //logic.c
+make_EHelper(and);           //logic.c
