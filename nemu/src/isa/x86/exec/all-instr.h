@@ -32,3 +32,4 @@ make_EHelper(jmp);              //control.c
 make_EHelper(imul2);             //arith.c
 make_EHelper(movsx);            //data-mov.c
 make_EHelper(neg);              //arith.c
+make_EHelper(test);           //logic.c
