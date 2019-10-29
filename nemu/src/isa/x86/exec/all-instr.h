@@ -41,3 +41,4 @@ make_EHelper(idiv);         //arith.c
 make_EHelper(not);          //logic.c
 make_EHelper(and);           //logic.c
 make_EHelper(sbb);           //arith.c
+make_EHelper(call_sm);       //control.c
