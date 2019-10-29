@@ -62,8 +62,8 @@ make_EHelper(inc) {
 }
 
 make_EHelper(dec) {
-  t0 = 1;
-  rtl_sub(&s0,&(id_dest->val),&t0);
+  t1 = 1;
+  rtl_sub(&s0,&(id_dest->val),&t1);
 	operand_write(id_dest,&s0);
 
 	rtl_update_ZFSF(&s0, id_dest->width);
