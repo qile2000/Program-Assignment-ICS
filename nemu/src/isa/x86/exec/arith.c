@@ -45,6 +45,22 @@ make_EHelper(cmp) {
 }
 
 make_EHelper(inc) {
+  rtl_li(&s0, 1);
+	rtl_sub(&s1, &(id_dest->val), &s0);
+	if(id_dest->type==OP_TYPE_REG){
+		rtl_sr(id_dest->reg, &s1, id_dest->width);
+	}else{
+		Assert(0, "pc=%08x: dec need more function\n", cpu.pc);
+	}
+	//update EFLAGS
+	rtl_update_ZFSF(&s1, id_dest->width);
+	rtl_is_sub_overflow(&s0, &s1, &(id_dest->val), &s0, id_dest->width);
+	assert(s0==0||s0==1);
+	rtl_set_OF(&s0);
+	rtl_is_sub_carry(&s0, &s1, &(id_dest->val));
+	assert(s0==0||s0==1);
+	rtl_set_CF(&s0);
+  /*
   t1 = 1;
 
   rtl_add(&s0,&(id_dest->val),&t1);
@@ -57,7 +73,7 @@ make_EHelper(inc) {
 
 	rtl_is_add_carry(&s1, &s0, &(id_dest->val));
 	rtl_set_CF(&s1);
-
+  */
   print_asm_template1(inc);
 }
 
