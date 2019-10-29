@@ -42,3 +42,4 @@ make_EHelper(not);          //logic.c
 make_EHelper(and);           //logic.c
 make_EHelper(sbb);           //arith.c
 make_EHelper(call_rm);       //control.c
+make_EHelper(jmp_rm);       //control.c
