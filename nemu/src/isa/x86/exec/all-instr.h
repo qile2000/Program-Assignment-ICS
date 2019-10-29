@@ -29,6 +29,7 @@ make_EHelper(sar);            //logic.c
 make_EHelper(shl);             //logic.c
 make_EHelper(dec);            //arith.c
 make_EHelper(jmp);              //control.c
+make_EHelper(mul);         //arith.c
 make_EHelper(imul);         //arith.c
 make_EHelper(imul1);         //arith.c
 make_EHelper(imul2);             //arith.c
