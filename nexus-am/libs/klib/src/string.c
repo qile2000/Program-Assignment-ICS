@@ -59,6 +59,7 @@ char* strncpy(char* dst, const char* src, size_t n) {
 }
 
 char* strcat(char* dst, const char* src) {
+  /*
   size_t i,j;
   assert((dst!=NULL)&&(src!=NULL));
   for (i = 0; dst[i] != '\0'; i++){
@@ -69,6 +70,12 @@ char* strcat(char* dst, const char* src) {
   }
   dst[i+j] = '\0';
   return dst;
+  */
+  char *result = dst;
+	while(*dst) dst++;
+	strcpy(dst, src);
+	// printf("strcat2 %s\n", dst);
+	return result;
 }
 
 int strcmp(const char* s1, const char* s2) {
