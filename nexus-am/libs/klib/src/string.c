@@ -156,7 +156,6 @@ void* memset(void* v,int c,size_t n) {
 }
 
 void* memcpy(void* out, const void* in, size_t n) {
-  /*
   const char *s = (char*)in;
   char *d = (char*)out;
 
@@ -166,15 +165,6 @@ void* memcpy(void* out, const void* in, size_t n) {
   }
 
   return out;
-  */
- void *ret = out; //可能会出现覆盖的问题
-	char *begin1 = (char *)out;
-	const char *begin2 = (const char *)in;
-	while(n--)
-	{
-		*(begin1+n-1) = *(begin2+n-1);
-	}
-	return ret;
 }
 
 int memcmp(const void* s1, const void* s2, size_t n){
