@@ -45,14 +45,14 @@ make_EHelper(cmp) {
 }
 
 make_EHelper(inc) {
-  t1 = 1;
+  rtlreg_t s2 = 1;
 
-  rtl_add(&s0,&(id_dest->val),&t1);
+  rtl_add(&s0,&(id_dest->val),&s2);
 	operand_write(id_dest,&s0);
 
 	rtl_update_ZFSF(&s0, id_dest->width);
 
-	rtl_is_add_overflow(&s1, &s0, &(id_dest->val), &t1, id_dest->width);
+	rtl_is_add_overflow(&s1, &s0, &(id_dest->val), &s2, id_dest->width);
 	rtl_set_OF(&s1);
 
 	rtl_is_add_carry(&s1, &s0, &(id_dest->val));
@@ -62,13 +62,13 @@ make_EHelper(inc) {
 }
 
 make_EHelper(dec) {
-  t1 = 1;
-  rtl_sub(&s0,&(id_dest->val),&t1);
+  rtlreg_t s2 = 1;
+  rtl_sub(&s0,&(id_dest->val),&s2);
 	operand_write(id_dest,&s0);
 
 	rtl_update_ZFSF(&s0, id_dest->width);
 
-	rtl_is_sub_overflow(&s1, &s0, &(id_dest->val), &t0, id_dest->width);
+	rtl_is_sub_overflow(&s1, &s0, &(id_dest->val), &s2, id_dest->width);
 	rtl_set_OF(&s1);
 
 	rtl_is_sub_carry(&s1, &s0, &(id_dest->val));
