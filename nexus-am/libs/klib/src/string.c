@@ -72,9 +72,10 @@ char* strcat(char* dst, const char* src) {
   return dst;
   */
   char *result = dst;
-	while(*dst) dst++;
+	while(*dst){
+    dst++;
+  } 
 	strcpy(dst, src);
-	// printf("strcat2 %s\n", dst);
 	return result;
 }
 
@@ -94,15 +95,7 @@ int strcmp(const char* s1, const char* s2) {
 	if(*s2=='\0'&&*s1!='\0'){
     return 1;
   }
-	return 0; 
-  /*
-  int a = 0;
-	while( (a = (*s1 - *s2)) == 0 && *s1 && *s2) {
-		s1++;
-		s2++;
-	}
-	return a;
-  */
+	return 0;
 }
 
 int strncmp(const char* s1, const char* s2, size_t n) {
