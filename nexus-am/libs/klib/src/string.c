@@ -13,14 +13,6 @@ size_t strlen(const char *s) {
 }
 
 char *strcpy(char* dst,const char* src) {
-  /*
-  if(dst==src){//考虑到源字符串和目的字符串有重叠，也即地址相同
-    return dst;
-  }
-  char* tmp=dst;//备份目的字符串的首地址，由于后面的操作会修改dest值
-  while((*dst++=*src++)!='\0');
-  return tmp;//将目的地址返回，获得函数返回值；
-  */
   return strncpy(dst, src, strlen(src));
 }
 
@@ -35,27 +27,6 @@ char* strncpy(char* dst, const char* src, size_t n) {
   }
   *dst='\0';
   return address;
-  /*
-  size_t size_src = strlen(src);
-	if( n > size_src) return strncpy(dst, src, size_src);
-	else // n <= size_src
-	{
-		// printf("strncpy1 %s %s %d\n", dst, src, (int)n);
-		// 注意前后覆盖的问题
-		char ch[n+1];
-		char *head = ch;
-		size_t i = 0;
-		while( i < n ) {
-			*(head+i) = *(src+i);
-			i++;
-		} 
-		ch[n] = '\0';
-		head = ch;
-		char *result = dst;
-		while((*(dst++) = *(head++))) ;
-		return result;
-	}
-  */
 }
 
 char* strcat(char* dst, const char* src) {
