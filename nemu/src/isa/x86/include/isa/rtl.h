@@ -52,8 +52,8 @@ static inline void rtl_is_sub_overflow(rtlreg_t* dest,
     *dest = 0; 
   }
   */
-  s0 = *src1;
-	s1 = *src2;
+  t0 = *src1;
+	t1 = *src2;
 	//switch(width){
 	//	case 1:	t0 &= 0xff; t1 &= 0xff; break;
 	//	case 2: t0 &= 0xffff; t1 &=0xffff; break;
@@ -61,20 +61,20 @@ static inline void rtl_is_sub_overflow(rtlreg_t* dest,
 	//	default:	Assert(0, "in isa/rtl.h rtl_is_sub_overflow is wrong\n");
 	//}
 	switch(width){
-		case 1:	if(((int8_t)s0<(int8_t)s1 && (int8_t)(*res)>0)
-								||((int8_t)s0>(int8_t)s1 && (int8_t)(*res)<0))
+		case 1:	if(((int8_t)t0<(int8_t)t1 && (int8_t)(*res)>0)
+								||((int8_t)t0>(int8_t)t1 && (int8_t)(*res)<0))
 						{	*dest = true;	}/*true==1*/
 						else
 						{	*dest = false; }/*false==0*/
 						break;
-		case 2:	if(((int16_t)s0<(int16_t)s1 && (int16_t)(*res)>0)
-								||((int16_t)s0>(int16_t)s1 && (int16_t)(*res)<0))
+		case 2:	if(((int16_t)t0<(int16_t)t1 && (int16_t)(*res)>0)
+								||((int16_t)t0>(int16_t)t1 && (int16_t)(*res)<0))
 						{	*dest = true;	}/*true==1*/
 						else
 						{	*dest = false; }/*false==0*/
 						break;
-		case 4:	if(((int32_t)s0<(int32_t)s1 && (int32_t)(*res)>0)
-								||((int32_t)s0>(int32_t)s1 && (int32_t)(*res)<0))
+		case 4:	if(((int32_t)t0<(int32_t)t1 && (int32_t)(*res)>0)
+								||((int32_t)t0>(int32_t)t1 && (int32_t)(*res)<0))
 						{	*dest = true;	}/*true==1*/
 						else
 						{	*dest = false; }/*false==0*/
@@ -92,8 +92,8 @@ static inline void rtl_is_sub_carry(rtlreg_t* dest,
 static inline void rtl_is_add_overflow(rtlreg_t* dest,
     const rtlreg_t* res, const rtlreg_t* src1, const rtlreg_t* src2, int width) {
   // dest <- is_overflow(src1 + src2)
-  s0 = *src1;
-	s1 = *src2;
+  t0 = *src1;
+	t1 = *src2;
 	//switch(width){
 	//	case 1:	t0 &= 0xff; t1 &= 0xff; break;
 	//	case 2: t0 &= 0xffff; t1 &=0xffff; break;
@@ -101,20 +101,20 @@ static inline void rtl_is_add_overflow(rtlreg_t* dest,
 	//	default:	Assert(0, "in isa/rtl.h rtl_is_add_overflow is wrong\n");
 	//}
 	switch(width){
-		case 1:	if(((int8_t)s0<0 && (int8_t)s1<0 && (int8_t)(*res)>0)
-								||((int8_t)s0>0 && (int8_t)s1>0 && (int8_t)(*res)<0))
+		case 1:	if(((int8_t)t0<0 && (int8_t)t1<0 && (int8_t)(*res)>0)
+								||((int8_t)t0>0 && (int8_t)t1>0 && (int8_t)(*res)<0))
 						{	*dest = true;	}/*true==1*/
 						else
 						{	*dest = false; }/*false==0*/
 						break;
-		case 2:	if(((int16_t)s0<0 && (int16_t)s1<0 && (int16_t)(*res)>0)
-								||((int16_t)s0>0 && (int16_t)s1>0 && (int16_t)(*res)<0))
+		case 2:	if(((int16_t)t0<0 && (int16_t)t1<0 && (int16_t)(*res)>0)
+								||((int16_t)t0>0 && (int16_t)t1>0 && (int16_t)(*res)<0))
 						{	*dest = true;	}/*true==1*/
 						else
 						{	*dest = false; }/*false==0*/
 						break;
-		case 4:	if(((int32_t)s0<0 && (int32_t)s1<0 && (int32_t)(*res)>0)
-								||((int32_t)s0>0 && (int32_t)s1>0 && (int32_t)(*res)<0))
+		case 4:	if(((int32_t)t0<0 && (int32_t)t1<0 && (int32_t)(*res)>0)
+								||((int32_t)t0>0 && (int32_t)t1>0 && (int32_t)(*res)<0))
 						{	*dest = true;	}/*true==1*/
 						else
 						{	*dest = false; }/*false==0*/
