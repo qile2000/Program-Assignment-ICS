@@ -6,23 +6,23 @@ make_EHelper(mov) {
 }
 
 make_EHelper(push) {
-  if((id_dest->width == 1)){//imm8
-		rtl_sext(&(id_dest->val), &(id_dest->val), id_dest->width);
-	}
+  //if((id_dest->width == 1)){//imm8
+		//rtl_sext(&(id_dest->val), &(id_dest->val), id_dest->width);
+	//}
 	rtl_push(&(id_dest->val));
   print_asm_template1(push);
 }
 
 make_EHelper(pop) {
   rtl_pop(&s0);
-	if(id_dest->width == 1){
-		uint8_t utemp = s0;
-		int8_t temp = utemp;
-		id_dest->val = temp;
-	}
-	else 
-	  	id_dest->val = s0;
-	operand_write(id_dest, &id_dest->val);
+	//if(id_dest->width == 1){
+		//uint8_t utemp = s0;
+		//int8_t temp = utemp;
+		//id_dest->val = temp;
+	//}
+	//else 
+	  	//id_dest->val = s0;
+	operand_write(id_dest, &s0);
   print_asm_template1(pop);
 }
 
