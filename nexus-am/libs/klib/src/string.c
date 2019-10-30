@@ -25,7 +25,7 @@ char *strcpy(char* dst,const char* src) {
 }
 
 char* strncpy(char* dst, const char* src, size_t n) {
-  /*
+  
   char *address = dst;
   assert((dst!=NULL)&&(src!=NULL));
   if ((dst != src) && (0 < n) ){
@@ -35,7 +35,7 @@ char* strncpy(char* dst, const char* src, size_t n) {
   }
   *dst='\0';
   return address;
-  */
+  /*
   size_t size_src = strlen(src);
 	if( n > size_src) return strncpy(dst, src, size_src);
 	else // n <= size_src
@@ -53,24 +53,12 @@ char* strncpy(char* dst, const char* src, size_t n) {
 		head = ch;
 		char *result = dst;
 		while((*(dst++) = *(head++))) ;
-		// printf("strncpy2 %s\n", dst);
 		return result;
 	}
+  */
 }
 
 char* strcat(char* dst, const char* src) {
-  /*
-  size_t i,j;
-  assert((dst!=NULL)&&(src!=NULL));
-  for (i = 0; dst[i] != '\0'; i++){
-    ;
-  }
-  for (j = 0; src[j] != '\0'; j++){
-    dst[i+j] = src[j];
-  }
-  dst[i+j] = '\0';
-  return dst;
-  */
   char *result = dst;
 	while(*dst){
     dst++;
