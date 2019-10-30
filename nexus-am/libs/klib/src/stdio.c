@@ -2,17 +2,17 @@
 #include <stdarg.h>
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
-
+//arg 一个表示可变参数列表的对象。这应被 <stdarg> 中定义的 va_start 宏初始化
 int printf(const char *fmt, ...) {
   va_list args;
   char string[1000];
   va_start(args,fmt);
-  vsprintf(string,fmt,args);
+  int ret = vsprintf(string,fmt,args);
   va_end(args);
   for(int i = 0;i < strlen(string);i ++){
       _putc(string[i]);	  
   }
-  return 0;
+  return ret;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
@@ -23,85 +23,68 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   int i,j,len,num;
   int flag,field_width;
 
-  for(;*fmt; fmt++)
-  {
-      if(*fmt != '%')
-      {
-	  *str++ = *fmt;
-	  continue;
-      }
+  for(;*fmt; fmt++){
+    if(*fmt != '%'){
+	    *str++ = *fmt;
+	    continue;
+    }
 
-      flag = 0;
-      fmt++;
-      while(*fmt == ' ' || *fmt == '0')
-      {
-	if(*fmt == ' ')  flag |= 8;
-	else if(*fmt == '0') flag |= 1;
-	fmt++;
-      }
+    flag = 0;
+    fmt++;
+    while(*fmt == ' ' || *fmt == '0'){
+	    if(*fmt == ' ')  flag |= 8;
+	    else if(*fmt == '0') flag |= 1;
+	    fmt++;
+    }
       
-      field_width = 0;
-      if(*fmt >= '0' && *fmt <= '9')
-      {
-	      while(*fmt >= '0' && *fmt <= '9')
-	      {
-		      field_width = field_width*10 + *fmt -'0';
-		      fmt++;
-	      }
-      }
-      else if(*fmt == '*')
-      {
-	      fmt++;
-	      field_width = va_arg(ap,int);
-      }
-      //base = 10;
+    field_width = 0;
+    if(*fmt >= '0' && *fmt <= '9'){
+	    while(*fmt >= '0' && *fmt <= '9'){
+		    field_width = field_width*10 + *fmt -'0';
+		    fmt++;
+	    }
+    }
+    else if(*fmt == '*'){
+	    fmt++;
+	    field_width = va_arg(ap,int);
+    }
 
-      switch(*fmt)
-      {
-	  case 's':
+    switch(*fmt){
+	    case 's':
 	      tmp = va_arg(ap,char *);
 	      len = strlen(tmp);
-	      for(i = 0;i < len;i ++)
-	      {
-		   *str++ = *tmp++;
+	      for(i = 0;i < len;i ++){
+		      *str++ = *tmp++;
 	      }
 	      continue;
-	  case 'd': break;
-      }
-
-      num = va_arg(ap,int);
-      j = 0;
-      if(num == 0)
-      {
-	  num_s[j++] = '0';
-      }
-      else
-      {
-	  if(num < 0)
-	  {
+	    case 'd': break;
+    }
+    num = va_arg(ap,int);
+    j = 0;
+    if(num == 0){
+	    num_s[j++] = '0';
+    }
+    else{
+	    if(num < 0){
 	      *str++ = '-';
 	      num = -num;
-	  }
+	    }
 	  //j = 0;
-	  while(num)
-	  {
+	    while(num){
 	      num_s[j++] = num%10 + '0';
 	      num /= 10;
-	  }
-      }
-      if(j < field_width)
-      {
-	      num = field_width - j;
-	      c = flag & 1 ? '0' : ' ';
-	      while(num--)
-	      {
-		      *str++ = c;
-	      }
-      }
-      while(j--)
-      {
-	  *str++ = num_s[j];
-      }
+	    }
+    }
+    if(j < field_width){
+	    num = field_width - j;
+	    c = flag & 1 ? '0' : ' ';
+	    while(num--){
+		    *str++ = c;
+	    }
+    }
+    while(j--){
+	    *str++ = num_s[j];
+    }
   }
   *str = '\0';
   return 0;
@@ -109,11 +92,11 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 
 int sprintf(char *out, const char *fmt, ...) {
   va_list args;
-  int  val;
+  int ret;
   va_start(args,fmt);
-  val = vsprintf(out,fmt,args);
+  ret = vsprintf(out,fmt,args);
   va_end(args);
-  return val;
+  return ret;
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
