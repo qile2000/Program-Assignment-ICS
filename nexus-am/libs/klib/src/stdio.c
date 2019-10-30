@@ -15,7 +15,7 @@ va_list 是一个字符指针，可以理解为指向当前参数的一个指针
 //arg 一个表示可变参数列表的对象。这应被 <stdarg> 中定义的 va_start 宏初始化
 
 
-static char * itoa(int num, char *str, int radix, int width, char fill) {
+static char * itoa(int num, char *str, int radix) {
   assert(num >= 0);
   static char ascii[] = "0123456789abcdef";
   int cnt = 0;
@@ -23,9 +23,6 @@ static char * itoa(int num, char *str, int radix, int width, char fill) {
     str[cnt++] = ascii[num % radix];
     num /= radix;
   } while (num != 0);
-  while (cnt < width) {
-    str[cnt++] = fill;
-  }
   str[cnt] = '\0';
   for (int i = 0; i < cnt / 2; ++i) {
     char tmp = str[i];
@@ -47,17 +44,15 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  char *old = out;
+  char *begin = out;
   while (*fmt != '\0') {
     if (*fmt == '%') {
       _Bool exit = 0;
-      char fill = ' ';
-      int width = 0;
       while (!exit) {
         switch (*++fmt) {
           case 'd': {
             int i = va_arg(ap, int);
-            itoa(i, out, 10, width, fill);
+            itoa(i, out, 10);
             while (*out != '\0') {
               ++out;
             }
@@ -83,7 +78,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
     }
   }
   *out = '\0';
-  return out - old;
+  return out - begin;
 }
 
 int sprintf(char *out, const char *fmt, ...) {
