@@ -12,6 +12,7 @@ va_list 是一个字符指针，可以理解为指向当前参数的一个指针
         通常va_start和va_end是成对出现。
 */
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
+
 //arg 一个表示可变参数列表的对象。这应被 <stdarg> 中定义的 va_start 宏初始化
 
 static char * itoa(int num, char *str, int base) {
