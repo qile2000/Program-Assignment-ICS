@@ -43,45 +43,7 @@ static inline void rtl_is_sub_overflow(rtlreg_t* dest,
   
   t0 = *src1;
 	t1 = *src2;
-  if(((int32_t)t0<(int32_t)t1 && (int32_t)(*res)>0)  ||  ((int32_t)t0>(int32_t)t1 && (int32_t)(*res)<0))
-	{	
-    *dest = 1;	
-  }
-	else
-	{	
-    *dest = 0; 
-  }
-  /*
-  t0 = *src1;
-	t1 = *src2;
-	//switch(width){
-	//	case 1:	t0 &= 0xff; t1 &= 0xff; break;
-	//	case 2: t0 &= 0xffff; t1 &=0xffff; break;
-	//	case 4:	break;
-	//	default:	Assert(0, "in isa/rtl.h rtl_is_sub_overflow is wrong\n");
-	//}
-	switch(width){
-		case 1:	if(((int8_t)t0<(int8_t)t1 && (int8_t)(*res)>0)
-								||((int8_t)t0>(int8_t)t1 && (int8_t)(*res)<0))
-						{	*dest = true;	}
-						else
-						{	*dest = false; }
-						break;
-		case 2:	if(((int16_t)t0<(int16_t)t1 && (int16_t)(*res)>0)
-								||((int16_t)t0>(int16_t)t1 && (int16_t)(*res)<0))
-						{	*dest = true;	}
-						else
-						{	*dest = false; }
-						break;
-		case 4:	if(((int32_t)t0<(int32_t)t1 && (int32_t)(*res)>0)
-								||((int32_t)t0>(int32_t)t1 && (int32_t)(*res)<0))
-						{	*dest = true;	}
-						else
-						{	*dest = false; }
-						break;
-		default:	Assert(0, "in isa/rtl.h rtl_is_sub_overflow is wrong\n");
-	}
-  */
+  *dest=(((int32_t)t0<(int32_t)t1 && (int32_t)(*res)>0)  ||  ((int32_t)t0>(int32_t)t1 && (int32_t)(*res)<0));
 }
 
 static inline void rtl_is_sub_carry(rtlreg_t* dest,
@@ -95,33 +57,7 @@ static inline void rtl_is_add_overflow(rtlreg_t* dest,
   // dest <- is_overflow(src1 + src2)
   t0 = *src1;
 	t1 = *src2;
-	//switch(width){
-	//	case 1:	t0 &= 0xff; t1 &= 0xff; break;
-	//	case 2: t0 &= 0xffff; t1 &=0xffff; break;
-	//	case 4:	break;
-	//	default:	Assert(0, "in isa/rtl.h rtl_is_add_overflow is wrong\n");
-	//}
-	switch(width){
-		case 1:	if(((int8_t)t0<0 && (int8_t)t1<0 && (int8_t)(*res)>0)
-								||((int8_t)t0>0 && (int8_t)t1>0 && (int8_t)(*res)<0))
-						{	*dest = true;	}
-						else
-						{	*dest = false; }
-						break;
-		case 2:	if(((int16_t)t0<0 && (int16_t)t1<0 && (int16_t)(*res)>0)
-								||((int16_t)t0>0 && (int16_t)t1>0 && (int16_t)(*res)<0))
-						{	*dest = true;	}
-						else
-						{	*dest = false; }
-						break;
-		case 4:	if(((int32_t)t0<0 && (int32_t)t1<0 && (int32_t)(*res)>0)
-								||((int32_t)t0>0 && (int32_t)t1>0 && (int32_t)(*res)<0))
-						{	*dest = true;	}
-						else
-						{	*dest = false; }
-						break;
-		default:	Assert(0, "in isa/rtl.h rtl_is_add_overflow is wrong\n");
-	}
+  *dest = (((int32_t)t0<0 && (int32_t)t1<0 && (int32_t)(*res)>0)||((int32_t)t0>0 && (int32_t)t1>0 && (int32_t)(*res)<0));
 }
 
 static inline void rtl_is_add_carry(rtlreg_t* dest,
