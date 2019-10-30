@@ -5,8 +5,7 @@
 size_t strlen(const char *s) {
   assert(s != NULL);
   size_t count = 0; 
-  while (*(s++))
-  {  //*s++改的是指针s，与const修饰s不冲突  
+  while (*(s++)){  //*s++改的是指针s，与const修饰s不冲突  
     count++; 
   }
   return count;
