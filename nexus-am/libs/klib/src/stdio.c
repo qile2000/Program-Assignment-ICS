@@ -18,16 +18,16 @@ va_list 是一个字符指针，可以理解为指向当前参数的一个指针
 static char * itoa(int num, char *str, int radix) {
   assert(num >= 0);
   static char ascii[] = "0123456789abcdef";
-  int cnt = 0;
+  int count = 0;
   do {
-    str[cnt++] = ascii[num % radix];
+    str[count++] = ascii[num % radix];
     num /= radix;
   } while (num != 0);
-  str[cnt] = '\0';
-  for (int i = 0; i < cnt / 2; ++i) {
+  str[count] = '\0';
+  for (int i = 0; i < count / 2; ++i) {
     char tmp = str[i];
-    str[i] = str[cnt - i - 1];
-    str[cnt - i - 1] = tmp;
+    str[i] = str[count - i - 1];
+    str[count - i - 1] = tmp;
   }
   return str;
 }
