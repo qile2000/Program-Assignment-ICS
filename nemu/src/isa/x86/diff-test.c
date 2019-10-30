@@ -12,7 +12,7 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   if ( ref_r->edi != cpu.edi){printf("cpu.pc at %x ref.pc %x: ref.edi: %d, cpu.edi: %d\n",cpu.pc,ref_r->pc,ref_r->edi,cpu.edi); return false;}
   //if ( ref_r->eflags.CF != cpu.eflags.CF){printf("cpu.pc at %x ref.pc %x: ref.CF: %d, cpu.CF: %d\n",cpu.pc,ref_r->pc,ref_r->eflags.CF,cpu.eflags.CF);return false;}
   //printf("cpu.pc at %x ref.pc %x:\n",cpu.pc,ref_r->pc);
-  printf("cpu.pc at %x ref.pc %x: ref.OF: %d, cpu.OF: %d\n",cpu.pc,ref_r->pc,ref_r->eflags.OF,cpu.eflags.OF);
+  printf("cpu.pc at %x ref.pc %x: ref.OF: %d, cpu.OF: %d\n",cpu.pc,ref_r->pc,ref_r->eflags.ZF,cpu.eflags.ZF);
   return true;
 }
 
