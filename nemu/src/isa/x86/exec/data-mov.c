@@ -57,11 +57,16 @@ make_EHelper(cltd) {
 
 make_EHelper(cwtl) {
   if (decinfo.isa.is_operand_size_16) {
-    TODO();
-  }
-  else {
-    TODO();
-  }
+    rtlreg_t temp1 = 24;
+    rtlreg_t temp2 = 8;
+    rtlreg_t temp3 = 16;
+		rtl_shl(&reg_l(R_EAX), &reg_l(R_EAX), &temp1);
+		rtl_sar(&reg_l(R_EAX), &reg_l(R_EAX), &temp2);
+	  rtl_shr(&reg_l(R_EAX), &reg_l(R_EAX), &temp3);
+	}
+	else {
+		rtl_sext(&reg_l(R_EAX), &reg_l(R_EAX), 2);
+	} 
 
   print_asm(decinfo.isa.is_operand_size_16 ? "cbtw" : "cwtl");
 }
