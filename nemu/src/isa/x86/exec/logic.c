@@ -87,3 +87,28 @@ make_EHelper(not) {
 
   print_asm_template1(not);
 }
+
+make_EHelper(rol) {
+  s0 = id_src->val;
+  rtlreg_t s2 = 1;
+  rtlreg_t s3,s4,s5;
+  while(s0!=0){
+    rtl_msb(&s1,&id_dest->val,id_dest->width);
+    rtl_shl(&s4,&id_dest->val,&s2);
+	  rtl_add(&s5,&s4,&s1);
+    s0--;
+  }
+  if(id_src->val == 1){
+    if(s1!=cpu.eflags.CF){
+      cpu.eflags.OF = 1;
+    }
+    else{
+      cpu.eflags.OF = 0;
+    }
+  }
+  operand_write(id_dest,&s5);
+  s3=id_dest->val;
+  rtl_update_ZFSF(&s3,id_dest->width);
+  
+  print_asm_template2(shl);
+}

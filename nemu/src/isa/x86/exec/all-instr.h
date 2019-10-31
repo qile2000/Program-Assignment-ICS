@@ -48,3 +48,4 @@ make_EHelper(in);          //system.c
 make_EHelper(out);         //system.c
 make_EHelper(div);          //arith.c
 make_EHelper(xor);         //logic.c
+make_EHelper(rol);          //logic.c
