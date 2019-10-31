@@ -53,6 +53,10 @@ make_EHelper(in) {
   }
   operand_write(id_dest,&s0);
 
+#if defined(DIFF_TEST)
+	difftest_skip_ref();
+#endif
+
   print_asm_template2(in);
 }
 
@@ -66,6 +70,10 @@ make_EHelper(out) {
   else{
     pio_write_b(id_dest->val,id_src->val);
   }
+
+#if defined(DIFF_TEST)
+	difftest_skip_ref();
+#endif
 
   print_asm_template2(out);
 }
