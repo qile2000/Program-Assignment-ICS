@@ -44,3 +44,5 @@ make_EHelper(sbb);           //arith.c
 make_EHelper(call_rm);       //control.c
 make_EHelper(jmp_rm);       //control.c
 make_EHelper(shr);          //logic.c
+make_EHelper(in);          //system.c
+make_EHelper(out);         //system.c
