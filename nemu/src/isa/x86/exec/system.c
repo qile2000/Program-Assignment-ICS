@@ -58,13 +58,13 @@ make_EHelper(in) {
 
 make_EHelper(out) {
   if(id_src->width == 4){
-    s0=pio_write_l(id_dest->val,id_src->val);
+    pio_write_l(id_dest->val,id_src->val);
   }
   else if(id_src->width == 2){
-    s0=pio_write_w(id_dest->val,id_src->val);
+    pio_write_w(id_dest->val,id_src->val);
   }
   else{
-    s0=pio_write_b(id_dest->val,id_src->val);
+    pio_write_b(id_dest->val,id_src->val);
   }
 
   print_asm_template2(out);
