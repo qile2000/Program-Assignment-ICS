@@ -30,3 +30,4 @@ size_t _io_write(uint32_t dev, uintptr_t reg, void *buf, size_t size) {
   }
   return 0;
 }
+
