@@ -69,6 +69,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
             break;
           }
           default: 
+            printf("vsprintf problem\n");
             assert(0);
         }
       }
