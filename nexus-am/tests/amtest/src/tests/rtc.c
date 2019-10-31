@@ -1,9 +1,10 @@
 #include <amtest.h>
 #include <amdev.h>
-
+#include <klib.h>
 void rtc_test() {
   _DEV_TIMER_DATE_t rtc;
   int sec = 1;
+  printf("666");
   while (1) {
     while(uptime() < 1000 * sec) ;
     get_timeofday(&rtc);
