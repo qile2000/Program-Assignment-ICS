@@ -11,7 +11,7 @@ size_t __am_input_read(uintptr_t reg, void *buf, size_t size) {
       int fetch = inl(0x60);
       kbd->keycode = fetch;
       if(fetch){
-	      kbd->keydown=0;
+	      kbd->keydown=1-kbd->keydown;
       }
       return sizeof(_DEV_INPUT_KBD_t);
     }
