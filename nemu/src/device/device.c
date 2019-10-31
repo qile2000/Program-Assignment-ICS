@@ -8,7 +8,15 @@
 
 #define TIMER_HZ 100
 #define VGA_HZ 50
-
+/*
+含有和SDL库相关的代码. init_device()函数首先对四个设备进行初始化, 
+其中在初始化VGA时还会进行一些和SDL相关的初始化工作, 包括创建窗口, 设置显示模式等. 
+最后还会注册一个100Hz的定时器, 每隔0.01秒就会调用一次device_update()函数. 
+device_update()函数主要检测是否有按键按下/释放, 以及是否点击了窗口的X按钮. 
+需要说明的是, 代码中注册的定时器是虚拟定时器, 它只会在NEMU处于用户态的时候进行计时: 
+如果NEMU在ui_mainloop()中等待用户输入, 定时器将不会计时; 如果NEMU进行大量的输出, 定时器的计时将会变得缓慢. 
+因此除非你在进行调试, 否则尽量避免大量输出的情况
+*/
 static struct itimerval it = {};
 static int device_update_flag = false;
 

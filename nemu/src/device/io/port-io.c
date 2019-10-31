@@ -6,7 +6,9 @@
 #define NR_MAP 8
 static IOMap maps[NR_MAP] = {};
 static int nr_map = 0;
-
+//是对端口映射I/O的模拟. add_pio_map()函数用于为设备的初始化注册一个端口映射I/O的映射关系. 
+//pio_read_[l|w|b]()和pio_write_[l|w|b]()是面向CPU的端口I/O读写接口, 
+//它们最终会调用map_read()和map_write(), 对通过add_pio_map()注册的I/O空间进行访问.
 /* device interface */
 void add_pio_map(char *name, ioaddr_t addr, uint8_t *space, int len, io_callback_t callback) {
   assert(nr_map < NR_MAP);

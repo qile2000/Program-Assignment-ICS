@@ -3,7 +3,7 @@
 #include "nemu.h"
 
 #define IO_SPACE_MAX (1024 * 1024)
-
+//实现了映射的管理, 包括I/O空间的分配及其映射, 还有映射的访问接口
 static uint8_t io_space[IO_SPACE_MAX] PG_ALIGN = {};
 static uint8_t *p_space = io_space;
 
@@ -26,6 +26,10 @@ static inline void invoke_callback(io_callback_t c, uint32_t offset, int len, bo
   if (c != NULL) { c(offset, len, is_write); }
 }
 
+//map_read()和map_write()用于将地址addr映射到map所指示的目标空间, 并进行访问. 
+//访问时, 可能会触发相应的回调函数, 对设备和目标空间的状态进行更新
+//由于NEMU是单线程程序, 因此只能串行模拟整个计算机系统的工作, 
+//每次进行I/O读写的时候, 才会调用设备提供的回调函数(callback).
 uint32_t map_read(paddr_t addr, int len, IOMap *map) {
   assert(len >= 1 && len <= 4);
   check_bound(map, addr);
