@@ -15,12 +15,16 @@ va_list 是一个字符指针，可以理解为指向当前参数的一个指针
 
 //arg 一个表示可变参数列表的对象。这应被 <stdarg> 中定义的 va_start 宏初始化
 
-static char * itoa(int num, char *str, int base) {
+static char * itoa(int num, char *str, int base,int width, char fill) {
   assert(num >= 0);
   int count = 0;
   while (num != 0){
     str[count] = (char)(num%base+'0');
     num /= base;
+    count++;
+  }
+  while (count < width) {
+    str[count] = fill;
     count++;
   }
   str[count] = '\0';
@@ -49,11 +53,13 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
   while (*fmt != '\0') {
     if (*fmt == '%') {
       _Bool exit = 0;
+      char fill = ' ';
+      int width = 0;
       while (!exit) {
         switch (*++fmt) {
           case 'd': {
             int i = va_arg(ap, int);
-            itoa(i, out, 10);
+            itoa(i, out, 10,width,fill);
             while (*out != '\0') {
               ++out;
             }
@@ -69,8 +75,13 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
             break;
           }
           default: 
-            printf("vsprintf problem\n");
-            assert(0);
+            if ((*(fmt + 1) == 'd')) {
+              width = *fmt - '0';
+              assert(0 <= width && width <= 9);
+            }
+            else {
+              fill = *fmt;
+            }
         }
       }
       ++fmt;
