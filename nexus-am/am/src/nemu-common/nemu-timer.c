@@ -1,7 +1,7 @@
 #include <am.h>
 #include <amdev.h>
 #include <nemu.h>
-
+#include <klib.h>
 uint32_t init;
 
 size_t __am_timer_read(uintptr_t reg, void *buf, size_t size) {
@@ -9,7 +9,8 @@ size_t __am_timer_read(uintptr_t reg, void *buf, size_t size) {
     case _DEVREG_TIMER_UPTIME: {
       _DEV_TIMER_UPTIME_t *uptime = (_DEV_TIMER_UPTIME_t *)buf;
       uptime->hi = 0;
-      uptime->lo = inl(RTC_ADDR)-init;
+      uptime->lo = inl(0x48)-init;
+      printf("%d",uptime->lo);
       return sizeof(_DEV_TIMER_UPTIME_t);
     }
     case _DEVREG_TIMER_DATE: {
@@ -27,5 +28,5 @@ size_t __am_timer_read(uintptr_t reg, void *buf, size_t size) {
 }
 
 void __am_timer_init() {
-  init= inl(RTC_ADDR);
+  init= inl(0x48);
 }
