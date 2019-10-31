@@ -3,7 +3,6 @@
 #include <nemu.h>
 
 #define KEYDOWN_MASK 0x8000
-
 //keydown = 1为按下按键, keydown = 0为释放按键. 
 //keycode为按键的断码, 没有按键时, keycode为_KEY_NONE.
 size_t __am_input_read(uintptr_t reg, void *buf, size_t size) {
