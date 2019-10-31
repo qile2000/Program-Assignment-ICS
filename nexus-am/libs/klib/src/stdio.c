@@ -77,7 +77,6 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
           default: 
             if ((*(fmt + 1) == 'd')) {
               width = *fmt - '0';
-              assert(0 <= width && width <= 9);
             }
             else {
               fill = *fmt;
