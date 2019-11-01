@@ -29,7 +29,7 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
         }
       }
       */
-     int i;
+      int i;
       int size = screen_width() * screen_height();
       for (i = 0; i < size; i ++) fb[i] = i;
       if (ctl->sync) {
