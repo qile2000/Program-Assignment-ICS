@@ -31,7 +31,7 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
 			  memcpy(fb+(ctl->y+i)*screen_width()+ctl->x,ctl->pixels+i*ctl->w,ctl->w*4);
 			}
       if (ctl->sync) {
-        outl(SYNC_ADDR, 0);
+        //outl(SYNC_ADDR, 0);
       }
       return size;
       
