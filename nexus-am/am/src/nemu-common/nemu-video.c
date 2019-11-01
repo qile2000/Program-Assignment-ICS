@@ -9,9 +9,9 @@ size_t __am_video_read(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
     case _DEVREG_VIDEO_INFO: {
       _DEV_VIDEO_INFO_t *info = (_DEV_VIDEO_INFO_t *)buf;
-      
-      info->width = inl(0x100) >> 16;
-      info->height = inl(0x100)<<16>>16;
+      uint32_t kk= inl(0x100);
+      info->width = kk >> 16;
+      info->height = kk <<16>>16;
       return sizeof(_DEV_VIDEO_INFO_t);
     }
   }
@@ -26,13 +26,7 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
       int i;
       int size = screen_width() * screen_height();
       for (i = 0; i < size; i ++) fb[i] = i;
-      
-     /*
-      int i;
-			for(i = 0;i < ctl->h;i ++){
-			  memcpy(fb+(ctl->y+i)*screen_width()+ctl->x,ctl->pixels+i*ctl->w,ctl->w*4);
-			}
-      */
+
       if (ctl->sync) {
         outl(SYNC_ADDR, 0);
       }
