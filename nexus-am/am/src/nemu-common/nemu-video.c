@@ -21,13 +21,17 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
     case _DEVREG_VIDEO_FBCTL: {
       _DEV_VIDEO_FBCTL_t *ctl = (_DEV_VIDEO_FBCTL_t *)buf;
-      
+      /*
       int i;
       int size = screen_width() * screen_height();
       for (i = 0; i < size; i ++) fb[i] = i;
-      
+      */
+      int i;
+			for(i = 0;i < ctl->h;i ++){
+			  memcpy(fb+(ctl->y+i)*screen_width()+ctl->x,ctl->pixels+i*ctl->w,ctl->w*4);
+			}
       if (ctl->sync) {
-        //outl(SYNC_ADDR, 0);
+        outl(SYNC_ADDR, 0);
       }
       return size;
       
