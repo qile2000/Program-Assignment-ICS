@@ -40,7 +40,7 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
         for (c = ctl->x; c < ctl->x + ctl->w; c++) 
           fb[c+r*screen_width()] = ctl->pixels[(r-ctl->y)*ctl->w+(c-ctl->x)];
       if (ctl->sync) {
-        //outl(SYNC_ADDR, 0);
+        outl(SYNC_ADDR, 0);
       }
       return size;
     }
