@@ -26,12 +26,11 @@ size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
     case _DEVREG_VIDEO_FBCTL: {
       _DEV_VIDEO_FBCTL_t *ctl = (_DEV_VIDEO_FBCTL_t *)buf;
-      int x = ctl->x, y = ctl->y, w = ctl->w, h = ctl->h;
-      uint32_t *pixels = ctl->pixels;
-      int cp_bytes = sizeof(uint32_t) * min(w, W - x);
-      for (int j = 0; j < h && y + j < H; j ++) {
-        memcpy(&fb[(y + j) * W + x], pixels, cp_bytes);
-        pixels += w;
+      int k = 0, w = screen_width();
+      for (int j = ctl->y, ej = j + ctl->h; j != ej; ++j) {
+        for (int i = ctl->x, ei = i + ctl->w; i != ei; ++i) {
+          fb[j * w + i] = ctl->pixels[k++];
+        }
       }
       if (ctl->sync) {
         outl(SYNC_ADDR, 0);
