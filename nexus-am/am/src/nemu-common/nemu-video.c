@@ -9,6 +9,7 @@ static inline int min(int x, int y) {
   return (x < y) ? x : y;
 }
 
+uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
 size_t __am_video_read(uintptr_t reg, void *buf, size_t size) {
   switch (reg) {
     case _DEVREG_VIDEO_INFO: {
@@ -22,7 +23,6 @@ size_t __am_video_read(uintptr_t reg, void *buf, size_t size) {
 }
 
 size_t __am_video_write(uintptr_t reg, void *buf, size_t size) {
-  uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
   switch (reg) {
     case _DEVREG_VIDEO_FBCTL: {
       _DEV_VIDEO_FBCTL_t *ctl = (_DEV_VIDEO_FBCTL_t *)buf;
