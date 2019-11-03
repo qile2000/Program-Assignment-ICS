@@ -46,6 +46,7 @@ make_EHelper(or) {
 }
 
 make_EHelper(sar) {
+  printf("bug in sar: %x\n", id_dest->val);
   rtl_sar(&s0, &id_dest->val, &id_src->val);
   operand_write(id_dest, &s0);
   rtl_update_ZFSF(&s0,id_dest->width);
