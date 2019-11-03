@@ -84,26 +84,9 @@ make_EHelper(neg) {
   else{
     cpu.eflags.CF = 1;
   }
-  /*
-  rtl_mv(&s0, &id_dest->val);
-	s0= -s0;
-  operand_write(id_dest,&s0);
-  rtl_update_ZFSF(&s1, id_dest->width);
-  rtl_xor(&s0, &id_dest->val, &id_src->val);
-  rtl_xor(&t1, &id_dest->val, &s1);
-  rtl_and(&s0, &s0, &t1);
-  rtl_msb(&s0, &s0, id_dest->width);
-  rtl_set_OF(&s0);
-  */
 	rtl_li(&s0, 0);
 	rtl_sub(&s1, &s0, &(id_dest->val));
-  /*
-	if(id_dest->type==OP_TYPE_REG){
-		rtl_sr(id_dest->reg, &s1, id_dest->width);
-	}
-  */
   operand_write(id_dest,&s1);
-	//modify EFLAGS
 	rtl_update_ZFSF(&s1, id_dest->width);
 	rtl_is_sub_overflow(&s1, &s1, &s0, &(id_dest->val), id_dest->width);
 	rtl_set_OF(&s1);
