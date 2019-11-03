@@ -48,6 +48,7 @@ make_EHelper(or) {
 make_EHelper(sar) {
   if (cpu.pc==0x101a29||cpu.pc==0x101a2c)
   printf("bug in sar: %x\n", id_dest->val);
+  rtl_sext(&id_dest->val, &id_dest->val, id_dest->width);
   rtl_sar(&s0, &id_dest->val, &id_src->val);
   operand_write(id_dest, &s0);
   rtl_update_ZFSF(&s0,id_dest->width);
