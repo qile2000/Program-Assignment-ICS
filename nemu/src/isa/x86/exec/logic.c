@@ -46,6 +46,7 @@ make_EHelper(or) {
 }
 
 make_EHelper(sar) {
+  if (decinfo.seq_pc==0x101a2c||decinfo.seq_pc==0x101a29)
   printf("bug in sar: %x\n", id_dest->val);
   rtl_sar(&s0, &id_dest->val, &id_src->val);
   operand_write(id_dest, &s0);
