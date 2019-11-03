@@ -5,7 +5,7 @@
 #include <assert.h>
 #include "monitor/log.h"
 
-//volatile static int dummy;
+volatile static int dummy;
 /*printf的升级版，专门用来输出调试信息，同时还会输出使用Log（）所在的源文件，行号和函数*/
 #define Log(format, ...) \
     _Log("\33[1;34m[%s,%d,%s] " format "\33[0m\n", \
