@@ -35,7 +35,26 @@ static char * itoa(int num, char *str, int base,int width, char fill) {
   }
   return str;
 }
-
+static char * utoa(unsigned num, char *str, int base, int width, char fill) {
+  int count = 0;
+  while (num != 0){
+    str[count++] = (char)(num%base+'0');
+    num /= base;
+    count++;
+  } 
+  
+  while (count < width) {
+    str[count] = fill;
+    count++;
+  }
+  str[count] = '\0';
+  for (int i = 0; i < count / 2; ++i) {
+    char tmp = str[i];
+    str[i] = str[count - i - 1];
+    str[count - i - 1] = tmp;
+  }
+  return str;
+}
 int printf(const char *fmt, ...) {
   va_list args;
   char string[1000];
@@ -70,6 +89,17 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
             char *s = va_arg(ap, char *);
             while (*s != '\0') {
               *out++ = *s++;
+            }
+            exit = 1;
+            break;
+          }
+          case 'p': {
+            unsigned i = va_arg(ap, unsigned);
+            *out++ = '0';
+            *out++ = 'x';
+            utoa(i, out, 16, width, fill);
+            while (*out != '\0') {
+              ++out;
             }
             exit = 1;
             break;
