@@ -17,6 +17,8 @@ const long isa_default_img_size = sizeof(isa_default_img);
 static void restart() {
   /* Set the initial program counter. 可以让cpu从我们约定的内存位置开始执行客户程序*/
   cpu.pc = PC_START;
+  cpu.cs = 0x8;
+  cpu.eflags.efl_val = 0x2;
 }
 
 void init_isa(void) {

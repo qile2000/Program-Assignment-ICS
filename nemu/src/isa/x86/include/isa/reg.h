@@ -55,6 +55,7 @@ typedef struct {
       uint32_t VM       : 1;
       uint32_t NULL_5   : 14;
     };
+    uint32_t efl_val;
   } eflags;
   uint32_t cs;
   struct {
