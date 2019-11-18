@@ -1,6 +1,8 @@
 #include "proc.h"
 #include <elf.h>
 
+#define DEFAULT_ENTRY 0x8048000
+
 #ifdef __ISA_AM_NATIVE__
 # define Elf_Ehdr Elf64_Ehdr
 # define Elf_Phdr Elf64_Phdr
@@ -9,9 +11,12 @@
 # define Elf_Phdr Elf32_Phdr
 #endif
 
+extern size_t ramdisk_read(void* buf, size_t offset, size_t len);
+extern size_t get_ramdisk_size();
+
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  TODO();
-  return 0;
+  ramdisk_read((void*)DEFAULT_ENTRY,0,get_ramdisk_size());
+  return (uintptr_t)DEFAULT_ENTRY;
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
