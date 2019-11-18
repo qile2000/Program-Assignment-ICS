@@ -24,10 +24,10 @@ make_EHelper(mov_r2cr) {
 
 make_EHelper(mov_cr2r) {
   //TODO();
-  switch (id_src->reg) {
-    case 0:operand_write(id_dest, &cpu.cr0);break;
-    case 3:operand_write(id_dest, &cpu.cr3);break;
-    default: assert(0);
+  switch(id_src->reg){
+	  case 0: s0=cpu.cr0.val; rtl_sr(id_dest->reg,&s0,4); break;
+	  case 3: s0=cpu.cr3.val; rtl_sr(id_dest->reg,&s0,4); break;
+	  default: assert(0);
   }
   print_asm("movl %%cr%d,%%%s", id_src->reg, reg_name(id_dest->reg, 4));
 
