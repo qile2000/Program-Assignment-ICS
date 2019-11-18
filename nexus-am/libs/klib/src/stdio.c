@@ -35,23 +35,20 @@ static char * itoa(int num, char *str, int base,int width, char fill) {
   }
   return str;
 }
-static char * utoa(unsigned num, char *str, int base, int width, char fill) {
-  int count = 0;
-  while (num != 0){
-    str[count++] = (char)(num%base+'0');
-    num /= base;
-    count++;
-  } 
-  
-  while (count < width) {
-    str[count] = fill;
-    count++;
+static char * utoa(unsigned num, char *str, int radix, int width, char fill) {
+  int cnt = 0;
+  do {
+    str[cnt++] = (char)(num%radix+'0');
+    num /= radix;
+  } while (num != 0);
+  while (cnt < width) {
+    str[cnt++] = fill;
   }
-  str[count] = '\0';
-  for (int i = 0; i < count / 2; ++i) {
+  str[cnt] = '\0';
+  for (int i = 0; i < cnt / 2; ++i) {
     char tmp = str[i];
-    str[i] = str[count - i - 1];
-    str[count - i - 1] = tmp;
+    str[i] = str[cnt - i - 1];
+    str[cnt - i - 1] = tmp;
   }
   return str;
 }
@@ -111,6 +108,9 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
             else {
               fill = *fmt;
             }
+        }
+        if (exit) {
+          break;
         }
       }
       ++fmt;
