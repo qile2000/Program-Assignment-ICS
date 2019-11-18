@@ -1,11 +1,13 @@
 #include "cpu/exec.h"
 
 make_EHelper(lidt) {
-  cpu.idtr.limit = vaddr_read(id_dest->addr, 2);
+  
   if (decinfo.isa.is_operand_size_16) {
+    cpu.idtr.limit = vaddr_read(id_dest->addr, 2);
     cpu.idtr.base = vaddr_read(id_dest->addr + 2, 3);
   }
   else {
+    cpu.idtr.limit = vaddr_read(id_dest->addr, 2);
     cpu.idtr.base = vaddr_read(id_dest->addr + 2, 4);
   }
 
