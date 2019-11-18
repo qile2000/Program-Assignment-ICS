@@ -27,16 +27,23 @@ make_EHelper(mov_cr2r) {
 }
 
 make_EHelper(int) {
+  /*
+  raise_intr(id_dest->val, decinfo.seq_pc);
+  */
   TODO();
-
   print_asm("int %s", id_dest->str);
 
   difftest_skip_dut(1, 2);
 }
 
 make_EHelper(iret) {
+  /*
+  rtl_pop(&decinfo.jmp_pc);
+  rtl_pop(&cpu.cs);
+  rtl_pop(&cpu.eflags.eflags);
+  rtl_j(decinfo.jmp_pc);
+*/
   TODO();
-
   print_asm("iret");
 }
 
