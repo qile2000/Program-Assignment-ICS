@@ -1,4 +1,5 @@
 #include "cpu/exec.h"
+extern void raise_intr(uint8_t NO, vaddr_t ret_addr);
 
 make_EHelper(lidt) {
   cpu.idtr.limit = vaddr_read(id_dest->addr, 2);
