@@ -14,7 +14,7 @@ va_list 是一个字符指针，可以理解为指向当前参数的一个指针
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
 //arg 一个表示可变参数列表的对象。这应被 <stdarg> 中定义的 va_start 宏初始化
-static char ascii[] = "0123456789abcdef";
+static char tran_char[] = "0123456789abcdef";
 static char * itoa(int num, char *str, int base,int width, char fill) {
   assert(num >= 0);
   int count = 0;
@@ -35,20 +35,22 @@ static char * itoa(int num, char *str, int base,int width, char fill) {
   }
   return str;
 }
-static char * utoa(unsigned num, char *str, int radix, int width, char fill) {
-  int cnt = 0;
-  do {
-    str[cnt++] = ascii[num % radix];
-    num /= radix;
-  } while (num != 0);
-  while (cnt < width) {
-    str[cnt++] = fill;
+static char * utoa(unsigned num, char *str, int base, int width, char fill) {
+  int count = 0;
+  while (num != 0){
+    str[count] = tran_char[num % base];
+    num /= base;
+    count++;
+  } 
+  while (count < width) {
+    str[count] = fill;
+    count++;
   }
-  str[cnt] = '\0';
-  for (int i = 0; i < cnt / 2; ++i) {
+  str[count] = '\0';
+  for (int i = 0; i < count / 2; ++i) {
     char tmp = str[i];
-    str[i] = str[cnt - i - 1];
-    str[cnt - i - 1] = tmp;
+    str[i] = str[count - i - 1];
+    str[count - i - 1] = tmp;
   }
   return str;
 }
