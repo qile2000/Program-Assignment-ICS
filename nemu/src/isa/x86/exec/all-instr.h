@@ -53,3 +53,4 @@ make_EHelper(cwtl);        //data-move.c
 make_EHelper(lidt);        //system.c
 make_EHelper(mov_r2cr);    //system.c
 make_EHelper(mov_cr2r);    //system.c
+make_EHelper(int);          //system.c
