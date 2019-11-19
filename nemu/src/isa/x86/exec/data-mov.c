@@ -17,15 +17,15 @@ make_EHelper(pop) {
 }
 
 make_EHelper(pusha) {
-  uint32_t temp = cpu.sp;
-  rtl_push(&cpu.ax);
-  rtl_push(&cpu.cx);
-  rtl_push(&cpu.dx);
-  rtl_push(&cpu.bx);
+  uint32_t temp = cpu.esp;
+  rtl_push(&cpu.eax);
+  rtl_push(&cpu.ecx);
+  rtl_push(&cpu.edx);
+  rtl_push(&cpu.ebx);
   rtl_push(&temp);
-  rtl_push(&cpu.bp);
-  rtl_push(&cpu.si);
-  rtl_push(&cpu.di);
+  rtl_push(&cpu.ebp);
+  rtl_push(&cpu.esi);
+  rtl_push(&cpu.edi);
   print_asm("pusha");
 }
 
