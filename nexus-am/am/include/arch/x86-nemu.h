@@ -8,6 +8,7 @@ struct _Context {
   int irq;
   */
   uintptr_t edi, esi, ebp, esp, ebx, edx, ecx, eax;
+  struct _AddressSpace *as;
   int       irq;
   uintptr_t err, eip, cs, eflags;
 };
