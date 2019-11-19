@@ -84,6 +84,15 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
             exit = 1;
             break;
           }
+          case 'x': {
+            int i = va_arg(ap, int);
+            itoa(i, out, 16, width, fill);
+            while (*out != '\0') {
+              ++out;
+            }
+            exit = 1;
+            break;
+          }
           case 's': {
             char *s = va_arg(ap, char *);
             while (*s != '\0') {
