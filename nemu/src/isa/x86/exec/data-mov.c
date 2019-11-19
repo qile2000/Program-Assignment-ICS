@@ -30,8 +30,15 @@ make_EHelper(pusha) {
 }
 
 make_EHelper(popa) {
-  TODO();
-
+  rtl_pop(&cpu.edi);
+  rtl_pop(&cpu.esi);
+  rtl_pop(&cpu.ebp);
+  uint32_t throwaway=0;
+  rtl_pop(&throwaway);
+  rtl_pop(&cpu.ebx);
+  rtl_pop(&cpu.edx);
+  rtl_pop(&cpu.ecx);
+  rtl_pop(&cpu.eax);
   print_asm("popa");
 }
 

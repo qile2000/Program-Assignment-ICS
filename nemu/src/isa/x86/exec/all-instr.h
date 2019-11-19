@@ -55,3 +55,4 @@ make_EHelper(mov_r2cr);    //system.c
 make_EHelper(mov_cr2r);    //system.c
 make_EHelper(int);          //system.c
 make_EHelper(pusha);       //data-mov.c
+make_EHelper(popa);       //data-mov.c
