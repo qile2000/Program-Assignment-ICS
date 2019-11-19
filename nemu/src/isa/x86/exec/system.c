@@ -45,13 +45,11 @@ make_EHelper(int) {
 }
 
 make_EHelper(iret) {
-  /*
+  
   rtl_pop(&decinfo.jmp_pc);
   rtl_pop(&cpu.cs);
-  rtl_pop(&cpu.eflags.eflags);
+  rtl_pop(&cpu.eflags.efl_val);
   rtl_j(decinfo.jmp_pc);
-*/
-  TODO();
   print_asm("iret");
 }
 
