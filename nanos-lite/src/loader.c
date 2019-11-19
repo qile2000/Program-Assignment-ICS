@@ -1,7 +1,7 @@
 #include "proc.h"
 #include <elf.h>
 
-#define DEFAULT_ENTRY 0x8048000
+
 
 #ifdef __ISA_AM_NATIVE__
 # define Elf_Ehdr Elf64_Ehdr
@@ -20,9 +20,9 @@ extern size_t fs_filesz(int fd);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   
-  //ramdisk_read((void*)DEFAULT_ENTRY,0,get_ramdisk_size());
-  //return (uintptr_t)DEFAULT_ENTRY;
-  return 0;
+  ramdisk_read((void*)0x3000000,0,get_ramdisk_size());
+  return (uintptr_t)0x3000000;
+  //return 0;
   /*
  int fd =fs_open(filename,0,0);
   size_t len = fs_filesz(fd);
