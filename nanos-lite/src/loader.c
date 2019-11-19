@@ -20,8 +20,9 @@ extern size_t fs_filesz(int fd);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   
-  ramdisk_read((void*)DEFAULT_ENTRY,0,get_ramdisk_size());
-  return (uintptr_t)DEFAULT_ENTRY;
+  //ramdisk_read((void*)DEFAULT_ENTRY,0,get_ramdisk_size());
+  //return (uintptr_t)DEFAULT_ENTRY;
+  return 0;
   /*
  int fd =fs_open(filename,0,0);
   size_t len = fs_filesz(fd);
