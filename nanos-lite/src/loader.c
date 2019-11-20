@@ -21,6 +21,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   ramdisk_read(&elf_header,0,sizeof(Elf_Ehdr));
 /* Program header table entry count */
   Elf_Phdr pro_seg_header[elf_header.e_phnum];
+  ramdisk_read(&pro_seg_header,elf_header.e_ehsize,elf_header.e_phnum*sizeof(Elf_Phdr));
   for(int i=0;i<elf_header.e_phnum;i++){
     if(pro_seg_header[i].p_type==PT_LOAD){
       ramdisk_read((void*)pro_seg_header[i].p_vaddr,pro_seg_header[i].p_offset,pro_seg_header[i].p_memsz);
