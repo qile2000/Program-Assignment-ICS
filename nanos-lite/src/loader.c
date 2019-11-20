@@ -16,11 +16,9 @@ extern size_t get_ramdisk_size();
 extern size_t ramdisk_write(const void* buf, size_t offset, size_t len);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
-  //uint32_t clear = 0;
-  ramdisk_read((void*)0x00100000,0x001000,0x09ae0);
-  //isa_paddr_write((0x00100000+0x09ae0),clear,(0x00100000+0x09ae0));
+  ramdisk_read((void*)0x00100000,0x001000,0x09afc);
   ramdisk_read((void*)0x0010a000,0x00b000,0x29828);
-  //isa_paddr_write((0x0010a000+0x00000),clear,(0x0010a000+0x29828));
+  memset((void*)(0x0010a000+0x00000),0,(0x29828-0x00000));
   return (uintptr_t)0x3000000;
 }
 
