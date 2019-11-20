@@ -16,10 +16,25 @@ extern size_t get_ramdisk_size();
 extern size_t ramdisk_write(const void* buf, size_t offset, size_t len);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
+  Elf_Ehdr elf_header;
+
+  ramdisk_read(&elf_header.e_entry,0,get_ramdisk_size());
+/* Program header table entry count */
+  Elf_Phdr pro_seg_header[elf_header.e_phnum];
+  for(int i=0;i<elf_header.e_phnum;i++){
+    if(pro_seg_header[i].p_type==PT_LOAD){
+      ramdisk_read(&pro_seg_header[i].p_vaddr,pro_seg_header[i].p_offset,pro_seg_header[i].p_memsz);
+      memset((void*)(pro_seg_header[i].p_vaddr+pro_seg_header[i].p_filesz),0,(pro_seg_header[i].p_memsz-pro_seg_header[i].p_filesz));
+    }
+  }
+  return elf_header.e_entry;
+
+  /*
   ramdisk_read((void*)0x00100000,0x001000,0x09afc);
   ramdisk_read((void*)0x0010a000,0x00b000,0x29828);
   memset((void*)(0x0010a000+0x00000),0,(0x29828-0x00000));
   return (uintptr_t)0x3000000;
+  */
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
