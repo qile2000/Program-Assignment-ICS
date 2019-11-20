@@ -17,7 +17,6 @@ extern size_t ramdisk_write(const void* buf, size_t offset, size_t len);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Ehdr elf_header;
-  //elf_header.e_entry=0x3000000;
   ramdisk_read(&elf_header,0,sizeof(Elf_Ehdr));
 /* Program header table entry count */
   Elf_Phdr pro_seg_header[elf_header.e_phnum];
