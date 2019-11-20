@@ -23,7 +23,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Phdr pro_seg_header[elf_header.e_phnum];
   for(int i=0;i<elf_header.e_phnum;i++){
     if(pro_seg_header[i].p_type==PT_LOAD){
-      ramdisk_read(&pro_seg_header[i].p_vaddr,pro_seg_header[i].p_offset,pro_seg_header[i].p_memsz);
+      ramdisk_read((void*)pro_seg_header[i].p_vaddr,pro_seg_header[i].p_offset,pro_seg_header[i].p_memsz);
       memset((void*)(pro_seg_header[i].p_vaddr+pro_seg_header[i].p_filesz),0,(pro_seg_header[i].p_memsz-pro_seg_header[i].p_filesz));
     }
   }
