@@ -2,7 +2,7 @@
 #include "syscall.h"
 
 int sys_write(int fd,const void *buf,size_t len);
-
+int sys_brk(_Context *c);
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
