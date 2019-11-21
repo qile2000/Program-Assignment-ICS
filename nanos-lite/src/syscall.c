@@ -13,7 +13,7 @@ _Context* do_syscall(_Context *c) {
     case SYS_yield: _yield(); c->GPRx=0; break;
     case SYS_exit: _halt(a[1]); break;
     case SYS_brk: c->GPRx=sys_brk(c); break;
-    case SYS_write: c->GPRx=sys_write((int)a[1],(const void*)a[2],(size_t)a[3]);/*Log("SYS_WRITE");*/break;
+    case SYS_write: c->GPRx=sys_write((int)a[1],(const void*)a[2],(size_t)a[3]);Log("SYS_WRITE");break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
