@@ -20,7 +20,9 @@ extern int fs_close(int fd);
 extern size_t get_file_size(int fd);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
+  printf("begin\n");
   int fd =fs_open(filename,0,0);
+  printf("end\n");
   size_t flsz = get_file_size(fd);
   fs_read(fd, (void*)0x3000000, flsz); 
   fs_close(fd);
