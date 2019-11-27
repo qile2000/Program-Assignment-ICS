@@ -25,10 +25,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   
   size_t flsz = get_file_size(fd);
   //printf("begin\n");
-  fs_read(fd, (void*)0x3000000, flsz); 
+  fs_read(fd, ((void*)0x3000000), flsz); 
   //printf("end\n");
   fs_close(fd);
-  return (uintptr_t)(void*)0x3000000;
+  return (uintptr_t)((void*)0x3000000);
   /*
   Elf_Ehdr elf_header;
   ramdisk_read(&elf_header,0,sizeof(Elf_Ehdr));
