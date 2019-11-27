@@ -23,6 +23,7 @@ void hello_fun(void *arg) {
 void init_proc() {
   switch_boot_pcb();
   naive_uload(NULL, "/bin/hello");
+  printf("666\n");
   Log("Initializing processes...");
 
   // load program here

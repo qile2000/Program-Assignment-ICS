@@ -24,9 +24,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   int fd =fs_open(filename,0,0);
   
   size_t flsz = get_file_size(fd);
-  printf("begin\n");
+  //printf("begin\n");
   fs_read(fd, (void*)0x3000000, flsz); 
-  printf("end\n");
+  //printf("end\n");
   fs_close(fd);
   return (uintptr_t)(void*)0x3000000;
   /*
