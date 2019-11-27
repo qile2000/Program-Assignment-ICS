@@ -7,9 +7,9 @@ typedef struct {
   char *name;
   size_t size;
   size_t disk_offset;
-  size_t open_offset;
   ReadFn read;
   WriteFn write;
+  size_t open_offset;
 } Finfo;
 
 enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB};
@@ -33,6 +33,36 @@ static Finfo file_table[] __attribute__((used)) = {
 };
 
 #define NR_FILES (sizeof(file_table) / sizeof(file_table[0]))
+
+size_t get_file_size(int fd){
+	return file_table[fd].size;
+}
+
+int fs_open(const char *pathname, int flags, int mode) {
+	int i;
+	for (i = 0; i < NR_FILES; i++) {
+		if (strcmp(file_table[i].name, pathname) == 0) {
+      file_table[i].open_offset = 0;
+			return i;
+		}
+	}
+	assert(0);
+	return -1;
+}
+
+size_t fs_read(int fd, void *buf, size_t len){
+  size_t flsz = get_file_size(fd);
+  if(flsz-file_table[fd].open_offset<len){
+    len = flsz - file_table[fd].open_offset;
+  }
+  ramdisk_read(buf, file_table[fd].disk_offset+file_table[fd].open_offset, len);
+  file_table[fd].open_offset=file_table[fd].open_offset+len;
+  return len;
+}
+
+int fs_close(int fd){
+  return 0;
+}
 
 void init_fs() {
   // TODO: initialize the size of /dev/fb

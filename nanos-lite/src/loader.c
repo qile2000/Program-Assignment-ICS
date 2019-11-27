@@ -14,11 +14,20 @@
 extern size_t ramdisk_read(void* buf, size_t offset, size_t len);
 extern size_t get_ramdisk_size();
 extern size_t ramdisk_write(const void* buf, size_t offset, size_t len);
+extern int fs_open(const char *pathname, int flags, int mode);
+extern size_t fs_read(int fd, void *buf, size_t len);
+extern int fs_close(int fd);
+extern size_t get_file_size(int fd);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
+  int fd =fs_open(filename,0,0);
+  size_t flsz = get_file_size(fd);
+  fs_read(fd, (void*)0x3000000, flsz); 
+  fs_close(fd);
+  return (uintptr_t)(void*)0x3000000;
+  /*
   Elf_Ehdr elf_header;
   ramdisk_read(&elf_header,0,sizeof(Elf_Ehdr));
-/* Program header table entry count */
   Elf_Phdr pro_seg_header[elf_header.e_phnum];
   ramdisk_read(&pro_seg_header,elf_header.e_ehsize,elf_header.e_phnum*sizeof(Elf_Phdr));
   for(int i=0;i<elf_header.e_phnum;i++){
@@ -28,7 +37,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     }
   }
   return elf_header.e_entry;
-
+  */
   /*
   ramdisk_read((void*)0x00100000,0x001000,0x09afc);
   ramdisk_read((void*)0x0010a000,0x00b000,0x29828);
