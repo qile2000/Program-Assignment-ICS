@@ -1,7 +1,7 @@
 #include "proc.h"
 #include <elf.h>
 
-
+#define DEFAULT_ENTRY ((void*)0x4000000)
 
 #ifdef __ISA_AM_NATIVE__
 # define Elf_Ehdr Elf64_Ehdr
@@ -28,7 +28,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   fs_read(fd, ((void*)0x3000000), flsz); 
   //printf("end\n");
   fs_close(fd);
-  return (uintptr_t)((void*)0x3000000);
+  return 0x3000000;
   /*
   Elf_Ehdr elf_header;
   ramdisk_read(&elf_header,0,sizeof(Elf_Ehdr));
