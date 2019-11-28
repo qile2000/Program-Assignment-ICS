@@ -22,7 +22,6 @@ extern size_t get_file_size(int fd);
 static uintptr_t loader(PCB *pcb, const char *filename) {
   int fd =fs_open(filename,0,0);
   Elf_Ehdr elf_header;
-  printf("5:%d\n",sizeof(Elf_Ehdr));
   fs_read(fd,\
           (void*)&elf_header,\
           sizeof(elf_header));
