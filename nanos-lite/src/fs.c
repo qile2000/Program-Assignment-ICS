@@ -4,6 +4,7 @@ typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
 
 extern size_t ramdisk_read(void* buf, size_t offset, size_t len);
+extern size_t ramdisk_write(const void* buf, size_t offset, size_t len);
 
 typedef struct {
   char *name;
@@ -64,7 +65,37 @@ size_t fs_read(int fd, void *buf, size_t len){
   printf("len:%d\n",len);
   return len;
 }
-
+size_t fs_write(int fd, const void *buf, size_t len){
+  size_t flsz=get_file_size(fd);
+	if(flsz-file_table[fd].open_offset<len){
+		len = flsz - file_table[fd].open_offset;
+  }
+	ramdisk_write(buf, file_table[fd].disk_offset+file_table[fd].open_offset, len);
+	file_table[fd].open_offset=file_table[fd].open_offset+len;
+	return len;
+}
+size_t fs_lseek(int fd,size_t offset,int whence){
+	switch(whence){
+		case SEEK_SET: 
+			if(offset<0 || offset>file_table[fd].size)
+				return -1;
+			file_table[fd].open_offset = offset;
+			return file_table[fd].open_offset;
+		case SEEK_CUR:
+			if(file_table[fd].open_offset+offset<0||file_table[fd].open_offset+offset>file_table[fd].size)
+				return -1;
+			file_table[fd].open_offset += offset;
+			return file_table[fd].open_offset;
+		case SEEK_END:
+			if(file_table[fd].size+offset<0)
+				return -1;
+			file_table[fd].open_offset = file_table[fd].size+offset;
+			return file_table[fd].open_offset;
+		default:
+			assert(0);
+			return 0;
+ 	}
+}
 int fs_close(int fd){
   return 0;
 }

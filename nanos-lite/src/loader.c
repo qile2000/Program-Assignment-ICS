@@ -1,6 +1,6 @@
 #include "proc.h"
 #include <elf.h>
-
+#include <fs.h>
 #define DEFAULT_ENTRY ((void*)0x3000000)
 
 #ifdef __ISA_AM_NATIVE__
@@ -17,6 +17,8 @@ extern size_t ramdisk_write(const void* buf, size_t offset, size_t len);
 extern int fs_open(const char *pathname, int flags, int mode);
 extern size_t fs_read(int fd, void *buf, size_t len);
 extern int fs_close(int fd);
+extern size_t fs_lseek(int fd,size_t offset,int whence);
+extern size_t fs_write(int fd, const void *buf, size_t len);
 extern size_t get_file_size(int fd);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
@@ -27,10 +29,12 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
           sizeof(elf_header));
   for(int i=0;i<elf_header.e_phnum;i++){
     Elf_Phdr pro_seg_header;
+    fs_lseek(fd,elf_header.e_phoff+i*elf_header.e_phentsize,SEEK_SET);
     fs_read(fd,\
            (void*)&pro_seg_header,\
             elf_header.e_phentsize);
     if(pro_seg_header.p_type==PT_LOAD){
+      fs_lseek(fd,pro_seg_header.p_offset,SEEK_SET);
       fs_read(fd,\
              (void*)pro_seg_header.p_vaddr,\
               pro_seg_header.p_filesz);
