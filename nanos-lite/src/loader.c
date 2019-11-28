@@ -22,12 +22,18 @@ extern size_t get_file_size(int fd);
 static uintptr_t loader(PCB *pcb, const char *filename) {
   int fd =fs_open(filename,0,0);
   Elf_Ehdr elf_header;
-  fs_read(fd,(void*)&elf_header,sizeof(Elf_Ehdr));
+  fs_read(fd,\
+          (void*)&elf_header,\
+          sizeof(elf_header));
   for(int i=0;i<elf_header.e_phnum;i++){
     Elf_Phdr pro_seg_header;
-    fs_read(fd,(void*)&pro_seg_header,elf_header.e_phentsize);
+    fs_read(fd,\
+           (void*)&pro_seg_header,\
+            elf_header.e_phentsize);
     if(pro_seg_header.p_type==PT_LOAD){
-      fs_read(fd,(void*)pro_seg_header.p_vaddr,pro_seg_header.p_filesz);
+      fs_read(fd,\
+             (void*)pro_seg_header.p_vaddr,\
+              pro_seg_header.p_filesz);
       memset((void*)(pro_seg_header.p_vaddr+pro_seg_header.p_filesz),\
               0,\
               (pro_seg_header.p_memsz-pro_seg_header.p_filesz));
