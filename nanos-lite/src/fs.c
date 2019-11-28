@@ -37,6 +37,7 @@ static Finfo file_table[] __attribute__((used)) = {
 #define NR_FILES (sizeof(file_table) / sizeof(file_table[0]))
 
 size_t get_file_size(int fd){
+
 	return file_table[fd].size;
 }
 
@@ -59,7 +60,7 @@ size_t fs_read(int fd, void *buf, size_t len){
   }
   ramdisk_read(buf, file_table[fd].disk_offset+file_table[fd].open_offset, len);
   file_table[fd].open_offset=file_table[fd].open_offset+len;
-  printf("%s\n",len);
+  printf("6:%s\n",len);
   return len;
 }
 
