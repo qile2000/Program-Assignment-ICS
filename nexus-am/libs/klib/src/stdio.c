@@ -19,7 +19,7 @@ static char * itoa(int num, char *str, int base,int width, char fill) {
   assert(num >= 0);
   int count = 0;
   while (num != 0){
-    str[count] = (char)(num%base+'0');
+    str[count] = tran_char[num % base];
     num /= base;
     count++;
   }
