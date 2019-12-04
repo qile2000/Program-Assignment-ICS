@@ -26,10 +26,10 @@ size_t events_read(void *buf, size_t offset, size_t len) {
       down = true;
 		}
     if(down){
-      snprintf(buf,len,"up: %s\n",keyname[key]);
+      //snprintf(buf,len,"up: %s\n",keyname[key]);
     }
 	  else{    
-		  snprintf(buf,len,"down %s\n",keyname[key&0x7fff]);
+		  //snprintf(buf,len,"down %s\n",keyname[key&0x7fff]);
 	  }
   }
   else{
