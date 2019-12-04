@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <assert.h>
 int main() {
+  printf("999999999999999999\n");
   FILE *fp = fopen("/dev/events", "r");
   assert(fp);
   int time = 0;
@@ -8,7 +9,7 @@ int main() {
   while (1) {
     char buf[256];
     char *p = buf, ch;
-    printf("999999999999999999\n");
+    
     //
     if(fgetc(fp)==-1){
       printf("8888888888888\n");
