@@ -75,7 +75,7 @@ extern char _end;
 void *_sbrk(intptr_t increment) {
   static void* pre_brk = (void *)&_end;
   void* cur_brk = pre_brk+increment;
-  if(_syscall_(SYS_brk,0,0,0)==0){
+  if(_syscall_(SYS_brk,(intptr_t)cur_brk,0,0)==0){
     void* temp;
     temp=pre_brk;
     pre_brk = (void*) cur_brk;
