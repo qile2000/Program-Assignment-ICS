@@ -103,8 +103,8 @@ size_t fs_write(int fd, const void *buf, size_t len){
 	return len;
   }
   */
- 
-  if(fd==FD_STDOUT || fd==FD_STDERR /*|| strcmp(file_table[fd].name,"/dev/events")*/){
+ /*
+  if(fd==FD_STDOUT || fd==FD_STDERR ){//|| strcmp(file_table[fd].name,"/dev/events")){
 	file_table[fd].write(buf, 0, len);
   }
   size_t flsz=get_file_size(fd);
@@ -116,7 +116,19 @@ size_t fs_write(int fd, const void *buf, size_t len){
 				len);
   file_table[fd].open_offset=file_table[fd].open_offset+len;
   return len;
-
+*/
+size_t size,newrite;
+	size = file_table[fd].size-file_table[fd].open_offset;
+	newrite = len>size?size:len;
+	if(file_table[fd].write!=NULL){
+		size_t res =0;
+		res = (*file_table[fd].write)(buf,file_table[fd].disk_offset+file_table[fd].open_offset,len);
+		file_table[fd].open_offset+=len;
+		return res;
+	}
+	ramdisk_write(buf,file_table[fd].disk_offset+file_table[fd].open_offset,newrite);
+	file_table[fd].open_offset+=newrite;
+	return newrite;
 
 }
 
