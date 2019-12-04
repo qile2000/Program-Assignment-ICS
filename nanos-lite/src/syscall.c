@@ -2,8 +2,11 @@
 #include "syscall.h"
 
 extern size_t fs_write(int fd, const void *buf, size_t len);
+extern size_t fs_read(int fd, void *buf, size_t len);
+extern int fs_close(int fd);
+extern int fs_open(const char *pathname, int flags, int mode);
 
-//int sys_write(int fd,const void *buf,size_t len);
+int sys_write(int fd,const void *buf,size_t len);
 int sys_brk(_Context *c);
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
@@ -25,9 +28,24 @@ _Context* do_syscall(_Context *c) {
       c->GPRx=sys_brk(c); 
       break;
     }
+    case SYS_open: {
+      c->GPRx=fs_open((const char *)a[1],a[2],a[3]); 
+      Log("SYS_OPEN");
+      break;
+    }
+    case SYS_read: {
+      c->GPRx=fs_read(a[1],(void *)a[2],a[3]);
+      Log("SYS_READ");
+      break;
+    }
     case SYS_write: {
-      c->GPRx=fs_write((int)a[1],(const void*)a[2],(size_t)a[3]);
+      c->GPRx=sys_write((int)a[1],(const void*)a[2],(size_t)a[3]);
       Log("SYS_WRITE");
+      break;
+    }
+    case SYS_close: {
+      c->GPRx=fs_close(a[1]);
+      Log("SYS_CLOSE");
       break;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
@@ -35,7 +53,7 @@ _Context* do_syscall(_Context *c) {
 
   return NULL;
 }
-/*
+
 int sys_write(int fd,const void *buf,size_t len){
   if(fd==1||fd==2){
     char* _buf=(char*)buf;
@@ -45,7 +63,7 @@ int sys_write(int fd,const void *buf,size_t len){
 	}
 	return len;
 }
-*/
+
 int sys_brk(_Context *c){
 	return 0;
 }
