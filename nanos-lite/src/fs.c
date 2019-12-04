@@ -79,7 +79,7 @@ size_t fs_write(int fd, const void *buf, size_t len){
 	return len;
   }
   */
-  if(fd==FD_STDOUT || fd==FD_STDERR){
+  if(fd==FD_STDOUT || fd==FD_STDERR || strcmp(file_table[fd].name,"/dev/events")){
 	file_table[fd].write(buf, 0, len);
   }
   size_t flsz=get_file_size(fd);
