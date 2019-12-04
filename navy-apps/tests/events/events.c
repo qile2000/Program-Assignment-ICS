@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <assert.h>
 int main() {
   FILE *fp = fopen("/dev/events", "r");
   assert(fp);
