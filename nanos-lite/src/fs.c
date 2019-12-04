@@ -59,11 +59,13 @@ int fs_open(const char *pathname, int flags, int mode) {
 }
 
 size_t fs_read(int fd, void *buf, size_t len){
+	/*
   if(strcmp(file_table[fd].name,"/dev/events")){
 	printf("6666666666666666\n");
 	uint32_t fllen = file_table[fd].read(buf,0,len);
 	return fllen;
   }
+  */
   size_t flsz = get_file_size(fd);
   if(flsz-file_table[fd].open_offset<len){
     len = flsz - file_table[fd].open_offset;

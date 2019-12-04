@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <assert.h>
 int main() {
-  printf("999999999999999999\n");
+  //printf("999999999999999999\n");
   FILE *fp = fopen("/dev/events", "r");
   assert(fp);
   int time = 0;
-  printf("Start to receive events...\n");
+  //printf("Start to receive events...\n");
   while (1) {
     char buf[256];
     char *p = buf, ch;
