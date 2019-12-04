@@ -19,12 +19,12 @@ _Context* do_syscall(_Context *c) {
     case SYS_yield: {
       _yield(); 
       c->GPRx=0; 
-      Log("SYS_yield");
+      Log("SYS_YIELD");
       break;
     }
     case SYS_exit: {
       _halt(a[1]); 
-      Log("SYS_exit");
+      Log("SYS_EXIT");
       break;
     }
     case SYS_brk: {
@@ -48,7 +48,7 @@ _Context* do_syscall(_Context *c) {
     }
     case SYS_lseek: {
       c-> GPRx = fs_lseek((int) a[1], (size_t)a[2], (int) a[3]); 
-      Log("SYS_lseek");
+      Log("SYS_LSEEK");
       break; 
     }
     case SYS_close: {
