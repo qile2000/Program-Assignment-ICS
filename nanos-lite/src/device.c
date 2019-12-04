@@ -26,38 +26,17 @@ size_t events_read(void *buf, size_t offset, size_t len) {
       down = true;
 		}
     if(down){
-      snprintf(buf,len,"ku %s\n",keyname[key]);
+      snprintf(buf,len,"up: %s\n",keyname[key]);
     }
 	  else{    
-		  snprintf(buf,len,"kd %s\n",keyname[key&0x7fff]);
+		  snprintf(buf,len,"down %s\n",keyname[key&0x7fff]);
 	  }
   }
   else{
 	  uint32_t the_time = uptime();
-	  snprintf(buf,len,"t %d\n",the_time);
+	  snprintf(buf,len,"the time is: %d\n",the_time);
   }
   return strlen(buf);
-  /*
-  int key = read_key();
-  bool down = false;
-  if(key & 0x8000) {
-	  key ^= 0x8000;
-	  down = true;
-  }
-  //Log("%d\n",key);
-  if(key==2) fg_pcb=0;
-  if(key==3) fg_pcb=2;
-  if(key==4) fg_pcb=3;
-  uint32_t time=uptime();
-  if(key != _KEY_NONE) {
-	 return  sprintf(buf, "%s %s\n" , down ? "kd" : "ku", keyname[key]);
-  }
-  else{
-	 return  sprintf(buf, "t %d\n", time);
-  } 
-  assert(0);
-  */
-  //return 0;
 }
 
 static char dispinfo[128] __attribute__((used)) = {};
