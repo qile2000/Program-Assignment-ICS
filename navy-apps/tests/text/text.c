@@ -23,6 +23,11 @@ int main() {
 
   for (i = 500; i < 1000; i ++) {
     fscanf(fp, "%d", &n);
+    if(i==999){
+      printf("n:%d\n",n);
+      printf("i:%d\n",i);
+    }
+    
     assert(n == i + 1);
   }
 
