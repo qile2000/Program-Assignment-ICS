@@ -59,6 +59,10 @@ int fs_open(const char *pathname, int flags, int mode) {
 }
 
 size_t fs_read(int fd, void *buf, size_t len){
+  if(strcmp(file_table[fd].name,"/dev/events")){
+	uint32_t fllen = file_table[fd].read(buf,0,len);
+	return fllen;
+  }
   size_t flsz = get_file_size(fd);
   if(flsz-file_table[fd].open_offset<len){
     len = flsz - file_table[fd].open_offset;
@@ -79,7 +83,7 @@ size_t fs_write(int fd, const void *buf, size_t len){
 	return len;
   }
   */
-  if(fd==FD_STDOUT || fd==FD_STDERR || strcmp(file_table[fd].name,"/dev/events")){
+  if(fd==FD_STDOUT || fd==FD_STDERR /*|| strcmp(file_table[fd].name,"/dev/events")*/){
 	file_table[fd].write(buf, 0, len);
   }
   size_t flsz=get_file_size(fd);
