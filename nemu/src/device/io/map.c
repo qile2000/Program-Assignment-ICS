@@ -31,7 +31,7 @@ static inline void invoke_callback(io_callback_t c, uint32_t offset, int len, bo
 //由于NEMU是单线程程序, 因此只能串行模拟整个计算机系统的工作, 
 //每次进行I/O读写的时候, 才会调用设备提供的回调函数(callback).
 uint32_t map_read(paddr_t addr, int len, IOMap *map) {
-  printf("map_read: %x\n",addr);
+  //printf("map_read: %x\n",addr);
   assert(len >= 1 && len <= 4);
   check_bound(map, addr);
   uint32_t offset = addr - map->low;
