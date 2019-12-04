@@ -5,6 +5,7 @@ extern size_t fs_write(int fd, const void *buf, size_t len);
 extern size_t fs_read(int fd, void *buf, size_t len);
 extern int fs_close(int fd);
 extern int fs_open(const char *pathname, int flags, int mode);
+extern size_t fs_lseek(int fd,size_t offset,int whence);
 
 int sys_write(int fd,const void *buf,size_t len);
 int sys_brk(_Context *c);
@@ -44,6 +45,11 @@ _Context* do_syscall(_Context *c) {
       c->GPRx=sys_write((int)a[1],(const void*)a[2],(size_t)a[3]);
       Log("SYS_WRITE");
       break;
+    }
+    case SYS_lseek: {
+      c-> GPRx = fs_lseek((int) a[1], (size_t)a[2], (int) a[3]); 
+      Log("SYS_lseek");
+      break; 
     }
     case SYS_close: {
       c->GPRx=fs_close(a[1]);
