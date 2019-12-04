@@ -3,7 +3,7 @@
 int main() {
   //printf("999999999999999999\n");
   FILE *fp = fopen("/dev/events", "r");
-  assert(fp);
+  assert(fp!=NULL);
   int time = 0;
   //printf("Start to receive events...\n");
   while (1) {
