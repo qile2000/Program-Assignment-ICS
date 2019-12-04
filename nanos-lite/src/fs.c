@@ -66,6 +66,15 @@ size_t fs_read(int fd, void *buf, size_t len){
   return len;
 }
 size_t fs_write(int fd, const void *buf, size_t len){
+  switch(fd){
+	case FD_STDOUT:case FD_STDERR:{
+		char* _buf=(char*)buf;
+		for(int i=0;i<len;i++){
+			_putc(_buf[i]);
+    	}
+		return len;
+	}
+  }
   size_t flsz=get_file_size(fd);
 	if(flsz-file_table[fd].open_offset<len){
 		len = flsz - file_table[fd].open_offset;
