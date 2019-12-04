@@ -46,7 +46,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 	int i;
 	for (i = 0; i < NR_FILES; i++) {
 		if (strcmp(file_table[i].name, pathname) == 0) {
-      		printf("%d: %s\n",i,file_table[i].name);
+      		printf("file no.%d: %s\n",i,file_table[i].name);
       		//file_table[i].open_offset = 0;
 			return i;
 		}
@@ -62,7 +62,7 @@ size_t fs_read(int fd, void *buf, size_t len){
   }
   ramdisk_read(buf, file_table[fd].disk_offset+file_table[fd].open_offset, len);
   file_table[fd].open_offset=file_table[fd].open_offset+len;
-  printf("len:%d\n",len);
+  //printf("len:%d\n",len);
   return len;
 }
 size_t fs_write(int fd, const void *buf, size_t len){
