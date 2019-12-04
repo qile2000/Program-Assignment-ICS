@@ -58,7 +58,7 @@ int _open(const char *path, int flags, mode_t mode) {
   _exit(SYS_open);
   return 0;
   */
-  return _syscall_(SYS_open, path, flags, mode);
+  return _syscall_(SYS_open, (intptr_t)path, flags, mode);
 }
 
 int _write(int fd, void *buf, size_t count) {
@@ -90,7 +90,7 @@ int _read(int fd, void *buf, size_t count) {
   _exit(SYS_read);
   return 0;
   */
-  return _syscall_(SYS_read, fd, buf, count);
+  return _syscall_(SYS_read, fd, (intptr_t)buf, count);
 }
 
 int _close(int fd) {
@@ -114,7 +114,9 @@ int _execve(const char *fname, char * const argv[], char *const envp[]) {
   _exit(SYS_execve);
   return 0;
   */
-  _syscall_(SYS_execve, fname, argv, envp);
+  printf("execve!!!\n");
+  assert(0);
+  _syscall_(SYS_execve, (intptr_t)fname, (intptr_t)argv, (intptr_t)envp);
 }
 
 // The code below is not used by Nanos-lite.
