@@ -41,7 +41,7 @@ _Context* do_syscall(_Context *c) {
       break;
     }
     case SYS_write: {
-      c->GPRx=sys_write((int)a[1],(const void*)a[2],(size_t)a[3]);
+      c->GPRx=fs_write((int)a[1],(const void*)a[2],(size_t)a[3]);
       Log("SYS_WRITE");
       break;
     }
