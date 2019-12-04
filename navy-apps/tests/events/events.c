@@ -10,11 +10,11 @@ int main() {
     char buf[256];
     char *p = buf, ch;
     
-    //
+    /*
     if(fgetc(fp)==-1){
       printf("8888888888888\n");
     }
-    //
+    */
     while ((ch = fgetc(fp)) != -1) {
       //printf("8888888888888\n");
       *p ++ = ch;
