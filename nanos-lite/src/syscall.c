@@ -18,6 +18,7 @@ _Context* do_syscall(_Context *c) {
     case SYS_yield: {
       _yield(); 
       c->GPRx=0; 
+      Log("SYS_yield");
       break;
     }
     case SYS_exit: {

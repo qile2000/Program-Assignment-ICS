@@ -44,8 +44,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     }
   }
   fs_close(fd);
-  //return elf_header.e_entry;
-  return DEFAULT_ENTRY;
+  return elf_header.e_entry;
+  //return DEFAULT_ENTRY;
   /*
   int fd =fs_open(filename,0,0);
   size_t flsz = get_file_size(fd);
