@@ -22,7 +22,7 @@ void hello_fun(void *arg) {
 
 void init_proc() {
   switch_boot_pcb();
-  naive_uload(NULL, "/dev/events");
+  naive_uload(NULL, "/bin/events");
   Log("Initializing processes...");
 
   // load program here
