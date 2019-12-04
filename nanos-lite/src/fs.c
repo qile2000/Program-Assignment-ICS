@@ -76,6 +76,9 @@ size_t fs_write(int fd, const void *buf, size_t len){
 	return len;
   }
   */
+  if(fd==FD_STDOUT || fd==FD_STDERR){
+	file_table[fd].write(buf, 0, len);
+  }
   size_t flsz=get_file_size(fd);
 	if(flsz-file_table[fd].open_offset<len){
 		len = flsz - file_table[fd].open_offset;
