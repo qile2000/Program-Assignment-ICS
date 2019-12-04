@@ -1,7 +1,7 @@
 #include "proc.h"
 #include <elf.h>
 #include <fs.h>
-#define DEFAULT_ENTRY ((void*)0x3000000)
+#define DEFAULT_ENTRY 0x3000000
 
 #ifdef __ISA_AM_NATIVE__
 # define Elf_Ehdr Elf64_Ehdr
@@ -44,8 +44,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     }
   }
   fs_close(fd);
-  return elf_header.e_entry;
-
+  //return elf_header.e_entry;
+  return DEFAULT_ENTRY;
   /*
   int fd =fs_open(filename,0,0);
   size_t flsz = get_file_size(fd);
