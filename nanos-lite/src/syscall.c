@@ -62,17 +62,6 @@ _Context* do_syscall(_Context *c) {
 
   return NULL;
 }
-/*
-int sys_write(int fd,const void *buf,size_t len){
-  if(fd==1||fd==2){
-    char* _buf=(char*)buf;
-		for(int i=0;i<len;i++){
-			_putc(_buf[i]);
-    }
-	}
-	return len;
-}
-*/
 
 int sys_brk(_Context *c){
 	return 0;
