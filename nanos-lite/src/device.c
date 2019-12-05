@@ -24,14 +24,15 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   int key = read_key();
   if(key!=_KEY_NONE){
     bool down = false;
-	  if((key&0x8000)==0){ 
+	  if(key&0x8000){ 
+      key ^= 0x8000;
       down = true;
 		}
     if(down){
-      snprintf(buf,len,"up: %s\n",keyname[key]);
+      sprintf(buf, "%s: %s\n" , "keydown", keyname[key]);
     }
 	  else{    
-		  snprintf(buf,len,"down %s\n",keyname[key&0x7fff]);
+		  sprintf(buf, "%s: %s\n" , "key__up", keyname[key]);
 	  }
   }
   else{
@@ -53,12 +54,12 @@ size_t events_read(void *buf, size_t offset, size_t len) {
       return sprintf(buf, "%s: %s\n" , "keydown", keyname[key]);
     }
 	  else{
-      return sprintf(buf, "%s: %s\n" , "keyup", keyname[key]);
+      return sprintf(buf, "%s: %s\n" , "key__up", keyname[key]);
     }
   }
   else{
    uint32_t time=uptime();
-	 return  sprintf(buf, "t %d\n", time);
+	 return  sprintf(buf, "the time is %d\n", time);
   } 
   */
 }
