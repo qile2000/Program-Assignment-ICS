@@ -76,7 +76,7 @@ size_t fs_read(int fd, void *buf, size_t len){
 
 */
 	switch(fd){
-		case FD_EVENTS: {
+		case FD_EVENTS: case FD_DISPINFO:{
 			//printf("EVENTS_READ\n");
 			if (file_table[fd].open_offset + len > file_table[fd].size) {
     			len = file_table[fd].size - file_table[fd].open_offset;
