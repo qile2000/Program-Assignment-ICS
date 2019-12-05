@@ -97,7 +97,7 @@ size_t fs_write(int fd, const void *buf, size_t len){
   if(fd==FD_STDOUT || fd==FD_STDERR){
 	char* _buf=(char*)buf;
 	for(int i=0;i<len;i++){
-		_putc(_buf[i]);
+		_putc(_buf[i]);	
     }
 	return len;
   }
@@ -151,7 +151,9 @@ int fs_close(int fd){
 }
 
 void init_fs() {
-  // TODO: initialize the size of /dev/fb
+  //TODO: initialize the size of /dev/fb
+  //int fd=fs_open("/dev/fb", 0, 0);
+  file_table[FD_FB].size = screen_width()*screen_height()*4;
 }
 
 
