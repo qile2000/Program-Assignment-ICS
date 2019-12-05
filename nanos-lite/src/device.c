@@ -20,7 +20,7 @@ static const char *keyname[256] __attribute__((used)) = {
 };
 
 size_t events_read(void *buf, size_t offset, size_t len) {
-  
+  /*
   int key = read_key();
   if(key!=_KEY_NONE){
     bool down = false;
@@ -40,8 +40,8 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 	  snprintf(buf,len,"the time is: %d\n",the_time);
   }
   return strlen(buf);
-  
- /*
+  */
+ 
   int key = read_key();
   bool down = false;
   if(key & 0x8000) {
@@ -59,9 +59,9 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   }
   else{
    uint32_t time=uptime();
-	 return  sprintf(buf, "the time is %d\n", time);
+	 return  sprintf(buf, "the time is: %d\n", time);
   } 
-  */
+  
 }
 
 static char dispinfo[128] __attribute__((used)) = {};
