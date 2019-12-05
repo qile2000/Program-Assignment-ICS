@@ -8,6 +8,7 @@ int main() {
   while (1) {
     char buf[256];
     char *p = buf, ch;
+    printf("fgetc_before\n");
     while ((ch = fgetc(fp)) != -1) {
       printf("8888888888888\n");
       *p ++ = ch;

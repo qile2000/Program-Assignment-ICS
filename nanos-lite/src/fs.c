@@ -91,7 +91,7 @@ size_t fs_read(int fd, void *buf, size_t len){
 	*/
 	switch(fd){
 		case FD_EVENTS:
-			printf("EVENTS_FD\n");
+			printf("EVENTS_READ\n");
 			return events_read(buf,0,len);
 		default:{
 			size_t flsz = get_file_size(fd);
