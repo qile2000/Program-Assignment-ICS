@@ -75,7 +75,6 @@ size_t fs_read(int fd, void *buf, size_t len){
   file_table[fd].open_offset=file_table[fd].open_offset+len;
   //printf("len:%d\n",len);
   return len;
-
 */
 	switch(fd){
 		case FD_EVENTS: case FD_DISPINFO:{
