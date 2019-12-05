@@ -6,9 +6,8 @@ extern size_t fs_read(int fd, void *buf, size_t len);
 extern int fs_close(int fd);
 extern int fs_open(const char *pathname, int flags, int mode);
 extern size_t fs_lseek(int fd,size_t offset,int whence);
-extern int mm_brk(uintptr_t brk);//, intptr_t increment);
 int sys_write(int fd,const void *buf,size_t len);
-int sys_brk(_Context *c);
+int sys_brk(uintptr_t brk, intptr_t increment);
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;
@@ -28,7 +27,7 @@ _Context* do_syscall(_Context *c) {
       break;
     }
     case SYS_brk: {
-      c->GPRx = mm_brk(a[1]);; 
+      c->GPRx = sys_brk(a[1],0);
       Log("SYS_BRK");
       break;
     }
@@ -61,4 +60,7 @@ _Context* do_syscall(_Context *c) {
   }
 
   return NULL;
+}
+int sys_brk(uintptr_t brk, intptr_t increment){
+  return 0;
 }
