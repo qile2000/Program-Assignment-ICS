@@ -8,6 +8,7 @@ extern size_t ramdisk_read(void* buf, size_t offset, size_t len);
 extern size_t ramdisk_write(const void* buf, size_t offset, size_t len);
 extern size_t events_read(void *buf, size_t offset, size_t len);
 extern size_t dispinfo_read(void *buf, size_t offset, size_t len);
+extern size_t fbsync_write(const void *buf, size_t offset, size_t len);
 
 typedef struct {
   char *name;
@@ -38,6 +39,7 @@ static Finfo file_table[] __attribute__((used)) = {
   {"/dev/fb", 0, 0, invalid_read, invalid_write, 0},
   {"/dev/events", 0, 0, events_read, invalid_write, 0},
   {"/proc/dispinfo", 128, 0, dispinfo_read, invalid_write, 0},
+  {"/dev/fbsync", 0, 0, invalid_read, fbsync_write,0},
 #include "files.h"
 };
 
@@ -112,8 +114,12 @@ size_t fs_write(int fd, const void *buf, size_t len){
   */
   switch(fd){
 	  case FD_STDERR: case FD_STDOUT:{
-		uint32_t filelen=file_table[fd].write(buf, 0, len);
-		return filelen;
+		if (file_table[fd].open_offset + len > file_table[fd].size) {
+    		len = file_table[fd].size - file_table[fd].open_offset;
+  		}
+		size_t actual_len=file_table[fd].write(buf, file_table[fd].open_offset, len);
+		file_table[fd].open_offset+=actual_len;
+		return actual_len;
 	  }
 	  default:{
 		size_t flsz=get_file_size(fd);
