@@ -1,6 +1,7 @@
 #include "common.h"
 #include <amdev.h>
 
+extern void draw_rect(uint32_t *pixels, int x, int y, int w, int h);
 
 size_t serial_write(const void *buf, size_t offset, size_t len) {
   char* _buf=(char*)buf;
