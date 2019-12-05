@@ -117,7 +117,7 @@ size_t fs_write(int fd, const void *buf, size_t len){
 		uint32_t filelen=file_table[fd].write(buf, 0, len);
 		return filelen;
 	  }
-	  case FD_FB:{
+	  case FD_FB: case FD_FBSYNC:{
 		if (file_table[fd].open_offset + len > file_table[fd].size) {
     		len = file_table[fd].size - file_table[fd].open_offset;
   		}
