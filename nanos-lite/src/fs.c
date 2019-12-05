@@ -17,7 +17,7 @@ typedef struct {
   size_t open_offset;
 } Finfo;
 
-enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB,FD_EVENTS};
+enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_FB, FD_EVENTS};
 
 size_t invalid_read(void *buf, size_t offset, size_t len) {
   panic("invalid_read,should not reach here");
@@ -60,13 +60,6 @@ int fs_open(const char *pathname, int flags, int mode) {
 }
 
 size_t fs_read(int fd, void *buf, size_t len){
-	/*
-  if(strcmp(file_table[fd].name,"/dev/events")){
-	printf("6666666666666666\n");
-	uint32_t fllen = file_table[fd].read(buf,0,len);
-	return fllen;
-  }
-  */
  /*
   size_t flsz = get_file_size(fd);
   if(flsz-file_table[fd].open_offset<len){
@@ -82,12 +75,14 @@ size_t fs_read(int fd, void *buf, size_t len){
 */
 /*
     if(file_table[fd].read==NULL){
-	size_t fz=get_file_size(fd);
-	if(fz-file_table[fd].open_offset<len)
-		len = fz - file_table[fd].open_offset;
-	ramdisk_read(buf, file_table[fd].disk_offset+file_table[fd].open_offset, len);
-	file_table[fd].open_offset += len;
-	return len;}
+		size_t fz=get_file_size(fd);
+		if(fz-file_table[fd].open_offset<len){
+			len = fz - file_table[fd].open_offset;
+		}
+		ramdisk_read(buf, file_table[fd].disk_offset+file_table[fd].open_offset, len);
+		file_table[fd].open_offset += len;
+		return len;
+	}
 	else{
 		size_t l=file_table[fd].read(buf, file_table[fd].open_offset, len);
 		file_table[fd].open_offset+=len;
@@ -96,6 +91,7 @@ size_t fs_read(int fd, void *buf, size_t len){
 	*/
 	switch(fd){
 		case FD_EVENTS:
+			printf("EVENTS_FD\n");
 			return events_read(buf,0,len);
 		default:{
 			size_t flsz = get_file_size(fd);
@@ -124,8 +120,8 @@ size_t fs_write(int fd, const void *buf, size_t len){
   */
  
   if(fd==FD_STDOUT || fd==FD_STDERR ){//|| strcmp(file_table[fd].name,"/dev/events")){
-	uint32_t fllen=file_table[fd].write(buf, 0, len);
-	return fllen;
+	uint32_t filelen=file_table[fd].write(buf, 0, len);
+	return filelen;
   }
   size_t flsz=get_file_size(fd);
   if(flsz-file_table[fd].open_offset<len){
@@ -136,21 +132,6 @@ size_t fs_write(int fd, const void *buf, size_t len){
 				len);
   file_table[fd].open_offset=file_table[fd].open_offset+len;
   return len;
-
-/*
-size_t size,newrite;
-	size = file_table[fd].size-file_table[fd].open_offset;
-	newrite = len>size?size:len;
-	if(file_table[fd].write!=NULL){
-		size_t res =0;
-		res = (*file_table[fd].write)(buf,file_table[fd].disk_offset+file_table[fd].open_offset,len);
-		file_table[fd].open_offset+=len;
-		return res;
-	}
-	ramdisk_write(buf,file_table[fd].disk_offset+file_table[fd].open_offset,newrite);
-	file_table[fd].open_offset+=newrite;
-	return newrite;
-*/
 }
 size_t fs_lseek(int fd,size_t offset,int whence){
 	switch(whence){
