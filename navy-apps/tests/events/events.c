@@ -2,7 +2,7 @@
 #include <assert.h>
 int main() {
   FILE *fp = fopen("/dev/events", "r");
-  assert(fp!=NULL);
+  
   int time = 0;
   printf("Start to receive events...\n");
   while (1) {

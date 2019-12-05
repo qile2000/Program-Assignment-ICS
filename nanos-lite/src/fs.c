@@ -73,22 +73,6 @@ size_t fs_read(int fd, void *buf, size_t len){
   return len;
 
 */
-/*
-    if(file_table[fd].read==NULL){
-		size_t fz=get_file_size(fd);
-		if(fz-file_table[fd].open_offset<len){
-			len = fz - file_table[fd].open_offset;
-		}
-		ramdisk_read(buf, file_table[fd].disk_offset+file_table[fd].open_offset, len);
-		file_table[fd].open_offset += len;
-		return len;
-	}
-	else{
-		size_t l=file_table[fd].read(buf, file_table[fd].open_offset, len);
-		file_table[fd].open_offset+=len;
-		return l;
-	}
-	*/
 	switch(fd){
 		case FD_EVENTS:
 			//printf("EVENTS_READ\n");
@@ -118,21 +102,27 @@ size_t fs_write(int fd, const void *buf, size_t len){
 	return len;
   }
   */
- 
-  if(fd==FD_STDOUT || fd==FD_STDERR ){//|| strcmp(file_table[fd].name,"/dev/events")){
-	uint32_t filelen=file_table[fd].write(buf, 0, len);
-	return filelen;
+  switch(fd){
+	  case FD_STDERR: case FD_STDOUT:{
+		uint32_t filelen=file_table[fd].write(buf, 0, len);
+		return filelen;
+	  }
+	  default:{
+		size_t flsz=get_file_size(fd);
+  		if(flsz-file_table[fd].open_offset<len){
+			len = flsz - file_table[fd].open_offset;
+  		}
+  		ramdisk_write(buf, \
+  					  file_table[fd].disk_offset+file_table[fd].open_offset, \
+					  len);
+  		file_table[fd].open_offset=file_table[fd].open_offset+len;
+  		return len;
+
+	  }
   }
-  size_t flsz=get_file_size(fd);
-  if(flsz-file_table[fd].open_offset<len){
-	len = flsz - file_table[fd].open_offset;
-  }
-  ramdisk_write(buf, \
-  				file_table[fd].disk_offset+file_table[fd].open_offset, \
-				len);
-  file_table[fd].open_offset=file_table[fd].open_offset+len;
-  return len;
+  
 }
+
 size_t fs_lseek(int fd,size_t offset,int whence){
 	switch(whence){
 		case SEEK_SET: 
