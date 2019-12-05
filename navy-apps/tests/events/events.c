@@ -10,7 +10,7 @@ int main() {
     char *p = buf, ch;
     
     while ((ch = fgetc(fp)) != -1) {
-      //printf("8888888888888\n");
+      printf("8888888888888\n");
       *p ++ = ch;
       if(ch == '\n') {
         *p = '\0';
