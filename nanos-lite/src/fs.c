@@ -55,7 +55,7 @@ int fs_open(const char *pathname, int flags, int mode) {
 	int i;
 	for (i = 0; i < NR_FILES; i++) {
 		if (strcmp(file_table[i].name, pathname) == 0) {
-      		//printf("file no.%d: %s\n",i,file_table[i].name);
+      		printf("file no.%d: %s\n",i,file_table[i].name);
       		//file_table[i].open_offset = 0;
 			return i;
 		}
@@ -80,7 +80,6 @@ size_t fs_read(int fd, void *buf, size_t len){
 	switch(fd){
 		case FD_EVENTS: case FD_DISPINFO:{
 			//printf("EVENTS_READ\n");
-			printf("666\n");
 			if (file_table[fd].open_offset + len > file_table[fd].size) {
     			len = file_table[fd].size - file_table[fd].open_offset;
   			}
