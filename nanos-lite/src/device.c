@@ -51,17 +51,17 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   
   if(key != _KEY_NONE) {
     if(down){
-      return sprintf(buf, "%s: %s\n" , "keydown", keyname[key]);
+      sprintf(buf, "%s: %s\n" , "keydown", keyname[key]);
     }
 	  else{
-      return sprintf(buf, "%s: %s\n" , "key__up", keyname[key]);
+      sprintf(buf, "%s: %s\n" , "key__up", keyname[key]);
     }
   }
   else{
    uint32_t time=uptime();
-	 return  sprintf(buf, "the time is: %d\n", time);
+	 sprintf(buf, "the time is: %d\n", time);
   } 
-  
+  return strlen(buf);
 }
 
 static char dispinfo[128] __attribute__((used)) = {};
