@@ -20,42 +20,42 @@ _Context* do_syscall(_Context *c) {
     case SYS_yield: {
       _yield(); 
       c->GPRx=0; 
-      Log("SYS_YIELD");
+      //Log("SYS_YIELD");
       break;
     }
     case SYS_exit: {
       _halt(a[1]); 
-      Log("SYS_EXIT");
+      //Log("SYS_EXIT");
       break;
     }
     case SYS_brk: {
       c->GPRx = sys_brk(a[1],0);
-      Log("SYS_BRK");
+      //Log("SYS_BRK");
       break;
     }
     case SYS_open: {
       c->GPRx=fs_open((const char *)a[1],a[2],a[3]); 
-      Log("SYS_OPEN");
+      //Log("SYS_OPEN");
       break;
     }
     case SYS_read: {
       c->GPRx=fs_read(a[1],(void *)a[2],a[3]);
-      Log("SYS_READ");
+      //Log("SYS_READ");
       break;
     }
     case SYS_write: {
       c->GPRx=fs_write((int)a[1],(const void*)a[2],(size_t)a[3]);
-      Log("SYS_WRITE");
+      //Log("SYS_WRITE");
       break;
     }
     case SYS_lseek: {
       c-> GPRx = fs_lseek((int) a[1], (size_t)a[2], (int) a[3]); 
-      Log("SYS_LSEEK");
+      //Log("SYS_LSEEK");
       break; 
     }
     case SYS_close: {
       c->GPRx=fs_close(a[1]);
-      Log("SYS_CLOSE");
+      //Log("SYS_CLOSE");
       break;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
