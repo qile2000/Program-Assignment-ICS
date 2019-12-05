@@ -75,13 +75,6 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   
   return elf_header.e_entry;
   */
-  
-  /*
-  ramdisk_read((void*)0x00100000,0x001000,0x09afc);
-  ramdisk_read((void*)0x0010a000,0x00b000,0x29828);
-  memset((void*)(0x0010a000+0x00000),0,(0x29828-0x00000));
-  return (uintptr_t)0x3000000;
-  */
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
