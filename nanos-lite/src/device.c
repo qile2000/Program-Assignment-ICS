@@ -29,15 +29,15 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   
   if(key != _KEY_NONE) {
     if(down){
-      sprintf(buf, "%s: %s\n" , "keydown", keyname[key]);
+      sprintf(buf, "%s %s\n" , "kd", keyname[key]);
     }
 	  else{
-      sprintf(buf, "%s: %s\n" , "key__up", keyname[key]);
+      sprintf(buf, "%s %s\n" , "ku", keyname[key]);
     }
   }
   else{
    uint32_t time=uptime();
-	 sprintf(buf, "the time is: %d\n", time);
+	 sprintf(buf, "t %d\n", time);
   } 
   return strlen(buf);
 }
