@@ -9,6 +9,7 @@ extern size_t ramdisk_write(const void* buf, size_t offset, size_t len);
 extern size_t events_read(void *buf, size_t offset, size_t len);
 extern size_t dispinfo_read(void *buf, size_t offset, size_t len);
 extern size_t fbsync_write(const void *buf, size_t offset, size_t len);
+extern size_t fb_write(const void *buf, size_t offset, size_t len);
 
 typedef struct {
   char *name;
@@ -116,7 +117,7 @@ size_t fs_write(int fd, const void *buf, size_t len){
 		uint32_t filelen=file_table[fd].write(buf, 0, len);
 		return filelen;
 	  }
-	  case FD_DISPINFO:{
+	  case FD_FB:{
 		if (file_table[fd].open_offset + len > file_table[fd].size) {
     		len = file_table[fd].size - file_table[fd].open_offset;
   		}
