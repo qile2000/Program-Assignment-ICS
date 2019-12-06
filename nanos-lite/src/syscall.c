@@ -9,6 +9,7 @@ extern size_t fs_lseek(int fd,size_t offset,int whence);
 extern void naive_uload(PCB *pcb,const char *filename);
 int sys_write(int fd,const void *buf,size_t len);
 int sys_brk(uintptr_t brk, intptr_t increment);
+int	sys_execve(const char *filename,char *const argv[],char *const envp[])
 
 _Context* do_syscall(_Context *c) {
   uintptr_t a[4];
