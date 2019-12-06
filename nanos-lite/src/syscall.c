@@ -6,7 +6,7 @@ extern size_t fs_read(int fd, void *buf, size_t len);
 extern int fs_close(int fd);
 extern int fs_open(const char *pathname, int flags, int mode);
 extern size_t fs_lseek(int fd,size_t offset,int whence);
-
+extern void naive_uload(PCB *pcb,const char *filename);
 int sys_write(int fd,const void *buf,size_t len);
 int sys_brk(uintptr_t brk, intptr_t increment);
 
@@ -24,7 +24,7 @@ _Context* do_syscall(_Context *c) {
       break;
     }
     case SYS_exit: {
-      _halt(a[1]); 
+       c->GPRx=sys_execve("/bin/init",NULL,NULL);
       //Log("SYS_EXIT");
       break;
     }
@@ -58,12 +58,20 @@ _Context* do_syscall(_Context *c) {
       //Log("SYS_CLOSE");
       break;
     }
+    case SYS_execve: {
+      c->GPRx=sys_execve((const char *)a[1],(char *const*)a[2],(char *const*)a[3]); 
+      //Log("SYS_EXECVE");
+      break;
+    }
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 
   return NULL;
 }
-
+int	sys_execve(const char *filename,char *const argv[],char *const envp[]){
+	naive_uload(NULL,filename);
+	return -1;
+}
 int sys_brk(uintptr_t brk, intptr_t increment){
   return 0;
 }
