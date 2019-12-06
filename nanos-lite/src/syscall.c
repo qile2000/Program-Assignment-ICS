@@ -1,6 +1,6 @@
 #include "common.h"
 #include "syscall.h"
-
+#include "proc.h"
 extern size_t fs_write(int fd, const void *buf, size_t len);
 extern size_t fs_read(int fd, void *buf, size_t len);
 extern int fs_close(int fd);
