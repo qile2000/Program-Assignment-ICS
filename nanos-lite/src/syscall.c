@@ -26,7 +26,8 @@ _Context* do_syscall(_Context *c) {
     }
     case SYS_exit: {
       printf("EXIT\n");
-      c->GPRx=sys_execve("/bin/init",NULL,NULL);
+      c->GPRx=-1;
+      naive_uload(NULL, "/bin/init");
       Log("SYS_EXIT");
       break;
     }
@@ -62,7 +63,9 @@ _Context* do_syscall(_Context *c) {
     }
     case SYS_execve: {
       printf("EXECVE\n");
-      c->GPRx=sys_execve((const char *)a[1],(char *const*)a[2],(char *const*)a[3]); 
+      //c->GPRx=sys_execve((const char *)a[1],(char *const*)a[2],(char *const*)a[3]); 
+      c->GPRx = -1;
+      naive_uload(NULL, (void *)a[1]);
       Log("SYS_EXECVE");
       break;
     }
