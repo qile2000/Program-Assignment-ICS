@@ -104,7 +104,7 @@ size_t fs_read(int fd, void *buf, size_t len){
 		}
 	}
 	*/
-	printf("%s\n",file_table[fd].name);
+	//printf("%s\n",file_table[fd].name);
 	if(file_table[fd].read==NULL){
 		size_t fz=get_file_size(fd);
 		if(fz-file_table[fd].open_offset<len)
