@@ -66,7 +66,7 @@ _Context* do_syscall(_Context *c) {
       printf("EXECVE\n");
       
       c->GPRx = -1;
-      naive_uload(NULL, (void *)a[1]);
+      naive_uload(NULL, (const char *)a[1]);
       //Log("SYS_EXECVE");
       break;
       //c->GPRx=sys_execve((const char *)a[1],(char *const*)a[2],(char *const*)a[3]); 
@@ -76,10 +76,12 @@ _Context* do_syscall(_Context *c) {
 
   return NULL;
 }
+/*
 int	sys_execve(const char *filename,char *const argv[],char *const envp[]){
 	naive_uload(NULL,filename);
 	return -1;
 }
+*/
 int sys_brk(uintptr_t brk, intptr_t increment){
   return 0;
 }
