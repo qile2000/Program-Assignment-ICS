@@ -117,7 +117,7 @@ int _execve(const char *fname, char * const argv[], char *const envp[]) {
   */
   //printf("execve!!!\n");
   //assert(0);
-  _syscall_(SYS_execve, (intptr_t)fname, (intptr_t)argv, (intptr_t)envp);
+  return _syscall_(SYS_execve, (intptr_t)fname, (intptr_t)argv, (intptr_t)envp);
 }
 
 // The code below is not used by Nanos-lite.
