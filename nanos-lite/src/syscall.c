@@ -25,8 +25,9 @@ _Context* do_syscall(_Context *c) {
       break;
     }
     case SYS_exit: {
-       c->GPRx=sys_execve("/bin/init",NULL,NULL);
       Log("SYS_EXIT");
+      c->GPRx=sys_execve("/bin/init",NULL,NULL);
+      
       break;
     }
     case SYS_brk: {
@@ -60,8 +61,9 @@ _Context* do_syscall(_Context *c) {
       break;
     }
     case SYS_execve: {
-      c->GPRx=sys_execve((const char *)a[1],(char *const*)a[2],(char *const*)a[3]); 
       Log("SYS_EXECVE");
+      c->GPRx=sys_execve((const char *)a[1],(char *const*)a[2],(char *const*)a[3]); 
+      
       break;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
