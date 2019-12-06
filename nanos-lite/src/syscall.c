@@ -26,10 +26,10 @@ _Context* do_syscall(_Context *c) {
     }
     case SYS_exit: {
       printf("EXIT\n");
-      _halt(a[1]);
-      //c->GPRx=-1;
-      //naive_uload(NULL, "/bin/init");
-      //Log("SYS_EXIT");
+      //_halt(a[1]);
+      c->GPRx=-1;
+      naive_uload(NULL, "/bin/init");
+      Log("SYS_EXIT");
       break;
     }
     case SYS_brk: {
@@ -64,11 +64,12 @@ _Context* do_syscall(_Context *c) {
     }
     case SYS_execve: {
       printf("EXECVE\n");
-      //c->GPRx=sys_execve((const char *)a[1],(char *const*)a[2],(char *const*)a[3]); 
+      
       c->GPRx = -1;
       naive_uload(NULL, (void *)a[1]);
       Log("SYS_EXECVE");
       break;
+      //c->GPRx=sys_execve((const char *)a[1],(char *const*)a[2],(char *const*)a[3]); 
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
