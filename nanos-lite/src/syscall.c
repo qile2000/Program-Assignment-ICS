@@ -27,8 +27,9 @@ _Context* do_syscall(_Context *c) {
     case SYS_exit: {
       printf("EXIT\n");
       //_halt(a[1]);
+      
+      naive_uload(NULL, "/bin/init");
       c->GPRx=-1;
-      naive_uload(current, "/bin/init");
       //Log("SYS_EXIT");
       break;
     }
