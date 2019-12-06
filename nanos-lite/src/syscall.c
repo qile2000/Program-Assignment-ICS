@@ -29,7 +29,6 @@ _Context* do_syscall(_Context *c) {
       //_halt(a[1]);
       
       naive_uload(NULL, "/bin/init");
-      c->GPRx=-1;
       //Log("SYS_EXIT");
       break;
     }
