@@ -79,7 +79,7 @@ size_t fs_read(int fd, void *buf, size_t len){
   //printf("len:%d\n",len);
   return len;
 */
-/*
+
 	switch(fd){
 		case FD_EVENTS: case FD_DISPINFO:{
 			//printf("EVENTS_READ\n");
@@ -103,8 +103,9 @@ size_t fs_read(int fd, void *buf, size_t len){
   			return len;
 		}
 	}
-	*/
+	
 	//printf("%s\n",file_table[fd].name);
+	/*
 	if(file_table[fd].read==NULL){
 		size_t fz=get_file_size(fd);
 		if(fz-file_table[fd].open_offset<len)
@@ -118,6 +119,7 @@ size_t fs_read(int fd, void *buf, size_t len){
 		file_table[fd].open_offset+=len;
 		return l;
 	}
+	*/
 }
 
 size_t fs_write(int fd, const void *buf, size_t len){
