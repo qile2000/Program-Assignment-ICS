@@ -90,9 +90,9 @@ static inline void rtl_update_ZF(const rtlreg_t* result, int width) {
   }
   */
   assert(width==1||width==2||width==4);
-	cpu.eflags.ZF = (*result & ~(0xffffffff<<(8*width-1)<<1))==0;
+	//cpu.eflags.ZF = (*result & ~((0xffffffff<<(8*width-1))<<1))==0;
 
-  //cpu.eflags.ZF = ((*result & (0xFFFFFFFF >> ((4 - width) * 8))) == 0);
+  cpu.eflags.ZF = ((*result & (0xFFFFFFFF >> ((4 - width) * 8))) == 0);
 }
 
 static inline void rtl_update_SF(const rtlreg_t* result, int width) {
